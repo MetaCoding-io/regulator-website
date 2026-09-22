@@ -414,7 +414,7 @@
         <g fill="var(--ink-dim)" font-size="9.5">
           <text x="401" y="264">base checkout on main</text>
           <text x="401" y="281">.regulator/worktrees/u1 — branch unit/u1</text>
-          <text x="401" y="298">regulator/identity/ — write-protected</text>
+          <text x="401" y="298">regulator/identity/ — write-protected, diffed at closeout</text>
           <text x="401" y="315">vendor/ — protected by convention</text>
           <text x="401" y="332">src/ test/ — the unit's writable grant</text>
           <text x="401" y="358" font-size="10" fill="var(--ink-faint)">the output: read as code, tested as code;</text>
@@ -428,6 +428,7 @@
           <text x="766" y="281">signals.ndjson — every typed message, and the</text>
           <text x="766" y="298">  obligation events that say what became of each</text>
           <text x="766" y="315">effects.ndjson — intended / committed / confirmed</text>
+          <text x="766" y="332">memory.ndjson — facts with provenance + expiry; not identity</text>
           <text x="766" y="370" font-size="10" fill="var(--ink-faint)">owner: the regulators; the orchestrator only reads.</text>
         </g>
       </g>
@@ -574,7 +575,7 @@
   <div class="annot">
     <pre class="code"><b>&lt;repo&gt;/</b>
   src/ test/ vendor/            the domain
-  regulator/identity/           INVARIANTS.md — write-protected
+  regulator/identity/           IDENTITY, INVARIANTS, GLOSSARY, BOUNDARIES — write-protected
   .regulator/                   <i>the instance (ignored by git)</i>
     units/u1/
       unit.json                 <i>closed · attempts 2</i>
@@ -592,12 +593,13 @@
     signals.ndjson              audit-finding S3*→S3 (closeout refused),
                                 its obligation: opened → resolved (rework)
     effects.ndjson              notify_owner: intended, committed
+    memory.ndjson               remember: "tests need FOO=1", review by +30d
     trace.ndjson                one record per turn (cp1)
     canaries                    values that must never leak</pre>
     <div class="notes">
       <div class="note"><b>Two immutable files per attempt, one mutable</b>The contract and each report are written once with <code>wx</code> and never overwritten; <code>unit.json</code> is the one thing that changes, and it holds only status and the attempt count.</div>
       <div class="note"><b>Append-only logs, replayable</b>Attempts, observations, decisions, audit entries, signals and effects are NDJSON lines validated on write and on read. <code>regulator unit evidence u1</code> and the control room's inspector are replays of these files.</div>
-      <div class="note"><b>The read model</b><code>regulator status --definition course/lab --instance &lt;repo&gt;</code> projects the definition (registry, workload, policies) and the instance (units with contract, report, budget, decisions, verdict and what is owed on them; leases; obligations; unrouted signals) — from files only. The control room serves the same view.</div>
+      <div class="note"><b>The read model</b><code>regulator status --definition course/lab --instance &lt;repo&gt;</code> projects the definition (registry, workload, policies, profiles, identity) and the instance (units with contract, report, budget, decisions, verdict and what is owed on them; leases; obligations; memory; unrouted signals) — from files only. The control room serves the same view.</div>
       <div class="note alarm"><b>What is not here</b>The transcript: Pi's session file is authoritative for the conversation and the orchestrator never reads it. And any notion of progress derived from the diff.</div>
     </div>
   </div>
