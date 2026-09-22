@@ -423,10 +423,10 @@
                   definition and an instance
   control-room/   read-only page over the read model
 
-<b>course/lab/</b>       reference build — checkpoints 0–11, three fixtures,
-                  the registry (28 records), identity, profiles, policies,
+<b>course/lab/</b>       reference build — checkpoints 0–12, three fixtures,
+                  the registry (32 records), identity, profiles, policies,
                   workload, the `regulator` lab CLI
-<b>course/modules/</b>   lessons 01–12, written
+<b>course/modules/</b>   lessons 01–13, written
 <b>docs/</b>             architecture, roadmap, design notes, DEBT.md
 <b>vsm/</b>               committed S5 artifacts for this repo itself
 <b>site/</b>              this page</pre>
@@ -618,14 +618,17 @@
     with leases, budgets, a versioned recovery policy, a closeout gate over host-run evidence,
     obligations that say who owes what and hold a unit until it is settled, and an identity
     set rendered from the files, write-protected, and enforced at closeout by a check that
-    reads the branch. Lessons 13–15 add the algedonic channel, evals and packaging.
+    reads the branch. The algedonic path is in: a unit asks a person through one typed tool,
+    only a recap continues without an answer, an unanswered question pauses the unit by gate,
+    what is owed to a person is delivered and reminded, and who may answer is declared and
+    checked. Lessons 14–15 add evals and packaging.
     <code>course/lab</code> is the reference build; each checkpoint promotes into
     <code>packages/</code> as it stabilizes. What the build still owes is listed in
     <code>docs/DEBT.md</code>.</p>
   <div class="cards">
-    <div class="card"><div class="k">0–11</div><div class="l">Lab checkpoints built, each a loadable Pi extension tested without a model, under CI on two Node versions</div></div>
-    <div class="card"><div class="k">28</div><div class="l">Regulators in the registry, each with a stated limitation; <code>REGULATORS.md</code> and <code>BOUNDARY.md</code> generated from the records</div></div>
-    <div class="card"><div class="k">12 / 15</div><div class="l">Lessons written end to end, plus the capstone viability case specified</div></div>
+    <div class="card"><div class="k">0–12</div><div class="l">Lab checkpoints built, each a loadable Pi extension tested without a model, under CI on two Node versions</div></div>
+    <div class="card"><div class="k">32</div><div class="l">Regulators in the registry, each with a stated limitation; <code>REGULATORS.md</code> and <code>BOUNDARY.md</code> generated from the records</div></div>
+    <div class="card"><div class="k">13 / 15</div><div class="l">Lessons written end to end, plus the capstone viability case specified</div></div>
   </div>
 </section>
 
@@ -763,8 +766,8 @@
   <div class="kicker">Table of contents<span class="tick"></span></div>
   <h2 class="title">Full syllabus — 15 modules, six parts</h2>
   <p class="lede">Every module is a fixed unit: question → concept → Pi mechanism → build
-    step → break it → field study → checkpoint. Modules 01–12 are written end to end in
-    <code>course/modules/</code>; 13–15 are specified in the curriculum and not yet written.</p>
+    step → break it → field study → checkpoint. Modules 01–13 are written end to end in
+    <code>course/modules/</code>; 14–15 are specified in the curriculum and not yet written.</p>
 
   <div class="part">
     <div class="part-head"><span class="part-num">PART&nbsp;0</span><span class="part-name">Framing</span></div>
@@ -883,12 +886,12 @@
           <div class="surface">identity set · identity-untouched check · remember · S5 decision path · definition check</div></div>
         <div class="pill written">Written</div>
       </div>
-      <div class="mod">
+      <div class="mod written">
         <div class="num">13</div>
-        <div class="body"><div class="name">Algedonic channels</div>
-          <div class="q">When must a human be interrupted?</div>
-          <div class="surface">dialogs · timed confirm · notify · status widgets</div></div>
-        <div class="pill planned">Planned</div>
+        <div class="body"><div class="name">Algedonic channels and human interaction contracts</div>
+          <div class="q">Normal regulation is not working and the loop cannot close. Who gets interrupted, how fast, and what counts as an answer?</div>
+          <div class="surface">ask_human · interaction kinds · pause gate · outbox delivery · disposition authority</div></div>
+        <div class="pill written">Written</div>
       </div>
     </div>
   </div>
