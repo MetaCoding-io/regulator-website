@@ -235,7 +235,7 @@
         <!-- close or route -->
         <line x1="115" y1="826" x2="763" y2="826" stroke="currentColor" marker-end="url(#ah)"/>
         <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="440" y="821" text-anchor="middle">PASS → attempt "reported" · finishUnit: merge unit/u1 into main · remove worktree · release lease</text>
-        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="440" y="840" text-anchor="middle" font-size="10" fill="var(--ink-faint)">a merge conflict is not resolved: the unit stays blocked and S2 signals S3</text>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="440" y="840" text-anchor="middle" font-size="10" fill="var(--ink-faint)">a merge conflict is not resolved: the unit stays blocked and S2 signals S3 · an unanswered question → attempt "paused", held until a person answers</text>
         <line x1="115" y1="880" x2="323" y2="880" stroke="currentColor" marker-end="url(#ah)"/>
         <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="122" y="875" text-anchor="start">otherwise → attempt "check-failure" · unit blocked</text>
         <line x1="115" y1="920" x2="983" y2="920" stroke="currentColor" marker-end="url(#ah)"/>
@@ -429,6 +429,7 @@
           <text x="766" y="298">  obligation events that say what became of each</text>
           <text x="766" y="315">effects.ndjson — intended / committed / confirmed</text>
           <text x="766" y="332">memory.ndjson — facts with provenance + expiry; not identity</text>
+          <text x="766" y="349">outbox — what is owed to a person, delivered once; reminded</text>
           <text x="766" y="370" font-size="10" fill="var(--ink-faint)">owner: the regulators; the orchestrator only reads.</text>
         </g>
       </g>
@@ -536,7 +537,7 @@
       <path d="M 1080 99 L 1092 99 L 1092 30 L 85 30 L 85 188" fill="none" stroke="var(--signal)" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#ah3)"/>
       <text x="588" y="25" text-anchor="middle" font-size="10.5" fill="var(--signal-ink)">runUnit again — attempt N+1, the hint appended to the prompt — then verify; back here if blocked</text>
     </svg>
-    <figcaption><b>The recovery lattice.</b> Classification is a fixed precedence over recorded facts: the orchestrator's own record wins, then what S2 signalled, then what the session observed. Every decision is appended with the policy name and version that produced it, so attempt three can be explained after the policy changes. Only <code>retry</code> and <code>repair</code> re-enter the loop; everything else either waits — as an obligation owed to S3 or a person, which vetoes the unit's dispatch until it is dispositioned — or ends the unit.</figcaption>
+    <figcaption><b>The recovery lattice.</b> Classification is a fixed precedence over recorded facts: the orchestrator's own record wins, then what S2 signalled, then what the session observed. Every decision is appended with the policy name and version that produced it, so attempt three can be explained after the policy changes. Only <code>retry</code> and <code>repair</code> re-enter the loop; everything else either waits — as an obligation owed to S3 or a person, which vetoes the unit's dispatch until it is dispositioned — or ends the unit. A unit that asked a person and got no answer never reaches this lattice: its attempt is recorded as <code>paused</code>, the obligation is delivered to the outbox, and <code>regulator answer</code> releases it with the answer as the next hint.</figcaption>
   </figure>
 </section>
 
@@ -594,12 +595,13 @@
                                 its obligation: opened → resolved (rework)
     effects.ndjson              notify_owner: intended, committed
     memory.ndjson               remember: "tests need FOO=1", review by +30d
+    outbox                      deliver:&lt;obligation&gt;:0 — owed to a person; +1 after the reminder interval
     trace.ndjson                one record per turn (cp1)
     canaries                    values that must never leak</pre>
     <div class="notes">
       <div class="note"><b>Two immutable files per attempt, one mutable</b>The contract and each report are written once with <code>wx</code> and never overwritten; <code>unit.json</code> is the one thing that changes, and it holds only status and the attempt count.</div>
       <div class="note"><b>Append-only logs, replayable</b>Attempts, observations, decisions, audit entries, signals and effects are NDJSON lines validated on write and on read. <code>regulator unit evidence u1</code> and the control room's inspector are replays of these files.</div>
-      <div class="note"><b>The read model</b><code>regulator status --definition course/lab --instance &lt;repo&gt;</code> projects the definition (registry, workload, policies, profiles, identity) and the instance (units with contract, report, budget, decisions, verdict and what is owed on them; leases; obligations; memory; unrouted signals) — from files only. The control room serves the same view.</div>
+      <div class="note"><b>The read model</b><code>regulator status --definition course/lab --instance &lt;repo&gt;</code> projects the definition (registry, workload, policies, profiles, identity) and the instance (units with contract, report, budget, decisions, verdict and what is owed on them; leases; obligations with their deliveries; interactions — what units asked a person and what came back; memory; unrouted signals) — from files only. The control room serves the same view.</div>
       <div class="note alarm"><b>What is not here</b>The transcript: Pi's session file is authoritative for the conversation and the orchestrator never reads it. And any notion of progress derived from the diff.</div>
     </div>
   </div>
