@@ -597,11 +597,12 @@
     memory.ndjson               remember: "tests need FOO=1", review by +30d
     outbox                      deliver:&lt;obligation&gt;:0 — owed to a person; +1 after the reminder interval
     trace.ndjson                one record per turn (cp1)
+    <i>every store above reads as OpenTelemetry GenAI spans: \`regulator spans --json\`, redacted</i>
     canaries                    values that must never leak</pre>
     <div class="notes">
       <div class="note"><b>Two immutable files per attempt, one mutable</b>The contract and each report are written once with <code>wx</code> and never overwritten; <code>unit.json</code> is the one thing that changes, and it holds only status and the attempt count.</div>
       <div class="note"><b>Append-only logs, replayable</b>Attempts, observations, decisions, audit entries, signals and effects are NDJSON lines validated on write and on read. <code>regulator unit evidence u1</code> and the control room's inspector are replays of these files.</div>
-      <div class="note"><b>The read model</b><code>regulator status --definition course/lab --instance &lt;repo&gt;</code> projects the definition (registry, workload, policies, profiles, identity) and the instance (units with contract, report, budget, decisions, verdict and what is owed on them; leases; obligations with their deliveries; interactions — what units asked a person and what came back; memory; unrouted signals) — from files only. The control room serves the same view.</div>
+      <div class="note"><b>The read model</b><code>regulator status --definition course/lab --instance &lt;repo&gt;</code> projects the definition (registry, workload, policies, profiles, identity, the eval suite and its committed reports, and each regulator's review date, ablation switch and retirement condition) and the instance (units with contract, report, budget, decisions, verdict and what is owed on them; leases; obligations with their deliveries; interactions — what units asked a person and what came back; memory; unrouted signals) — from files only. The control room serves the same view.</div>
       <div class="note alarm"><b>What is not here</b>The transcript: Pi's session file is authoritative for the conversation and the orchestrator never reads it. And any notion of progress derived from the diff.</div>
     </div>
   </div>

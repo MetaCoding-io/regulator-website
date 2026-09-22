@@ -5,7 +5,7 @@ static files.
 
 - `index.html` — the landing page: VSM-Pi (the product) and Viable Agents (the course):
   the control model, the orchestrator/workload split, the control room, the syllabus with
-  lessons 01–13 marked written, and the build's status.
+  lessons 01–14 marked written, and the build's status.
 - `how-it-works.html` — the mechanism, drawn: how one unit runs through the S3 loop
   (orchestrator, execution store, session, worktree, regulatory state), what a work
   contract and a result report hold, the three stores that never infer each other, the
