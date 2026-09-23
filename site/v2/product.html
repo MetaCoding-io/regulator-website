@@ -134,7 +134,7 @@
   .kicker::before{content:"§";color:var(--ink-faint);}
   .kicker .tick{flex:1;height:1px;background:var(--line-strong);}
   h2.title{font-size:clamp(22px,3vw,30px);margin:0 0 6px;}
-  .lede{color:var(--ink-dim);max-width:62ch;font-size:15.5px;margin:0 0 28px;}
+  .lede{color:var(--ink-dim);font-size:15.5px;margin:0 0 28px;}
   h3.sub{font-size:16px;margin:40px 0 10px;}
   h3.sub:first-of-type{margin-top:8px;}
 
@@ -152,7 +152,7 @@
   }
   .hero h1 .accent{color:var(--signal-ink);}
   .hero p.tag{
-    font-size:17px;color:var(--ink-dim);max-width:56ch;margin:0 0 28px;
+    font-size:17px;color:var(--ink-dim);margin:0 0 28px;
   }
   .quote{
     font-family:var(--mono);
@@ -361,6 +361,24 @@
     <code>course/lab</code> into <code>packages/</code> once two lessons depend on it, and
     the lab imports it back rather than re-implementing it.
   </p>
+
+  <h3 class="sub" id="vsm">What VSM is, and why it matters here</h3>
+  <p class="lede" style="margin-bottom:14px;">Stafford Beer's Viable System Model comes out
+    of management cybernetics, not software: it asks what any system — an organism, a
+    company, an autonomous agent — needs structurally to keep operating as its environment
+    keeps generating more variety than it can be made to predict. Beer's answer is five
+    functions plus an independent audit: operations that touch the world (S1), coordination
+    that keeps them from colliding (S2), control that decides what happens next (S3),
+    intelligence that watches the environment and the future (S4), and identity that says
+    what the system is and isn't allowed to become (S5) — checked by a function that never
+    just takes the operators' word for it (S3&#42;).</p>
+  <p class="lede">Why this matters specifically for an agent harness: the model is not a
+    deterministic component. It changes across versions, has no memory of last quarter's
+    incident, and treats a prompt as advice it can — and under pressure, will — ignore. A
+    harness that regulates entirely through prompt text has exactly as much regulatory
+    variety as the words in that prompt, which is provably less than the variety of a real
+    codebase, a real filesystem, or real money moving. VSM doesn't remove the model's
+    judgment; it gives that judgment a boundary it can't talk its way out of.</p>
 
   <h3 class="sub">Six functions, one loop</h3>
   <p class="lede" style="margin-bottom:14px;">Beer's Viable System Model, read as a harness

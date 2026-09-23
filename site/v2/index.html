@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Viable Agents</title>
-<meta name="description" content="Build your own coding-agent harness. Viable Agents is a course on cybernetic control for autonomous coding agents, built lesson by lesson against VSM-Pi's reference build.">
+<meta name="description" content="Build your own agent harness. Viable Agents is a course on cybernetic control for autonomous agents, built lesson by lesson against VSM-Pi's reference build.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -131,7 +131,7 @@
   .kicker::before{content:"§";color:var(--ink-faint);}
   .kicker .tick{flex:1;height:1px;background:var(--line-strong);}
   h2.title{font-size:clamp(22px,3vw,30px);margin:0 0 6px;}
-  .lede{color:var(--ink-dim);max-width:62ch;font-size:15.5px;margin:0 0 28px;}
+  .lede{color:var(--ink-dim);font-size:15.5px;margin:0 0 28px;}
   h3.sub{font-size:16px;margin:40px 0 10px;}
   h3.sub:first-of-type{margin-top:8px;}
 
@@ -149,7 +149,7 @@
   }
   .hero h1 .accent{color:var(--signal-ink);}
   .hero p.tag{
-    font-size:17px;color:var(--ink-dim);max-width:56ch;margin:0 0 28px;
+    font-size:17px;color:var(--ink-dim);margin:0 0 28px;
   }
   .quote{
     font-family:var(--mono);
@@ -259,9 +259,10 @@
   <div class="wrap navrow">
     <div class="navmark"><span class="dot"></span>VSM&#8202;·&#8202;PI</div>
     <div class="navlinks">
+      <a href="#why-vsm">Why cybernetics</a>
       <a href="#who">Who it's for</a>
-      <a href="#build">The reference build</a>
       <a href="#syllabus">Syllabus</a>
+      <a href="#build">The reference build</a>
       <a href="product.html">The product ↗</a>
       <a href="how-it-works.html">How it works ↗</a>
       <a href="personal-finance.html">Worked example ↗</a>
@@ -271,10 +272,10 @@
 
 <header class="hero wrap">
   <div class="hero-eyebrow">Viable Agents — a course, not a feature tour</div>
-  <h1>Build your own <span class="accent">coding-agent harness</span>.</h1>
+  <h1>Build your own <span class="accent">agent harness</span>.</h1>
   <p class="tag">Most agent courses teach you the buttons. This one teaches the control
     system, and you leave holding a harness you wrote yourself: <code>regulator</code>.
-    Each module opens with a regulatory question an autonomous coding agent forces on you,
+    Each module opens with a regulatory question an autonomous agent forces on you,
     derives the mechanism that answers it, then shows the Pi feature, the GSD-Pi production
     comparison, and the typed treatment underneath <a href="product.html">VSM-Pi</a>, the
     control plane this course is built against.</p>
@@ -287,22 +288,23 @@
     <a class="btn" href="how-it-works.html">How a unit runs (diagrams)</a>
     <a class="btn" href="product.html">The architecture ↗</a>
   </div>
-
-  <div class="vocab">
-    <div class="vocab-head">
-      <span class="vocab-title">Vocabulary — worth knowing before you scroll</span>
-      <a class="vocab-more" href="https://github.com/MetaCoding-io/vsm-pi/blob/main/course/GLOSSARY.md" target="_blank" rel="noopener">Full glossary ↗</a>
-    </div>
-    <dl class="vocab-grid">
-      <dt>orchestrator</dt><dd>The control loop that dispatches work and checks it — it never edits code itself.</dd>
-      <dt>S3<sup>*</sup> (audit)</dt><dd>Verifies a unit's work independently, instead of trusting what the unit says about itself.</dd>
-      <dt>capability profile</dt><dd>A bounded grant of tools and writable paths a unit runs under — not a persona.</dd>
-      <dt>obligation</dt><dd>A signal that has to stay visible until someone actually resolves it.</dd>
-      <dt>algedonic signal</dt><dd>An alert that skips the normal chain of command — reserved for "interrupt a person now."</dd>
-      <dt><button type="button" class="gl" data-term="regulator">regulator</button> (two senses)</dt><dd>The general term for anything that keeps a system in bounds — and, distinctly, the name of the harness you'll build.</dd>
-    </dl>
-  </div>
 </header>
+
+<section id="why-vsm" class="wrap">
+  <div class="kicker">Why cybernetics<span class="tick"></span></div>
+  <h2 class="title">Agents need a regulator, not just a good prompt</h2>
+  <p class="lede">The Viable System Model (VSM) is Stafford Beer's answer to an old
+    question: what does any system — an organism, a company, an autonomous agent — need
+    structurally to stay viable while its environment keeps generating more variety than
+    anyone predicted? Ashby's Law gives the constraint: only variety can absorb variety, so
+    a regulator with fewer possible responses than the disturbances it faces will eventually
+    fail somewhere it can't see. A model plus a good prompt is not a regulator — it's a
+    hope, and hope doesn't survive contact with a real codebase, a real filesystem, or real
+    money moving. This course treats the harness itself as the regulator: explicit
+    functions, typed channels, and gates that hold even when the prompt is ignored, the
+    model changes, or the task has nothing to do with code. <a href="product.html#vsm">More
+    on VSM and the six functions →</a></p>
+</section>
 
 <section id="who" class="wrap">
   <div class="kicker">Who it's for<span class="tick"></span></div>
@@ -329,34 +331,12 @@
     <li>Measure whether your regulation actually improved outcomes, with a control arm.</li>
   </ol>
 
-  <h3 class="sub">Three envelopes, one curriculum</h3>
+  <h3 class="sub">Three ways to take it</h3>
   <div class="env-cards">
     <div class="env-card"><h4>Self-paced</h4><div class="len">~40h + capstone</div><p>Repo, written modules, recorded walkthroughs, graded labs. Ends at reference-build checkpoint 14.</p></div>
     <div class="env-card"><h4>Cohort</h4><div class="len">6 weeks</div><p>Two 90-minute live sessions a week, labs between, design reviews, capstone crit.</p></div>
     <div class="env-card"><h4>Team intensive</h4><div class="len">2 days</div><p>Modules 01, 02, 03, 09 &amp; 10 only — labs run on the team's own repository.</p></div>
   </div>
-</section>
-
-<section id="build" class="wrap">
-  <div class="kicker">The reference build<span class="tick"></span></div>
-  <h2 class="title">regulator — what you'll actually build</h2>
-  <p class="lede">This isn't a hypothetical. <code>regulator</code> is VSM-Pi's own
-    reference build, and it's already running end to end: the S3 control loop, a versioned
-    recovery policy, a <button type="button" class="gl" data-term="closeout">closeout gate</button> that never
-    trusts a unit's own report, and a read-only control room over all of it. You build it
-    the same way, one checkpoint per lesson.</p>
-  <div class="cards">
-    <div class="card"><div class="k">0–14</div><div class="l">Lab checkpoints already built and tested — the exact path the course walks you through</div></div>
-    <div class="card"><div class="k">42</div><div class="l">Regulators in the registry, each with a stated limitation, an ablation switch and a retirement condition</div></div>
-    <div class="card"><div class="k">15 / 15</div><div class="l">Lessons written end to end — nothing in the syllabus below is a placeholder</div></div>
-  </div>
-  <p style="font-size:13.5px;color:var(--ink-dim);margin-top:18px;">The full architecture —
-    the control model, the orchestrator, the mechanism hierarchy, and the control room —
-    has <a href="product.html">its own page</a>. <a href="how-it-works.html">How a unit
-    runs</a> draws the mechanism out end to end, and the
-    <a href="personal-finance.html">worked example</a> declares a second workload — a
-    household ledger, not code — to show what's yours to design versus what the harness
-    already gives you.</p>
 </section>
 
 <section id="syllabus" class="wrap">
@@ -521,9 +501,31 @@
   </div>
 </section>
 
+<section id="build" class="wrap">
+  <div class="kicker">The reference build<span class="tick"></span></div>
+  <h2 class="title">regulator — what you'll actually build</h2>
+  <p class="lede">This isn't a hypothetical. <code>regulator</code> is VSM-Pi's own
+    reference build, and it's already running end to end: the agentic loop, a versioned
+    recovery policy, a <button type="button" class="gl" data-term="closeout">closeout gate</button> that never
+    trusts a unit's own report, and a read-only control room over all of it. You build it
+    the same way, one checkpoint per lesson.</p>
+  <div class="cards">
+    <div class="card"><div class="k">0–14</div><div class="l">Lab checkpoints already built and tested — the exact path the course walks you through</div></div>
+    <div class="card"><div class="k">42</div><div class="l">Regulators in the registry, each with a stated limitation, an ablation switch and a retirement condition</div></div>
+    <div class="card"><div class="k">15 / 15</div><div class="l">Lessons written end to end — nothing in the syllabus above is a placeholder</div></div>
+  </div>
+  <p style="font-size:13.5px;color:var(--ink-dim);margin-top:18px;">The full architecture —
+    the control model, the orchestrator, the mechanism hierarchy, and the control room —
+    has <a href="product.html">its own page</a>. <a href="how-it-works.html">How a unit
+    runs</a> draws the mechanism out end to end, and the
+    <a href="personal-finance.html">worked example</a> declares a second workload — a
+    household ledger, not code — to show what's yours to design versus what the harness
+    already gives you.</p>
+</section>
+
 <footer class="wrap">
   <div class="foot-row">
-    <div class="foot-note">Viable Agents · build your own coding-agent harness.</div>
+    <div class="foot-note">Viable Agents · build your own agent harness.</div>
     <div class="foot-links">
       <a href="product.html">The product</a>
       <a href="how-it-works.html">How it works</a>
