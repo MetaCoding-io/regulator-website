@@ -135,7 +135,7 @@
   h3.sub:first-of-type{margin-top:8px;}
 
   /* ---- hero ---- */
-  .hero{padding-block:64px 48px;border-bottom:1px solid var(--line);}
+  .hero{padding-block:64px 48px;}
   .hero-eyebrow{
     font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);
     letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px;
@@ -176,12 +176,16 @@
   .card .l{font-size:12.5px;color:var(--ink-dim);margin-top:4px;}
 
   /* ---- audience table ---- */
-  .aud{display:flex;flex-direction:column;gap:10px;}
-  .aud .row{display:grid;grid-template-columns:220px 1fr;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);}
-  .aud .row:last-child{border-bottom:none;}
-  .aud .who{font-weight:600;font-size:13.8px;}
-  .aud .what{color:var(--ink-dim);font-size:13.8px;}
-  @media (max-width:640px){.aud .row{grid-template-columns:1fr;gap:2px;}}
+  table{width:100%;border-collapse:collapse;font-size:13.8px;}
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface);}
+  #who .tbl-wrap{margin-bottom:34px;}
+  th{
+    text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--ink-faint);padding:10px 14px;border-bottom:1px solid var(--line-strong);white-space:nowrap;
+  }
+  td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  .fn{font-family:var(--mono);font-weight:700;color:var(--signal-ink);white-space:nowrap;}
 
   .outcomes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0;counter-reset:oc;}
   .outcomes li{
@@ -217,7 +221,8 @@
   .mod.written .num{color:var(--signal-ink);}
   .mod .body .name{font-weight:600;font-size:14.3px;margin-bottom:3px;}
   .mod .body .q{color:var(--ink-dim);font-size:13.2px;}
-  .mod .body .surface{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-top:6px;letter-spacing:.02em;}
+  .mod .body .desc{color:var(--ink-dim);font-size:13px;margin-top:8px;line-height:1.5;}
+  .mod .body .surface{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-top:8px;letter-spacing:.02em;}
   .pill{
     font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
     padding:4px 8px;border-radius:20px;white-space:nowrap;align-self:start;margin-top:2px;
@@ -286,6 +291,7 @@
     <a class="btn" href="#who">Who it's for</a>
     <a class="btn" href="how-it-works.html">How a unit runs (diagrams)</a>
     <a class="btn" href="product.html">The architecture ↗</a>
+    <a class="btn" href="personal-finance.html">The worked example ↗</a>
   </div>
 </header>
 
@@ -311,11 +317,16 @@
   <p class="lede">If you've used a coding agent for real work and hit its limits, this
     course gives you the vocabulary and the mechanism to fix that — not another framework
     to bolt on top.</p>
-  <div class="aud">
-    <div class="row"><div class="who">Senior / staff engineers</div><div class="what">running agents on real codebases — a principled reason for every guardrail, tuned to their repo.</div></div>
-    <div class="row"><div class="who">Platform &amp; DevEx teams</div><div class="what">a design method for an internal agent platform, plus the evaluation machinery to prove it helps.</div></div>
-    <div class="row"><div class="who">Agent-tool builders</div><div class="what">deep Pi extension/SDK competence and a structural critique of "five agents in a trench coat."</div></div>
-    <div class="row"><div class="who">Technical leaders</div><div class="what">a vocabulary for where autonomy is safe, and what evidence would demonstrate it.</div></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Who</th><th>What this course gives you</th></tr></thead>
+      <tbody>
+        <tr><td class="fn">Senior / staff engineers</td><td>running agents on real codebases — a principled reason for every guardrail, tuned to their repo.</td></tr>
+        <tr><td class="fn">Platform &amp; DevEx teams</td><td>a design method for an internal agent platform, plus the evaluation machinery to prove it helps.</td></tr>
+        <tr><td class="fn">Agent-tool builders</td><td>deep Pi extension/SDK competence and a structural critique of "five agents in a trench coat."</td></tr>
+        <tr><td class="fn">Technical leaders</td><td>a vocabulary for where autonomy is safe, and what evidence would demonstrate it.</td></tr>
+      </tbody>
+    </table>
   </div>
 
   <h3 class="sub">By the end, you can</h3>
@@ -323,7 +334,7 @@
     <li>Describe a coding-agent harness as a control system: what regulates what, over which channel, with what authority, closing which feedback loop.</li>
     <li>Apply the mechanism hierarchy instead of solving every problem with prompt text.</li>
     <li>Extend Pi confidently — typed tools, the tool-call lifecycle, context shaping, per-phase model routing, SDK/RPC, packaging.</li>
-    <li>Design work units as <button type="button" class="gl" data-term="contract">contracts</button> — fixed, delegated, unresolved — rather than prose task descriptions.</li>
+    <li>Design work units as <button type="button" class="gl" data-term="contract">contracts</button> — each decision marked fixed (not up for grabs), delegated (the agent chooses, within bounds), or unresolved (nobody's decided yet) — rather than prose task descriptions.</li>
     <li>Build audit that does not depend on the executor's self-report.</li>
     <li>Keep system identity durable and version-controlled instead of trapped in a context window.</li>
     <li>Decide when a human must be interrupted, and build the channel that does it.</li>
@@ -352,6 +363,7 @@
         <div class="num">01</div>
         <div class="body"><div class="name">The harness is the regulator</div>
           <div class="q">Why doesn't a good model plus a good prompt suffice?</div>
+          <div class="desc">Set up the mental model the rest of the course builds on: the model supplies judgment, the harness supplies control. You'll sketch your own harness as a system diagram before writing a line of it, and see exactly where a prompt-only approach runs out of road.</div>
           <div class="surface">CLI · TUI · sessions · -e</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -359,6 +371,7 @@
         <div class="num">02</div>
         <div class="body"><div class="name">Anatomy of a turn</div>
           <div class="q">Where exactly can I intervene?</div>
+          <div class="desc">Trace one agent turn through Pi's extension lifecycle end to end — tool call, tool result, session settle — and mark every point where your code, not the model, gets the last word. This map is what every later module hooks into.</div>
           <div class="surface">Extension event lifecycle</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -372,6 +385,7 @@
         <div class="num">03</div>
         <div class="body"><div class="name">Tools as the variety interface</div>
           <div class="q">How does the agent act on the world, and how narrowly?</div>
+          <div class="desc">Register your first typed tool with a runtime schema instead of a loose function call, and see why a tool's declared effect — filesystem, execution, network — is what actually bounds an agent, not its name or its docstring.</div>
           <div class="surface">registerTool · typebox · truncation</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -379,6 +393,7 @@
         <div class="num">04</div>
         <div class="body"><div class="name">Capability profiles and the advisory layer</div>
           <div class="q">How do I specialize work without roleplay?</div>
+          <div class="desc">Retire the persona prompt ("you are a careful senior reviewer") in favor of a capability profile that grants real tools and real writable paths — the difference between asking an agent to behave and making it unable to do otherwise.</div>
           <div class="surface">setActiveTools · skills · AGENTS.md</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -392,6 +407,7 @@
         <div class="num">05</div>
         <div class="body"><div class="name">Isolation, leases, and the anti-oscillation problem</div>
           <div class="q">What stops two operations from fighting?</div>
+          <div class="desc">Give concurrent units their own worktrees and a time-limited lease that expires if whoever holds it goes quiet, then build the thrash detector that catches "fix A breaks B, fix B breaks A" before it burns through your whole budget.</div>
           <div class="surface">pi.exec · worktrees · tool execution events · no-sandbox position</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -405,6 +421,7 @@
         <div class="num">06</div>
         <div class="body"><div class="name">Work contracts: what you are actually authorizing</div>
           <div class="q">What am I actually authorizing this run to decide?</div>
+          <div class="desc">Stop writing task descriptions in prose. Declare a work contract that marks each decision fixed, delegated within bounds, or genuinely unresolved — and see how much ambiguity that removes from every review you'll ever do on this unit's output.</div>
           <div class="surface">SDK sessions as a driver · typed session entries · extension flags</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -412,6 +429,7 @@
         <div class="num">07</div>
         <div class="body"><div class="name">Context and budget as regulated resources</div>
           <div class="q">What do I spend, and on what?</div>
+          <div class="desc">Turn tokens and turns into a metered, policy-governed resource: route cheap models to cheap phases, compact context without silently discarding a decision that mattered, and cut a run off before it runs away from you.</div>
           <div class="surface">compaction hooks · ctx.abort · model_select · ModelRuntime</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -419,6 +437,7 @@
         <div class="num">08</div>
         <div class="body"><div class="name">Failure, recovery, and the retry lattice</div>
           <div class="q">What happens on attempt two, and on attempt six?</div>
+          <div class="desc">Design what happens after a unit fails — not just "try again," but a versioned recovery policy that reads the failure and routes it, plus a durable effect journal so a crash mid-write never gets silently repeated or lost.</div>
           <div class="surface">agent_end · agent_before_settle · effect journal · recovery routing</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -432,6 +451,7 @@
         <div class="num">09</div>
         <div class="body"><div class="name">Evidence, not claims</div>
           <div class="q">How do I know the work is done?</div>
+          <div class="desc">Build the closeout gate that never takes a unit's word for its own success. It re-runs the checks itself, against the exact commit, and produces a technical verdict that no amount of confident prose in the report can talk its way past.</div>
           <div class="surface">tool_call / tool_result hooks · host-run checks · the closeout gate</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -439,6 +459,7 @@
         <div class="num">10</div>
         <div class="body"><div class="name">Authority boundaries and protected state</div>
           <div class="q">What must the agent never be able to change?</div>
+          <div class="desc">Draw a hard line around the files an agent must never edit on its own — identity, policy, invariants — and enforce it with a write preflight the agent literally cannot route around, instead of a rule it's merely asked to remember.</div>
           <div class="surface">tool_call blocking · the write preflight · project trust · BOUNDARY.md</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -452,6 +473,7 @@
         <div class="num">11</div>
         <div class="body"><div class="name">Environmental intelligence and the obligation lifecycle</div>
           <div class="q">How does the system learn about its world, and how does that knowledge get a say without becoming the decision?</div>
+          <div class="desc">Add a research unit that can raise a flag about the environment — a dependency advisory, a deadline coming due — and route it into an obligation that stays visible until a person or S3 actually resolves it. Intelligence gets a voice here, never a vote.</div>
           <div class="surface">research unit · report_intelligence · obligation ledger · routing policy · progression veto</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -459,6 +481,7 @@
         <div class="num">12</div>
         <div class="body"><div class="name">Durable identity and policy</div>
           <div class="q">Six months and four model versions later, what keeps this system the same system?</div>
+          <div class="desc">Move your harness's identity — its invariants, its policy, its domain model — out of any one session's context window and into version-controlled files that only a single, declared decision path is ever allowed to write.</div>
           <div class="surface">identity set · identity-untouched check · remember · S5 decision path · definition check</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -466,6 +489,7 @@
         <div class="num">13</div>
         <div class="body"><div class="name">Algedonic channels and human interaction contracts</div>
           <div class="q">Normal regulation is not working and the loop cannot close. Who gets interrupted, how fast, and what counts as an answer?</div>
+          <div class="desc">Build the exception channel Beer called algedonic — literally "pain/pleasure" — the interrupt that skips the normal chain of command, plus the interaction contract that decides whether silence, a timeout, or a stray click ever counts as a real answer.</div>
           <div class="surface">ask_human · interaction kinds · pause gate · outbox delivery · disposition authority</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -479,6 +503,7 @@
         <div class="num">14</div>
         <div class="body"><div class="name">Observability, evals, and longitudinal drift</div>
           <div class="q">You added all this regulation. Did it help, or does it just feel rigorous?</div>
+          <div class="desc">Run your harness against a scripted drift scenario with an ablation arm — the same system with one regulator switched off — and walk away with a statistically-backed answer about what your guardrails actually bought you, not a feeling.</div>
           <div class="surface">eval harness · arms and ablation · outcome and trajectory graders · export-signature · OpenTelemetry spans · review and retirement</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -486,6 +511,7 @@
         <div class="num">15</div>
         <div class="body"><div class="name">Packaging and operating your harness</div>
           <div class="q">It works on your laptop. How does your team run it on Monday, and who owns it in three months?</div>
+          <div class="desc">Ship the harness as an installable package with a CI entry point, a doctor command, and a review date on every regulator in the registry — so "who owns this, and is it still earning its keep" has a file behind it, not just a hallway answer.</div>
           <div class="surface">pi package · regulator init · doctor · post-merge check · glossary-lint · watch · identity promote</div></div>
         <div class="pill written">Written</div>
       </div>
