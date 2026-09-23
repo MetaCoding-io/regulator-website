@@ -7,7 +7,7 @@ from GitHub Pages without exposing the source.
 
 ## What's here
 
-Two static pages under [`site/`](site/), no build step — see [`site/README.md`](site/README.md)
+Three static pages under [`site/`](site/), no build step — see [`site/README.md`](site/README.md)
 for what each one covers.
 
 ## Publishing

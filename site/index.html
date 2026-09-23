@@ -335,6 +335,12 @@
   .cr-status.run{background:var(--signal-soft);color:var(--signal-ink);}
   .cr-status.block{background:var(--alarm-soft);color:var(--alarm);}
   .cr-caption{font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);margin-top:10px;}
+  figure.shot{margin:18px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px;box-shadow:0 1px 0 var(--line);}
+  figure.shot img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:4px;background:#fff;}
+  figure.shot figcaption{font-size:13.2px;color:var(--ink-dim);margin:10px 6px 2px;}
+  figure.shot figcaption b{color:var(--ink);font-family:var(--mono);font-size:12.5px;}
+  .shots2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media (max-width:760px){.shots2{grid-template-columns:1fr;}}
   .cr-next{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px;}
   @media (max-width:700px){.cr-next{grid-template-columns:1fr;}}
   .cr-next-card{border:1px dashed var(--line-strong);border-radius:6px;padding:13px;}
@@ -363,6 +369,7 @@
       <a href="#syllabus">Syllabus</a>
       <a href="#status">Status</a>
       <a href="how-it-works.html">How it works ↗</a>
+      <a href="personal-finance.html">Worked example ↗</a>
     </div>
   </div>
 </nav>
@@ -656,86 +663,29 @@
     unrouted signals and the instance manifest; the assurance view over the committed eval
     reports; the lifecycle view of review dates, ablation switches and retirement conditions;
     and an inspector showing the whole record for a regulator or a unit, with the unit's
-    replay in time order from the span projection. The frames below are illustrative.</p>
+    replay in time order from the span projection. Below, the page itself over two instances.</p>
 
-  <div class="crframe">
-    <div class="chrome">
-      <span class="wdot"></span><span class="wdot"></span><span class="wdot"></span>
-      <div class="tabs">
-        <span class="tab active">Definition</span>
-        <span class="tab">Instances</span>
-        <span class="tab">Assurance</span>
-        <span class="tab">Lifecycle</span>
-        <span class="tab">Replay</span>
-      </div>
-    </div>
-    <div class="body cr-topo">
-      <div class="cr-nodelist">
-        <div class="cr-node"><span class="d"></span>S5 — Identity</div>
-        <div class="cr-node"><span class="d"></span>S4 — Intelligence</div>
-        <div class="cr-node"><span class="d"></span>S3 — Control</div>
-        <div class="cr-node sel"><span class="d"></span>S3&#42; — Audit</div>
-        <div class="cr-node"><span class="d"></span>S2 — Coordination</div>
-        <div class="cr-node"><span class="d"></span>S1 — coding</div>
-        <div class="cr-node"><span class="d"></span>S1 — infra</div>
-        <div class="cr-node"><span class="d"></span>S1 — migration</div>
-      </div>
-      <div class="cr-inspector">
-        <div class="id">reg.authority.identity-write-gate.v1</div>
-        <div class="cr-field"><div class="k">Function</div><div class="v">S5 — write authority</div></div>
-        <div class="cr-field"><div class="k">Absorbs</div><div class="v">identity mutation from operational code, by any route the hook sees</div></div>
-        <div class="cr-field"><div class="k">Mechanism</div><div class="v">deterministic-gate · <code>tool_call</code> (write, edit, bash snapshot) · <code>tool_result</code> (bash restore)</div></div>
-        <div class="cr-field"><div class="k">Authority</div><div class="v">may refuse a write, restore a protected file, record a finding · may not grant s5-authority or undo a commit</div></div>
-        <div class="cr-field"><div class="k">Evidence</div><div class="v">3 test files cited · authority.test.ts, cp9-authority.test.ts, the Pi extension's suite</div></div>
-        <div class="cr-field"><div class="k">Boundary</div><div class="v">a protected change committed by one shell command survives the bash watch (DEBT.md row 17)</div></div>
-        <div class="cr-field"><div class="k">Owner</div><div class="v">course-lab · reviewBy 2026-12-01</div></div>
-      </div>
-    </div>
-  </div>
-  <div class="cr-caption">Definition — S5→S1 columns, one card per regulator, each declaring the channels it consumes and emits. Selecting a card opens its record: purpose, mechanism, authority, evidence, boundary, cost, owner, retirement condition. Never a summary of it.</div>
+  <figure class="shot"><img src="img/control-room/overview.webp" alt="The control room as it opens: the definition's topology of 42 regulators in S5 to S1 columns on the left, and the inspector on the right showing the closeout gate's record." loading="lazy">
+    <figcaption><b>The page as it opens.</b> Left, the definition: 42 regulators by function, each card the channels it consumes and emits. Right, the inspector on a selected card — the closeout gate's record: purpose, what it absorbs, mechanism, authority, evidence, limitations, review date, ablation, retirement. The record, not a summary of it.</figcaption></figure>
 
-  <div class="crframe">
-    <div class="chrome">
-      <span class="wdot"></span><span class="wdot"></span><span class="wdot"></span>
-      <div class="tabs">
-        <span class="tab">Definition</span>
-        <span class="tab active">Instances</span>
-        <span class="tab">Assurance</span>
-        <span class="tab">Lifecycle</span>
-        <span class="tab">Replay</span>
-      </div>
-    </div>
-    <div class="body">
-      <div class="cr-banner"><span class="d"></span>OBLIGATION · owed to a person · veto — unit-0402 blocked: recovery policy chose "clarify"; the question waits on <code>regulator obligation resolve</code>, and nothing delivers it yet (lesson 13)</div>
-      <div style="overflow-x:auto;">
-        <table class="cr-table">
-          <thead><tr><th>Unit</th><th>Type</th><th>Lease</th><th>Attempt</th><th>Budget</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td class="unit">unit-0417</td><td>implement</td><td>worker-3 · 4m</td><td>2 / 6</td><td>62% tokens</td><td><span class="cr-status run">Running</span></td></tr>
-            <tr><td class="unit">unit-0415</td><td>verify</td><td>worker-1 · 1m</td><td>1 / 6</td><td>18% tokens</td><td><span class="cr-status run">Verifying</span></td></tr>
-            <tr><td class="unit">unit-0409</td><td>integrate</td><td>expired</td><td>3 / 6</td><td>91% tokens</td><td><span class="cr-status block">Blocked — lease reclaimed</span></td></tr>
-            <tr><td class="unit">unit-0402</td><td>close</td><td>worker-2 · 9m</td><td>1 / 6</td><td>34% tokens</td><td><span class="cr-status block">Blocked — clarify</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  <div class="cr-caption">Instances — units, leases and unrouted signals per instance, read from the execution store, the lease store, the signal sink and the audit log; the page refreshes every five seconds and nothing here reads the repository. "Healthy" means evidenced and current, never merely no errors reported.</div>
-
-  <div class="cr-next">
-    <div class="cr-next-card"><div class="t">Assurance</div><div class="d">Each eval report's arms with their intervals and lifts, and where the gated arm loses — the interpretation is required, and shown.</div></div>
-    <div class="cr-next-card"><div class="t">Lifecycle</div><div class="d">Every regulator's review date (overdue fails <code>regulator check</code>), its ablation switch and the arm that exercises it, and its retirement condition.</div></div>
-    <div class="cr-next-card"><div class="t">Replay</div><div class="d">One unit in time order: contract → attempts → tool executions → evidence → verdicts → decisions → obligations → deliveries, from the span projection, never the transcript.</div></div>
+  <div class="shots2">
+    <figure class="shot"><img src="img/control-room/instances-ledger.webp" alt="The instances view for a household-ledger instance: manifest line, five units, a live lease, an open consent obligation with the veto marked, an interaction row and a memory entry." loading="lazy">
+      <figcaption><b>Instances.</b> The <a href="personal-finance.html">household ledger</a> after its August close: four units closed, one paused on a consent question that is an open obligation owed to a person, delivered to the outbox, holding the unit.</figcaption></figure>
+    <figure class="shot"><img src="img/control-room/instances-drift.webp" alt="The instances view for the slugkit drift instance: six units blocked after three attempts each, routed check-failure to replan, six live leases, six recovery-decision obligations owed to S3." loading="lazy">
+      <figcaption><b>Instances.</b> The drift scenario run by the drifter under the treatment arm: every unit refused three times by the closeout checks, routed <code>repair → repair → replan</code>, and held by the obligation the replan opened for S3.</figcaption></figure>
   </div>
 
-  <p style="font-size:13px;color:var(--ink-dim);margin-top:22px;max-width:64ch;">
-    <strong>Read-only first.</strong> This is an S3&#42;/S4 observation surface. The moment
-    it grows a "raise budget" or "dismiss obligation" button, it has quietly become an
-    S3/S5 authority surface — actions land later only as typed proposals or explicitly
-    authorized commands with their own audit trail. That is already true of what ships:
-    <code>packages/control-room</code> refuses every non-GET request with 405. The three
-    starred views remain design only.
-  </p>
+  <div class="shots2">
+    <figure class="shot"><img src="img/control-room/assurance.webp" alt="The assurance view: the drift suite's arms and the committed reports' metrics per arm with confidence intervals and the interpretation." loading="lazy">
+      <figcaption><b>Assurance.</b> The suite's arms — control, treatment, three ablations — and each committed report: every metric per arm with its interval, and the person's interpretation, including where the gated arm lost.</figcaption></figure>
+    <figure class="shot"><img src="img/control-room/lifecycle.webp" alt="The lifecycle view: each regulator's review date, ablation switch, the arm that covers it, and its retirement condition." loading="lazy">
+      <figcaption><b>Lifecycle.</b> Every regulator's review date (overdue fails <code>regulator check</code>), its ablation switch and the arm that throws it, and the condition under which it retires.</figcaption></figure>
+  </div>
+
+  <figure class="shot"><img src="img/control-room/inspector-unit-drift.webp" alt="The unit inspector for d1-fix in the drift instance: three attempts each refused, the recovery decisions with their hints, the replay of every host check with its observation, and the audit verdicts." loading="lazy">
+    <figcaption><b>Inspector — a unit's replay</b> (the top of it). One drifting unit: three attempts, each refused by <code>export-signature</code> and the vendor and identity checks; the router's decisions with the hint each attempt was given; the obligations each opened and resolved; then the replay — contract, <code>invoke_agent</code>, every <code>execute_tool</code> check with its observation, verdict, decision, obligation — from the span projection, never the transcript. Below what is shown: the audit log, the contract and the three reports as written.</figcaption></figure>
+
+  <p style="font-size:13.5px;color:var(--ink-dim);margin-top:14px;">The ledger's own inspector views — the paused payment unit and the careless ingest unit refused and repaired — are on the <a href="personal-finance.html#room">worked example</a>.</p>
 </section>
 
 <section id="course" class="wrap">
@@ -780,7 +730,9 @@
   <h2 class="title">Full syllabus — 15 modules, six parts</h2>
   <p class="lede">Every module is a fixed unit: question → concept → Pi mechanism → build
     step → break it → field study → checkpoint. Modules 01–15 are written end to end in
-    <code>course/modules/</code>; the capstone is specified in <code>course/ASSESSMENT.md</code>.</p>
+    <code>course/modules/</code>; the capstone is specified in <code>course/ASSESSMENT.md</code>. A
+    <a href="personal-finance.html">worked example</a> takes a goal outside software — agents that manage a
+    household's finances — through the design questions and then through the declaration that runs it.</p>
 
   <div class="part">
     <div class="part-head"><span class="part-num">PART&nbsp;0</span><span class="part-name">Framing</span></div>
