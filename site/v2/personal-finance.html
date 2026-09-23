@@ -107,8 +107,17 @@
   @media (max-width:640px){.qa .row{grid-template-columns:1fr;}}
   .lvl{font-family:var(--mono);font-size:11px;white-space:nowrap;padding:1px 7px;border:1px solid var(--line-strong);border-radius:999px;color:var(--signal-ink);}
   pre.code .c{color:var(--ink-faint);}
-  .grid1{display:grid;grid-template-columns:1fr;gap:12px;}
-  .grid1 pre.code{margin-top:0;}
+  .start-box{border:1px solid var(--line);border-left:3px solid var(--signal);border-radius:6px;background:var(--surface);padding:14px 16px;margin-top:22px;}
+  .start-head{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--signal-ink);margin-bottom:10px;}
+  .start-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;font-size:13px;color:var(--ink-dim);}
+  .start-grid b{display:block;color:var(--ink);font-family:var(--mono);font-size:12px;margin-bottom:3px;}
+  @media (max-width:760px){.start-grid{grid-template-columns:1fr;}}
+  .checkpoint{border:1px solid var(--line);border-left:3px solid var(--signal);border-radius:6px;background:var(--surface);padding:12px 14px;margin-top:16px;font-size:13.2px;color:var(--ink-dim);}
+  .checkpoint b{display:block;color:var(--ink);font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px;}
+  .checkpoint ul{margin:0;padding-left:18px;}
+  .checkpoint li{margin:3px 0;}
+  .step-lead{font-size:13.5px;color:var(--ink-dim);margin:18px 0 6px;}
+  .step-lead:first-child{margin-top:0;}
 </style>
 </head>
 <body>
@@ -132,9 +141,10 @@
 <header class="hero wrap">
   <div class="hero-eyebrow">Worked example · a second workload, not software</div>
   <h1>"I want agents to <span class="accent">manage my finances</span>."</h1>
-  <p class="tag">How a person with that goal thinks it through as a control system first — six
-    questions, one mechanism each — and then declares it and runs it under <button type="button" class="gl" data-term="regulator">regulator</button>
-    without touching the <button type="button" class="gl" data-term="orchestrator">orchestrator</button>. Everything on this page runs today, scripted, under the
+  <p class="tag">Follow the same six questions, in order, that turn that sentence into a
+    declared workload — one mechanism per answer, then the files that declare it, then
+    the exact commands that run it under <button type="button" class="gl" data-term="regulator">regulator</button>
+    without touching the <button type="button" class="gl" data-term="orchestrator">orchestrator</button>. Everything here runs today, scripted, under the
     project's CI; the screenshots are the <button type="button" class="gl" data-term="controlroom">control room</button> over the result.</p>
 
   <div class="vocab">
@@ -150,6 +160,15 @@
       <dt>consent</dt><dd>An explicit yes to something irreversible. Silence is never read as consent.</dd>
       <dt>closeout gate</dt><dd>The check that re-runs the ledger's own tests before trusting any unit's report.</dd>
     </dl>
+  </div>
+
+  <div class="start-box">
+    <div class="start-head">Before you start</div>
+    <div class="start-grid">
+      <div><b>Time</b>~15 minutes to read straight through; a few more if you run step 3's commands yourself.</div>
+      <div><b>Prerequisites</b>None beyond curiosity to read it. To run it, <code>course/lab</code> built and <code>regulator</code> on the path (<code>OPERATING.md</code>) — otherwise just follow along.</div>
+      <div><b>What you'll have at the end</b>A second workload — a household ledger, not code — designed, declared, driven through five units, and read back in the control room.</div>
+    </div>
   </div>
 </header>
 
@@ -168,7 +187,7 @@
 </section>
 
 <section id="design" class="wrap">
-  <div class="kicker">1 · Design first<span class="tick"></span></div>
+  <div class="kicker">Step 1 of 6 · Design first<span class="tick"></span></div>
   <h2 class="title">Six questions, and the level each answer sits at</h2>
   <p class="lede">For each function of the Viable System Model, ask the regulatory question it exists to
     answer, and answer it with a <em>mechanism</em> at the highest level of the hierarchy that fits —
@@ -204,15 +223,17 @@
 </section>
 
 <section id="declaration" class="wrap">
-  <div class="kicker">2 · The declaration<span class="tick"></span></div>
+  <div class="kicker">Step 2 of 6 · The declaration<span class="tick"></span></div>
   <h2 class="title">A control plane is declared, not assembled</h2>
   <p class="lede">This is the whole implementation. Nothing in the orchestrator changed for it except
     one line: the CLI now loads the workload a contract names. Each file is in
     <code>course/lab</code> and checked by <code>regulator check</code>.</p>
 
-  <div class="grid1">
-    <div>
-      <pre class="code"><b>household-ledger/</b>                <i>the domain: course/lab/fixture-finance</i>
+  <p class="step-lead"><b style="color:var(--ink);font-family:var(--mono);">First, the domain</b> — this
+    already exists as a fixture, so there's nothing to invent: a taxonomy, a protected
+    statement, a ledger, and the checks that will judge every unit's work, sitting
+    outside every write grant.</p>
+  <pre class="code"><b>household-ledger/</b>                <i>the domain: course/lab/fixture-finance</i>
   categories.json               the taxonomy (the person's)
   statements/                   the bank's exports — <u>protected</u>
     2026-08-checking.csv/.json
@@ -223,7 +244,12 @@
   lib/ledger.js  test/          the ledger's own checks —
                                 outside every write grant
   package.json                  scripts.test = node --test</pre>
-      <pre class="code" style="margin-top:12px;"><b>profiles/bookkeeper.json</b>
+
+  <p class="step-lead"><b style="color:var(--ink);font-family:var(--mono);">Next, the capability profile</b> —
+    a grant over declared tool effects, not a persona. The bookkeeper gets no shell, so
+    the grant is complete at the tool boundary; the advice is guidance for judgment
+    calls, not a substitute for the two decisions above it.</p>
+  <pre class="code"><b>profiles/bookkeeper.json</b>
 {
   "tools": ["read", "write", "edit", "grep", "find", "ls",
             "read_conventions", "run_tests", "run_checks",
@@ -237,9 +263,12 @@
      with kind=consent … write nothing without a yes."
   ]
 }</pre>
-    </div>
-    <div>
-      <pre class="code"><b>workload/personal-finance.json</b>
+
+  <p class="step-lead"><b style="color:var(--ink);font-family:var(--mono);">Then, the workload</b> —
+    six unit types, naming the profile each runs under and the checks the host will run
+    at closeout. This is the one thing the orchestrator didn't already know how to do:
+    load a workload other than the software one.</p>
+  <pre class="code"><b>workload/personal-finance.json</b>
 {
   "name": "personal-finance", "version": 1,
   "unitTypes": [
@@ -254,7 +283,12 @@
     { "name": "close",      "profile": "auditor", "checks": [] }
   ]
 }</pre>
-      <pre class="code" style="margin-top:12px;"><b>contracts/finance/f5-prepare-payment.json</b>
+
+  <p class="step-lead"><b style="color:var(--ink);font-family:var(--mono);">Finally, a contract</b> —
+    one per unit; here's the one that touches money. The fixed decision below is the
+    whole of INV-006 in miniature, cited to a person instead of an invariant file because
+    this fixture has no identity fork of its own yet.</p>
+  <pre class="code"><b>contracts/finance/f5-prepare-payment.json</b>
 {
   "unitType": "prepare-payment",
   "objective": "Prepare September's rent … after a person consents.",
@@ -273,8 +307,6 @@
       "description": "run_checks: protected prefixes untouched" }
   ]
 }</pre>
-    </div>
-  </div>
   <p style="font-size:13.5px;color:var(--ink-dim);margin-top:16px;">Plus <code>profiles/auditor.json</code> (read, grep, find, ls, read_conventions, run_checks — nothing else),
     <code>policies/finance.json</code> (budgets and routes per unit type; the read-only types get one attempt, categorization runs on the cheaper route)
     and four more contracts. In your own definition, <code>identity/INVARIANTS.md</code> gains INV-005 (the statement is the bank's), INV-006 (nothing is committed to without consent)
@@ -282,8 +314,11 @@
 </section>
 
 <section id="run" class="wrap">
-  <div class="kicker">3 · Running it<span class="tick"></span></div>
+  <div class="kicker">Step 3 of 6 · Running it<span class="tick"></span></div>
   <h2 class="title">Init, doctor, five units, one question</h2>
+  <p class="lede">With the declaration from step 2 in place, this is every command from a
+    bare fixture to a closed month — copy-paste order. Run it against the real fixture,
+    or just read it: each line is annotated with what it does and why.</p>
   <pre class="code">regulator fixture ~/ledger --finance
 cd ~/ledger
 regulator init --writable ledger/,reports/,payments/pending/ \
@@ -307,11 +342,20 @@ node packages/control-room/dist/cli.js --definition course/lab --instance ~/ledg
     <li><span class="who">Careless</span><b>Run with the careless bookkeeper</b>, the first attempt of each unit is refused — the edited statement by <code>identity-untouched</code> <em>and</em> by the ledger's checks, the invented category by the ledger's checks — routed to <code>repair</code>, and closed on the second attempt. The base never received the edited statement.</li>
     <li><span class="who">Memory</span><b>A fact the categorize unit recorded</b> ("GREENGROCER 114 is the weekly groceries shop", review in 60 days) is scoped to <code>categorize</code> and <code>reconcile</code> and rendered to no other unit type.</li>
   </ol>
+
+  <div class="checkpoint">
+    <b>Checkpoint</b> If you ran the commands above, you now have: a household ledger
+    instance with five closed units and a sixth question answered; a merged ledger the
+    bank's statement agrees with, byte for byte; one open item nobody guessed at; and a
+    <code>payments/pending/</code> file that only exists because a named person said yes.
+    Nothing above required touching the orchestrator's code.
+  </div>
+
   <p style="font-size:13.5px;color:var(--ink-dim);margin-top:14px;">Without a model, <code>course/lab/src/finance.test.ts</code> drives exactly this with the scripted <code>bookkeeper</code> and <code>careless</code> units under <code>pnpm check</code>; the screenshots below are the control room over that instance.</p>
 </section>
 
 <section id="room" class="wrap">
-  <div class="kicker">4 · The control room<span class="tick"></span></div>
+  <div class="kicker">Step 4 of 6 · The control room<span class="tick"></span></div>
   <h2 class="title">The same records, read back</h2>
   <p class="lede">A projection of the registry, the execution store and the regulatory state; it owns
     nothing. Every screenshot is the real page — <code>packages/control-room</code> — over the ledger
@@ -335,7 +379,7 @@ node packages/control-room/dist/cli.js --definition course/lab --instance ~/ledg
 </section>
 
 <section id="honest" class="wrap">
-  <div class="kicker">5 · What it does not do<span class="tick"></span></div>
+  <div class="kicker">Step 5 of 6 · What it does not do<span class="tick"></span></div>
   <h2 class="title">Said plainly, in the registry's spirit</h2>
   <div class="notes">
     <div class="note"><b>Scripted units run no session</b>The gates <em>inside</em> one — the profile grant, the identity write gate, the pause gate — are exercised by their own tests, not by this close. A live run with a model is the drill.</div>
@@ -346,8 +390,11 @@ node packages/control-room/dist/cli.js --definition course/lab --instance ~/ledg
 </section>
 
 <section id="recipe" class="wrap">
-  <div class="kicker">6 · Your domain<span class="tick"></span></div>
+  <div class="kicker">Step 6 of 6 · Your domain<span class="tick"></span></div>
   <h2 class="title">The recipe</h2>
+  <p class="lede">You've now followed a household ledger end to end — designed, declared,
+    run, and read back. Here are the same eight moves, generalized, for whatever you're
+    actually building.</p>
   <ol class="steps">
     <li><b>Name the domain output and the source of truth.</b> Decide what is protected.</li>
     <li><b>List the unit types.</b> For each: what it may write, which tools by effect, which host-run checks judge it. Put the domain's own checks outside every write grant.</li>
@@ -358,6 +405,10 @@ node packages/control-room/dist/cli.js --definition course/lab --instance ~/ledg
     <li><b><code>regulator init</code></b> with the declared prefixes; <code>doctor</code>; drive the first unit; read the evidence, not the summary.</li>
     <li><b>Script the close</b> — a bookkeeper and a careless one — so it runs under CI, then run it live and compare. That is the eval harness pointed at your domain.</li>
   </ol>
+  <p style="font-size:13.5px;color:var(--ink-dim);margin-top:16px;">Nothing on this page
+    was hypothetical, and neither is your domain's version of it. The fixture and every
+    file in step 2 are real, checked-in code — start by reading them, not by starting
+    from a blank file.</p>
 </section>
 
 <footer class="wrap">
