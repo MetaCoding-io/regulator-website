@@ -473,7 +473,7 @@
   control-room/   read-only page over the read model
 
 <b>course/lab/</b>       reference build — checkpoints 0–14, three fixtures,
-                  the registry (42 records), identity, profiles, policies,
+                  the registry (43 records), identity, profiles, policies,
                   the drift eval suite and its committed reports,
                   workload, the `regulator` CLI; installs as a pi
                   package, OPERATING.md says who runs what
@@ -553,7 +553,7 @@
         <p style="font-size:10.5px;color:var(--ink-faint);letter-spacing:.03em;text-transform:uppercase;margin:14px 0 2px;">six unit types, declared in <code>workload/software-development.json</code>, each naming:</p>
         <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;font-size:12.5px;color:var(--ink-dim);">
           <div><b style="color:var(--ink);">A capability profile</b> the unit runs under — <code>implement</code> may write <code>src/</code> and <code>test/</code>; <code>research</code> is read-only by declared effect</div>
-          <div><b style="color:var(--ink);">Checks</b> the orchestrator re-runs itself at closeout — <code>run_checks</code>, <code>run_tests</code> — bound to the revision they ran against</div>
+          <div><b style="color:var(--ink);">Checks</b> the orchestrator re-runs itself at closeout — <code>run_checks</code>, <code>run_tests</code>, and <code>inherited-tests</code>, the suite the unit inherited run against the unit's tree, so a test the unit deleted or weakened is a failing check — bound to the revision they ran against</div>
           <div><b style="color:var(--ink);">Intelligence</b> from a <code>research</code> unit is routed into an <button type="button" class="gl" data-term="obligation">obligation</button> that holds the units it names until a person or S3 dispositions it — never applied, never replanned</div>
           <div><b style="color:var(--ink);">Still design:</b> S4 triggers that raise a research unit unasked, and consent before irreversible actions (lesson 13)</div>
         </div>
@@ -577,8 +577,8 @@
     <div><b style="color:var(--ink);">Inspector</b> — the whole record for a regulator or a unit, including the unit's replay in time order.</div>
   </div>
 
-  <figure class="shot"><img src="img/control-room/overview.webp" alt="The control room as it opens: the definition's topology of 42 regulators in S5 to S1 columns on the left, and the inspector on the right showing the closeout gate's record." loading="lazy">
-    <figcaption><b>The page as it opens.</b> Left, the definition: 42 regulators by function, each card the channels it consumes and emits. Right, the inspector on a selected card — the closeout gate's record: purpose, what it absorbs, mechanism, authority, evidence, limitations, review date, ablation, retirement. The record, not a summary of it.</figcaption></figure>
+  <figure class="shot"><img src="img/control-room/overview.webp" alt="The control room as it opens: the definition's topology of 43 regulators in S5 to S1 columns on the left, and the inspector on the right showing the closeout gate's record." loading="lazy">
+    <figcaption><b>The page as it opens.</b> Left, the definition: 43 regulators by function, each card the channels it consumes and emits. Right, the inspector on a selected card — the closeout gate's record: purpose, what it absorbs, mechanism, authority, evidence, limitations, review date, ablation, retirement. The record, not a summary of it.</figcaption></figure>
 
   <p style="font-size:13.5px;color:var(--ink-dim);margin-top:14px;">More of the page — units,
     leases and obligations for a live instance; the assurance and lifecycle views; a unit's
@@ -593,15 +593,15 @@
   <div style="display:flex;flex-direction:column;gap:12px;font-size:13.5px;color:var(--ink-dim);margin-bottom:22px;">
     <div><b style="color:var(--ink);">The loop runs.</b> Contract, dispatch, verify, route, close — with <button type="button" class="gl" data-term="lease">leases</button>, budgets, a versioned recovery policy, and a <button type="button" class="gl" data-term="closeout">closeout gate</button> that trusts host-run evidence, never a unit's own claim about itself. An identity set is rendered from the files, write-protected, and checked at closeout against the branch.</div>
     <div><b style="color:var(--ink);">The <button type="button" class="gl" data-term="algedonic">algedonic</button> path is in.</b> A unit can ask a person through one typed tool; only a nonblocking recap continues without an answer. An unanswered question pauses the unit by gate; what's owed to a person is delivered and reminded; who may answer is declared and checked.</div>
-    <div><b style="color:var(--ink);">The regulators owe evidence now.</b> An eval harness runs the drift scenario under declared arms with outcome and trajectory graders. Three committed reports say where the gated arm loses. Every record carries an <button type="button" class="gl" data-term="ablation">ablation</button> switch and a retirement condition, and every instance store reads as OpenTelemetry spans.</div>
+    <div><b style="color:var(--ink);">The regulators owe evidence now.</b> An eval harness runs the drift scenario under declared arms with outcome and trajectory graders. Four committed reports, one per scripted unit — the reference, the drifter, the sloppy one, and the self-certifier that deletes the tests it cannot pass — say where the gated arm loses. Every record carries an <button type="button" class="gl" data-term="ablation">ablation</button> switch and a retirement condition, and every instance store reads as OpenTelemetry spans.</div>
     <div><b style="color:var(--ink);">And it operates.</b> The lab installs as a Pi package; <code>regulator init</code> installs it into an existing repository under a declared manifest; <code>doctor</code> checks the instance before the first unit and in CI; the base is re-verified after every merge and a failure holds the whole instance; refused words are linted out; the outbox is watched; an identity decision promotes back into the definition.</div>
   </div>
   <p style="font-size:13px;color:var(--ink-dim);margin:0 0 14px;"><code>docs/DEBT.md</code> tracks
-    every gap the build has taken on deliberately, one row per item — forty rows so far, most
+    every gap the build has taken on deliberately, one row per item — forty-one rows so far, most
     already paid as later lessons closed them. What's still open, and worth knowing before
     you rely on this:</p>
   <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;color:var(--ink-dim);margin-bottom:22px;">
-    <div><b style="color:var(--ink);">A live eval report is still owed.</b> The three committed drift-scenario reports ran scripted units; the session's own gates — profile grants, the write gate, the bash watch, the budget guard — weren't exercised, so the numbers validate the graders, not yet a model against the harness.</div>
+    <div><b style="color:var(--ink);">A live eval report is still owed.</b> The four committed drift-scenario reports ran scripted units; the session's own gates — profile grants, the write gate, the bash watch, the budget guard — weren't exercised, so the numbers validate the graders, not yet a model against the harness.</div>
     <div><b style="color:var(--ink);">The capstone rubric is specified, not calibrated.</b> It hasn't yet been checked against a real learner submission.</div>
     <div><b style="color:var(--ink);">Isolation is the container's job, not the harness's.</b> <code>bash</code> sits outside the thrash detector, the effect journal, and the failure observer by design; real sandboxing is left to the operator, not built by the lab.</div>
     <div><b style="color:var(--ink);">One machine at a time.</b> Leases and the effect journal live on a single host; two harnesses on two machines can't yet see each other's intentions — that's deferred with full VSM recursion.</div>
@@ -609,7 +609,7 @@
   </div>
   <div class="cards">
     <div class="card"><div class="k">0–14</div><div class="l">Lab checkpoints built, each a loadable Pi extension tested without a model, under CI on two Node versions</div></div>
-    <div class="card"><div class="k">42</div><div class="l">Regulators in the <button type="button" class="gl" data-term="registryterm">registry</button>, each with a stated limitation, an ablation switch and a retirement condition; <code>REGULATORS.md</code> and <code>BOUNDARY.md</code> generated from the records</div></div>
+    <div class="card"><div class="k">43</div><div class="l">Regulators in the <button type="button" class="gl" data-term="registryterm">registry</button>, each with a stated limitation, an ablation switch and a retirement condition; <code>REGULATORS.md</code> and <code>BOUNDARY.md</code> generated from the records</div></div>
     <div class="card"><div class="k">15 / 15</div><div class="l">Lessons written end to end; the capstone viability case is specified and its rubric awaits calibration</div></div>
   </div>
 </section>
