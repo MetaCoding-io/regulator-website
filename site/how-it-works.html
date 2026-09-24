@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="glossary.css">
 <style>
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -39,7 +40,7 @@
     --alarm:#ff8f5c; --alarm-soft:#2e1f16;
   }
   body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased;}
-  .wrap{max-width:980px;margin:0 auto;padding-inline:16px;}
+  .wrap{max-width:1120px;margin:0 auto;padding-inline:16px;}
   a{color:var(--signal-ink);}
   h1,h2,h3{font-family:var(--mono);letter-spacing:-0.01em;text-wrap:balance;}
   code,.mono{font-family:var(--mono);}
@@ -51,19 +52,17 @@
   .navlinks{display:flex;gap:18px;font-family:var(--mono);font-size:12.5px;white-space:nowrap;}
   .navlinks a{color:var(--ink-dim);text-decoration:none;}
   .navlinks a:hover{color:var(--signal-ink);}
-  section{padding-block:48px;border-bottom:1px solid var(--line);}
-  section:last-of-type{border-bottom:none;}
+  section{padding-block:30px;}
   .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--signal-ink);display:flex;align-items:center;gap:10px;margin-bottom:14px;}
   .kicker::before{content:"§";color:var(--ink-faint);}
   .kicker .tick{flex:1;height:1px;background:var(--line-strong);}
   h2.title{font-size:clamp(22px,3vw,30px);margin:0 0 6px;}
-  .lede{color:var(--ink-dim);max-width:64ch;font-size:15.5px;margin:0 0 24px;}
-  p{max-width:70ch;}
-  .hero{padding-block:56px 40px;border-bottom:1px solid var(--line);}
+  .lede{color:var(--ink-dim);font-size:15.5px;margin:0 0 24px;}
+  .hero{padding-block:56px 40px;}
   .hero-eyebrow{font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px;}
   .hero h1{font-size:clamp(30px,5vw,48px);line-height:1.05;margin:0 0 18px;font-weight:700;}
   .hero h1 .accent{color:var(--signal-ink);}
-  .hero p.tag{font-size:16.5px;color:var(--ink-dim);max-width:60ch;margin:0 0 20px;}
+  .hero p.tag{font-size:16.5px;color:var(--ink-dim);margin:0 0 20px;}
   figure{margin:24px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px 10px 12px;}
   figure svg{display:block;max-width:100%;height:auto;margin:0 auto;color:var(--ink);font-family:var(--mono);}
   figcaption{font-family:var(--sans);font-size:13.5px;color:var(--ink-dim);margin:12px 8px 0;max-width:none;}
@@ -106,13 +105,16 @@
     <a class="navmark" href="index.html"><span class="dot"></span>VSM&#8202;·&#8202;PI</a>
     <div class="navlinks">
       <a href="#loop">The loop</a>
+      <a href="#lifecycle">Unit states</a>
+      <a href="#workload">The workload</a>
       <a href="#contract">A contract</a>
       <a href="#report">The report</a>
       <a href="#stores">Three stores</a>
       <a href="#recovery">Recovery</a>
       <a href="#session">Inside a session</a>
       <a href="#disk">On disk</a>
-      <a href="index.html">← Overview</a>
+      <a href="product.html">← The product</a>
+      <a href="index.html">The course ↗</a>
     </div>
   </div>
 </nav>
@@ -120,11 +122,38 @@
 <header class="hero wrap">
   <div class="hero-eyebrow">How it works · drawn from the reference build at checkpoint 9</div>
   <h1>One unit, <span class="accent">end to end</span>.</h1>
-  <p class="tag">The orchestrator never touches the code. It writes a contract, hands a
+  <p class="tag">The <button type="button" class="gl" data-term="orchestrator">orchestrator</button> never touches the code. It writes a contract, hands a
     session a worktree, reads the report the session wrote, re-runs the checks itself
     against the commit, and merges or routes. Everything on this page is what
     <code>course/lab/src/controller.ts</code> and checkpoints 2–9 actually do; nothing is
     aspirational.</p>
+  <p class="tag">This page runs deeper than the others on purpose. Where the product and
+    course pages summarize, this one shows the actual sequence diagram, two state
+    diagrams — one for a single unit's own lifecycle, one for how a whole software change
+    moves through six different unit types — the real contract and report JSON, a table of
+    every extension hook a session fires, and the exact files an instance writes to disk.
+    If you came here to see the mechanism, not just hear about it, this is the page.</p>
+
+  <div class="vocab">
+    <div class="vocab-head">
+      <span class="vocab-title">Vocabulary — for this page specifically</span>
+      <a class="vocab-more" href="https://github.com/MetaCoding-io/vsm-pi/blob/main/course/GLOSSARY.md" target="_blank" rel="noopener">Full glossary ↗</a>
+    </div>
+    <dl class="vocab-grid">
+      <dt>unit</dt><dd>The smallest piece of dispatched work — one contract, one session, one verdict.</dd>
+      <dt>worktree</dt><dd>A git checkout on its own branch, dedicated to exactly one unit, so units never collide.</dd>
+      <dt>work contract</dt><dd>What the unit is authorized to decide: fixed, delegated, or left explicitly unresolved.</dd>
+      <dt>lease</dt><dd>A time-limited claim on that worktree — it expires if whoever holds it goes quiet.</dd>
+      <dt>closeout gate</dt><dd>The check that re-runs the unit's tests itself before trusting its report.</dd>
+      <dt>obligation</dt><dd>A signal — often "a person needs to answer this" — that stays open until resolved.</dd>
+      <dt>attempt</dt><dd>One immutable, claimed run of a unit against a specific revision. It doesn't finish or cancel the work by itself — routing decides what happens next.</dd>
+      <dt>workload</dt><dd>A declared set of unit types for one kind of job — six of them, below, for software.</dd>
+      <dt>capability profile</dt><dd>A bounded grant of tools and writable paths a unit runs under — a positive list, not a persona.</dd>
+      <dt>evidence</dt><dd>A check result tied to the exact commit it ran against — never just "the tests passed," always "the tests passed, at this revision."</dd>
+      <dt>technical verdict</dt><dd>Pass, fail, or inconclusive — decided mechanically from evidence, never from what the unit says about its own work.</dd>
+      <dt>reintegration</dt><dd>Bringing an isolated unit's work back into the main line — the moment two units' assumptions about the same file can collide.</dd>
+    </dl>
+  </div>
 </header>
 
 <section id="loop" class="wrap">
@@ -252,12 +281,220 @@
     <li><span class="who">Contract</span><b>The orchestrator checks the contract</b> (shape, consistency, a unit type the workload declares) and records the unit under it. The contract file is immutable; a new version is a replan, not a retry.</li>
     <li><span class="who">Dispatch</span><b>A lease and a worktree are taken</b> for the unit — a branch <code>unit/u1</code> checked out under <code>.regulator/worktrees/u1</code> — and a Pi session starts there with the definition's checkpoints, and nothing the project supplies, loaded.</li>
     <li><span class="who">Session</span><b>The gates find the unit the way S3 recorded it</b>: the lease whose resource is this worktree, then the contract from the store. The contract becomes a system-prompt section (advice) and a typed session entry (state).</li>
-    <li><span class="who">Session</span><b>The model works inside the gates.</b> Writes need the profile's grant and a live lease and must not touch identity or protected paths; the budget meter counts every turn; tool errors become observations; <code>run_tests</code> results are stamped with the revision they ran at.</li>
+    <li><span class="who">Session</span><b>The model works inside the gates.</b> Writes need the <button type="button" class="gl" data-term="profile">profile</button>'s grant and a live lease and must not touch identity or protected paths; the budget meter counts every turn; tool errors become observations; <code>run_tests</code> results are stamped with the revision they ran at.</li>
     <li><span class="who">Session</span><b>It commits and calls <code>report_result</code></b> — the only way a unit ends well. The report is refused unless it honours the contract and cites runs that happened here, on the committed tree, and passed.</li>
-    <li><span class="who">Verify</span><b>The orchestrator reads the report</b>, never the diff, and re-runs the workload's checks itself against the commit. Evidence and the verdict go to the audit log; a claim in the report that the host contradicts is named.</li>
-    <li><span class="who">Close</span><b>On pass, the branch is merged</b> into the base, the worktree removed, the lease released. On anything else the attempt is recorded as it ended and the unit is blocked.</li>
-    <li><span class="who">Route</span><b>A blocked unit is routed</b> under the versioned recovery policy: the cause is classified from the orchestrator's records first, then S2's signals, then the session's observations; the Nth occurrence takes the Nth action; retry and repair spend attempts and become escalate at the ceiling.</li>
+    <li><span class="who">Verify</span><b>The orchestrator reads the report</b>, never the diff, and re-runs the workload's checks itself against the commit. <button type="button" class="gl" data-term="evidence">Evidence</button> and the <button type="button" class="gl" data-term="verdict">verdict</button> go to the audit log; a claim in the report that the host contradicts is named.</li>
+    <li><span class="who">Close</span><b>On pass, the branch is merged</b> into the base, the worktree removed, the lease released. On anything else the <button type="button" class="gl" data-term="attempt">attempt</button> is recorded as it ended and the unit is blocked.</li>
+    <li><span class="who">Route</span><b>A blocked unit is routed</b> under the versioned recovery policy: the cause is classified from the orchestrator's records first, then S2's signals (an <button type="button" class="gl" data-term="oscillation">oscillation</button>, say), then the session's observations; the Nth occurrence takes the Nth action; retry and repair spend attempts and become escalate at the ceiling.</li>
   </ol>
+</section>
+
+<section id="lifecycle" class="wrap">
+  <div class="kicker">The unit's own states<span class="tick"></span></div>
+  <h2 class="title">The same journey, drawn as a state machine</h2>
+  <p class="lede">The sequence diagram above shows <em>who calls whom, in what order</em>. This is
+    the complementary view: <em>what the unit itself can be</em>, at any moment, and exactly
+    what moves it from one thing to the next. There are only six values a <button type="button" class="gl" data-term="unit">unit</button>'s
+    status field can ever hold — <code>contracted</code>, <code>dispatched</code>,
+    <code>reported</code>, <code>closed</code>, <code>blocked</code>, <code>aborted</code> —
+    defined once in <code>packages/protocol/src/execution.ts</code> and enforced everywhere
+    that reads or writes a unit record. If a status isn't in that list, it isn't a status;
+    it's a bug.</p>
+
+  <figure>
+    <svg viewBox="0 0 1040 560" role="img" aria-label="State diagram of a unit's lifecycle. Contracted moves to dispatched once a lease and worktree exist. Dispatched moves to reported only when report_result is called and the host's own re-check of the checks passes; otherwise dispatched moves directly to blocked, for reasons including no report, invalid report, budget exhausted, an unanswered question (paused), or a check failure. Reported moves to closed when the merge into the base succeeds, or to blocked if reintegration conflicts. From blocked, retry or repair loop back to dispatched for another attempt. Remediate, replan, clarify, pause, and escalate move to a waiting state where an obligation is open and redispatch is refused until a person or S3 dispositions it; from waiting, the disposition either resumes back to dispatched with the decision as a hint, or ends the unit in aborted. Blocked can also go directly to aborted.">
+      <defs>
+        <marker id="ah4" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="currentColor"/></marker>
+        <marker id="ah4-alarm" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="var(--alarm)"/></marker>
+        <marker id="ah4-signal" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="var(--signal)"/></marker>
+      </defs>
+
+      <circle cx="8" cy="140" r="5" fill="currentColor"/>
+      <line x1="13" y1="140" x2="19" y2="140" stroke="currentColor" stroke-width="1.3" marker-end="url(#ah4)"/>
+
+      <rect x="20" y="110" width="150" height="60" rx="6" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
+      <text x="95" y="135" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="13">CONTRACTED</text>
+      <text x="95" y="152" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">checked, recorded</text>
+
+      <rect x="250" y="110" width="160" height="60" rx="6" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.5"/>
+      <text x="330" y="135" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="13" fill="var(--signal-ink)">DISPATCHED</text>
+      <text x="330" y="152" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">lease + worktree + session</text>
+
+      <rect x="490" y="110" width="160" height="60" rx="6" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
+      <text x="570" y="135" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="13">REPORTED</text>
+      <text x="570" y="152" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">checks already passed; merging</text>
+
+      <rect x="730" y="110" width="160" height="60" rx="6" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.5"/>
+      <text x="810" y="133" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="13" fill="var(--signal-ink)">CLOSED</text>
+      <text x="810" y="150" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">terminal · merged, lease gone</text>
+
+      <rect x="400" y="280" width="170" height="60" rx="6" fill="var(--alarm-soft)" stroke="var(--alarm)" stroke-width="1.5"/>
+      <text x="485" y="305" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="13" fill="var(--alarm)">BLOCKED</text>
+      <text x="485" y="322" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-dim)">this attempt didn't close</text>
+
+      <rect x="400" y="410" width="170" height="60" rx="6" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="1.3" stroke-dasharray="4 3"/>
+      <text x="485" y="432" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="12">WAITING</text>
+      <text x="485" y="447" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">an obligation is open</text>
+      <text x="485" y="460" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">on this unit</text>
+
+      <rect x="670" y="410" width="160" height="60" rx="6" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
+      <text x="750" y="433" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="13">ABORTED</text>
+      <text x="750" y="450" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">terminal · lease + worktree gone</text>
+
+      <g font-size="10.5" stroke-width="1.3">
+        <line x1="170" y1="140" x2="248" y2="140" stroke="currentColor" marker-end="url(#ah4)"/>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="209" y="96" text-anchor="middle">startUnit</text>
+
+        <line x1="410" y1="140" x2="488" y2="140" stroke="var(--signal)" marker-end="url(#ah4-signal)"/>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="450" y="90" text-anchor="middle" fill="var(--signal-ink)">report_result,</text>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="450" y="103" text-anchor="middle" fill="var(--signal-ink)">host re-check: pass</text>
+
+        <line x1="650" y1="140" x2="728" y2="140" stroke="var(--signal)" marker-end="url(#ah4-signal)"/>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="689" y="96" text-anchor="middle" fill="var(--signal-ink)">merge succeeds</text>
+
+        <path d="M 340 170 L 460 278" fill="none" stroke="var(--alarm)" marker-end="url(#ah4-alarm)"/>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="330" y="222" text-anchor="start" font-size="9.5" fill="var(--alarm)">no-report · invalid-report</text>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="330" y="236" text-anchor="start" font-size="9.5" fill="var(--alarm)">budget-exhausted · paused</text>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="330" y="250" text-anchor="start" font-size="9.5" fill="var(--alarm)">check-failure</text>
+
+        <path d="M 560 170 L 505 278" fill="none" stroke="var(--alarm)" marker-end="url(#ah4-alarm)"/>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="590" y="225" text-anchor="start" font-size="9.5" fill="var(--alarm)">reintegration conflict</text>
+
+        <path d="M 400 300 C 250 300, 250 200, 302 172" fill="none" stroke="var(--signal)" stroke-dasharray="4 3" marker-end="url(#ah4-signal)"/>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="255" y="255" text-anchor="middle" font-size="9.5" fill="var(--signal-ink)">retry / repair:</text>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="255" y="269" text-anchor="middle" font-size="9.5" fill="var(--signal-ink)">attempt N+1</text>
+
+        <line x1="485" y1="340" x2="485" y2="408" stroke="currentColor" marker-end="url(#ah4)"/>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="500" y="365" text-anchor="start" font-size="9.5">remediate · replan</text>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="500" y="379" text-anchor="start" font-size="9.5">clarify · pause · escalate</text>
+
+        <path d="M 570 320 C 650 320, 650 380, 700 408" fill="none" stroke="currentColor" marker-end="url(#ah4)"/>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="660" y="360" text-anchor="middle" font-size="9.5">abort</text>
+
+        <path d="M 398 425 C 110 425, 110 155, 248 138" fill="none" stroke="var(--signal)" stroke-dasharray="4 3" marker-end="url(#ah4-signal)"/>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="130" y="410" text-anchor="middle" font-size="9.5" fill="var(--signal-ink)">disposition resolves it:</text>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="130" y="424" text-anchor="middle" font-size="9.5" fill="var(--signal-ink)">resume, decision as the hint</text>
+
+        <line x1="570" y1="440" x2="668" y2="440" stroke="currentColor" stroke-dasharray="4 3" marker-end="url(#ah4)"/>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="619" y="430" text-anchor="middle" font-size="9.5">disposition: abort</text>
+      </g>
+    </svg>
+    <figcaption><b>Six states, and every real transition between them.</b> Solid arrows are
+      automatic — the loop takes them on its own. Dashed arrows wait on something outside
+      the loop: a policy decision, a person's answer, or S3 or S5 dispositioning an
+      obligation. Notice what's <em>not</em> here: there is no "in progress" percentage,
+      no "70% done" — a unit is exactly one of these six things, always, and the field
+      that says which one is written by the orchestrator, never inferred from the
+      worktree.</figcaption>
+  </figure>
+
+  <div class="notes">
+    <div class="note"><b>Reported is not "the model finished"</b>By the time a unit's status becomes <code>reported</code>, the host has already re-run every check itself and they already passed — <code>closeVerifiedUnit</code> only sets this status right before attempting the merge. A unit whose checks fail never becomes <code>reported</code> at all; it goes straight from <code>dispatched</code> to <code>blocked</code>.</div>
+    <div class="note"><b>Waiting isn't a sixth status</b>It's <code>blocked</code> plus an open <button type="button" class="gl" data-term="obligation">obligation</button> that vetoes the next dispatch. The schema stays at six values; the veto lives in the obligation ledger, checked fresh on every dispatch attempt.</div>
+    <div class="note alarm"><b>Paused is a special case of blocked</b>When a unit asks a person a blocking question and nobody answers before the session ends, the attempt's outcome is recorded as <code>paused</code> and the unit's status is <code>blocked</code> — with the reason spelled out in plain language, not a code. <code>regulator answer</code> is what turns the obligation from open to resolved and lets the next dispatch through.</div>
+    <div class="note"><b>The full decision logic is next</b>This diagram shows <em>where</em> a blocked unit can go. The <a href="#recovery">recovery section below</a> shows <em>how</em> the choice between retry, repair, remediate, replan, clarify, pause, escalate and abort actually gets made.</div>
+  </div>
+</section>
+
+<section id="workload" class="wrap">
+  <div class="kicker">The first workload<span class="tick"></span></div>
+  <h2 class="title">A software change, phase by phase</h2>
+  <p class="lede">A single unit's lifecycle, drawn above, says nothing about what kind of
+    work it is. That's the <button type="button" class="gl" data-term="workload">workload</button>'s job: it declares the unit <em>types</em> available to a
+    definition, each with its own <button type="button" class="gl" data-term="profile">capability profile</button> and its own closeout checks. This is
+    <code>software-development.json</code>, the first workload the course ships, and the one
+    behind every example on this page — including the <code>fix-known-issue</code> contract
+    in the next section, which is an <code>implement</code> unit.</p>
+
+  <figure>
+    <svg viewBox="0 0 1040 400" role="img" aria-label="Flow diagram of the software-development workload's six unit types. Plan reads the repository and writes contracts, without changing anything. Implement changes source and tests under a contract in an isolated worktree. Verify independently and read-only examines a unit's output against its contract and the project's invariants. Integrate reintegrates a unit's branch into the base and resolves what the harness could not resolve on its own. Close confirms evidence is fresh and obligations are dispositioned. A separate research unit type, read-only, can be dispatched before planning or during implementation to answer one question about the environment; its result is routed into an obligation, not applied directly. If verify finds a problem, that becomes a new implement unit citing the finding, not an automatic retry of the same unit.">
+      <defs>
+        <marker id="ah5" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="currentColor"/></marker>
+        <marker id="ah5-alarm" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="var(--alarm)"/></marker>
+        <marker id="ah5-faint" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="var(--ink-faint)"/></marker>
+      </defs>
+
+      <rect x="250" y="20" width="160" height="56" rx="6" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="1.3" stroke-dasharray="4 3"/>
+      <text x="330" y="43" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="12.5">RESEARCH</text>
+      <text x="330" y="58" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">profile: intelligence · read-only</text>
+      <text x="330" y="98" text-anchor="middle" font-family="var(--mono)" font-size="9.5" fill="var(--ink-dim)">answers one question; routed into an</text>
+      <text x="330" y="111" text-anchor="middle" font-family="var(--mono)" font-size="9.5" fill="var(--ink-dim)">obligation — advice, never a decision</text>
+
+      <rect x="20" y="150" width="140" height="64" rx="6" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
+      <text x="90" y="175" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="13">PLAN</text>
+      <text x="90" y="192" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">profile: research</text>
+      <text x="90" y="204" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">writes contracts</text>
+
+      <rect x="250" y="150" width="160" height="64" rx="6" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.5"/>
+      <text x="330" y="175" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="13" fill="var(--signal-ink)">IMPLEMENT</text>
+      <text x="330" y="192" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">profile: implement</text>
+      <text x="330" y="204" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">changes source + tests</text>
+
+      <rect x="480" y="150" width="140" height="64" rx="6" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
+      <text x="550" y="175" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="13">VERIFY</text>
+      <text x="550" y="192" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">profile: research</text>
+      <text x="550" y="204" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">read-only re-examination</text>
+
+      <rect x="690" y="150" width="160" height="64" rx="6" fill="var(--surface)" stroke="currentColor" stroke-width="1.3"/>
+      <text x="770" y="175" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="13">INTEGRATE</text>
+      <text x="770" y="192" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">profile: implement</text>
+      <text x="770" y="204" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">reintegrates the branch</text>
+
+      <rect x="900" y="150" width="120" height="64" rx="6" fill="var(--surface-2)" stroke="var(--line-strong)" stroke-width="1.3"/>
+      <text x="960" y="175" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="12.5">CLOSE</text>
+      <text x="960" y="192" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">profile: research</text>
+      <text x="960" y="204" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">evidence fresh?</text>
+
+      <g stroke-width="1.3" font-size="10">
+        <path d="M 300 76 C 260 100, 160 120, 105 148" fill="none" stroke="var(--ink-faint)" stroke-dasharray="3 4" marker-end="url(#ah5-faint)"/>
+        <path d="M 330 76 L 330 148" fill="none" stroke="var(--ink-faint)" stroke-dasharray="3 4" marker-end="url(#ah5-faint)"/>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="150" y="130" text-anchor="middle" fill="var(--ink-dim)">before planning, or mid-implementation</text>
+
+        <line x1="160" y1="182" x2="248" y2="182" stroke="currentColor" marker-end="url(#ah5)"/>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="204" y="172" text-anchor="middle">one contract per unit</text>
+
+        <line x1="410" y1="182" x2="478" y2="182" stroke="currentColor" marker-end="url(#ah5)"/>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="444" y="172" text-anchor="middle" font-size="9.5">closes; a second</text>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="444" y="230" text-anchor="middle" font-size="9.5">unit re-examines it</text>
+
+        <line x1="620" y1="182" x2="688" y2="182" stroke="currentColor" marker-end="url(#ah5)"/>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="654" y="172" text-anchor="middle" font-size="9.5">no problems found</text>
+
+        <line x1="850" y1="182" x2="898" y2="182" stroke="currentColor" marker-end="url(#ah5)"/>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="874" y="172" text-anchor="middle" font-size="9.5">merged</text>
+
+        <path d="M 550 214 C 550 300, 330 300, 330 214" fill="none" stroke="var(--alarm)" stroke-dasharray="4 3" marker-end="url(#ah5-alarm)"/>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="440" y="290" text-anchor="middle" font-size="10" fill="var(--alarm)">finds a problem → a new implement unit,</text>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="440" y="304" text-anchor="middle" font-size="10" fill="var(--alarm)">contract citing the finding — not an automatic retry</text>
+      </g>
+    </svg>
+    <figcaption><b>Six unit types, one workload.</b> Every box here still goes through the
+      full six-state lifecycle drawn above, independently — <code>verify</code> can be
+      <code>blocked</code> and routed exactly like <code>implement</code> can. What this
+      diagram adds is the layer above that: which unit type's work becomes which other
+      unit type's contract. Nothing here is enforced as a literal state machine in code —
+      <code>plan</code> and <code>research</code> units decide the next contract, same as a
+      person would — but this is the shape every closed feature in the fixture actually
+      takes.</figcaption>
+  </figure>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Unit type</th><th>Profile</th><th>Needs a contract?</th><th>Checks at closeout</th></tr></thead>
+      <tbody>
+        <tr><td>plan</td><td>research</td><td>no</td><td>—</td></tr>
+        <tr><td>research</td><td>intelligence</td><td>yes</td><td>—</td></tr>
+        <tr><td>implement</td><td>implement</td><td>yes</td><td>run_checks, run_tests, identity-untouched, export-signature, glossary-lint</td></tr>
+        <tr><td>verify</td><td>research</td><td>yes</td><td>run_checks, run_tests, identity-untouched, export-signature, glossary-lint</td></tr>
+        <tr><td>integrate</td><td>implement</td><td>yes</td><td>run_tests, identity-untouched, export-signature, glossary-lint</td></tr>
+        <tr><td>close</td><td>research</td><td>yes</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:13px;color:var(--ink-faint);margin-top:12px;">Straight from
+    <code>course/lab/workload/software-development.json</code>. Note that <code>plan</code>
+    is the one unit type that runs with no contract at all — it's the thing that
+    <em>produces</em> contracts, so there's nothing yet for one to check it against.</p>
 </section>
 
 <section id="contract" class="wrap">
@@ -313,11 +550,11 @@
   "provenance": { "createdBy": "S3", "createdAt": "2026-09-22T00:00:00.000Z" }
 }</pre>
     <div class="notes">
-      <div class="note"><b>version · unitType</b>The store keeps <code>contract.v1.json</code> immutably. The unit type selects the capability profile the session runs under and the checks the orchestrator re-runs at closeout, both from the workload definition — the contract does not name a model or a tool.</div>
+      <div class="note"><b>version · unitType</b>The store keeps <code>contract.v1.json</code> immutably. The unit type selects the <button type="button" class="gl" data-term="profile">capability profile</button> the session runs under and the checks the orchestrator re-runs at closeout, both from the workload definition — the contract does not name a model or a tool.</div>
       <div class="note"><b>fixed</b>Decisions already made, with the authority that made them. The report may not silently deviate: a deviation from a fixed decision must be declared and becomes a blocking signal for S3. <code>f-vendor</code> is also a gate; the contract restates it so the unit knows why the gate refuses.</div>
       <div class="note"><b>delegated</b>Decisions the unit makes, within bounds. The report must say what it chose for each one; a missing choice is refused at the tool and again at close.</div>
       <div class="note alarm"><b>unresolved</b>Decisions nobody has made. The unit may <em>preserve</em> them (leave the behaviour untouched) or <em>surface</em> them (report what it found); there is no <em>settled</em>. A report that omits <code>u-unicode</code> is refused: "settled silently or forgotten".</div>
-      <div class="note"><b>expectedEvidence</b>The criteria the closeout gate binds host-run evidence to, by class. The unit's own <code>run_tests</code> call satisfies the report's shape; only the orchestrator's re-run at the committed revision satisfies the criterion.</div>
+      <div class="note"><b>expectedEvidence</b>The criteria the <button type="button" class="gl" data-term="closeout">closeout gate</button> binds host-run evidence to, by class. The unit's own <code>run_tests</code> call satisfies the report's shape; only the orchestrator's re-run at the committed revision satisfies the criterion.</div>
     </div>
   </div>
 </section>
@@ -537,7 +774,7 @@
       <path d="M 1080 99 L 1092 99 L 1092 30 L 85 30 L 85 188" fill="none" stroke="var(--signal)" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#ah3)"/>
       <text x="588" y="25" text-anchor="middle" font-size="10.5" fill="var(--signal-ink)">runUnit again — attempt N+1, the hint appended to the prompt — then verify; back here if blocked</text>
     </svg>
-    <figcaption><b>The recovery lattice.</b> Classification is a fixed precedence over recorded facts: the orchestrator's own record wins, then what S2 signalled, then what the session observed. Every decision is appended with the policy name and version that produced it, so attempt three can be explained after the policy changes. Only <code>retry</code> and <code>repair</code> re-enter the loop; everything else either waits — as an obligation owed to S3 or a person, which vetoes the unit's dispatch until it is dispositioned — or ends the unit. A unit that asked a person and got no answer never reaches this lattice: its attempt is recorded as <code>paused</code>, the obligation is delivered to the outbox, and <code>regulator answer</code> releases it with the answer as the next hint.</figcaption>
+    <figcaption><b>The recovery lattice.</b> Classification is a fixed precedence over recorded facts: the orchestrator's own record wins, then what <button type="button" class="gl" data-term="s2">S2</button> signalled, then what the session observed. Every decision is appended with the policy name and version that produced it, so attempt three can be explained after the policy changes. Only <code>retry</code> and <code>repair</code> re-enter the loop; everything else either waits — as an <button type="button" class="gl" data-term="obligation">obligation</button> owed to <button type="button" class="gl" data-term="s3">S3</button> or a person, which vetoes the unit's dispatch until it is dispositioned — or ends the unit. <code>escalate</code> is this loop's only path to an <button type="button" class="gl" data-term="algedonic">algedonic signal</button>: it skips the queue entirely and puts the problem in front of <button type="button" class="gl" data-term="s5">S5</button> directly. A unit that asked a person and got no answer never reaches this lattice: its attempt is recorded as <code>paused</code>, the obligation is delivered to the outbox, and <code>regulator answer</code> releases it with the answer as the next hint.</figcaption>
   </figure>
 </section>
 
@@ -604,8 +841,8 @@
     canaries                    values that must never leak</pre>
     <div class="notes">
       <div class="note"><b>Two immutable files per attempt, one mutable</b>The contract and each report are written once with <code>wx</code> and never overwritten; <code>unit.json</code> is the one thing that changes, and it holds only status and the attempt count.</div>
-      <div class="note"><b>Append-only logs, replayable</b>Attempts, observations, decisions, audit entries, signals and effects are NDJSON lines validated on write and on read. <code>regulator unit evidence u1</code> and the control room's inspector are replays of these files; the inspector's replay view lists one unit's records in time order, from the span projection.</div>
-      <div class="note"><b>The read model</b><code>regulator status --definition course/lab --instance &lt;repo&gt;</code> projects the definition (registry, workload, policies, profiles, identity, the eval suite and its committed reports, and each regulator's review date, ablation switch and retirement condition) and the instance (units with contract, report, budget, decisions, verdict and what is owed on them; leases; obligations with their deliveries; interactions — what units asked a person and what came back; memory; unrouted signals; the manifest) — from files only. The control room serves the same view. <code>regulator doctor</code> is the go/no-go over the same files before the first unit and in CI.</div>
+      <div class="note"><b>Append-only logs, replayable</b>Attempts, observations, decisions, audit entries, signals and <button type="button" class="gl" data-term="effectjournal">effects</button> are NDJSON lines validated on write and on read. <code>regulator unit evidence u1</code> and the <button type="button" class="gl" data-term="controlroom">control room</button>'s inspector are replays of these files; the inspector's replay view lists one unit's records in time order, from the span projection.</div>
+      <div class="note"><b>The read model</b><code>regulator status --definition course/lab --instance &lt;repo&gt;</code> projects the definition (registry, workload, policies, profiles, identity, the eval suite and its committed reports, and each regulator's review date, ablation switch and retirement condition) and the instance (units with contract, report, budget, decisions, verdict and what is owed on them; leases; obligations with their deliveries; interactions — what units asked a person and what came back; memory; unrouted signals; the manifest) — from files only, the same shape as the <button type="button" class="gl" data-term="readmodel">read model</button> the control room serves. <code>regulator doctor</code> is the go/no-go over the same files before the first unit and in CI.</div>
       <div class="note alarm"><b>What is not here</b>The transcript: Pi's session file is authoritative for the conversation and the orchestrator never reads it. And any notion of progress derived from the diff.</div>
     </div>
   </div>
@@ -615,12 +852,14 @@
   <div class="foot-row">
     <div class="foot-note">VSM-Pi · how a unit runs, at checkpoint 9.</div>
     <div class="foot-links">
-      <a href="index.html">Overview</a>
+      <a href="product.html">The product</a>
+      <a href="index.html">The course</a>
       <a href="https://github.com/metacoding-io/vsm-pi/blob/main/course/lab/src/controller.ts">controller.ts ↗</a>
       <a href="https://github.com/metacoding-io/vsm-pi/blob/main/course/lab/BOUNDARY.md">BOUNDARY.md ↗</a>
       <a href="https://github.com/metacoding-io/vsm-pi/blob/main/docs/DEBT.md">DEBT.md ↗</a>
     </div>
   </div>
 </footer>
+<script src="glossary.js" defer></script>
 </body>
 </html>

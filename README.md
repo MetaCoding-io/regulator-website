@@ -7,8 +7,9 @@ from GitHub Pages without exposing the source.
 
 ## What's here
 
-Three static pages under [`site/`](site/), no build step — see [`site/README.md`](site/README.md)
-for what each one covers.
+Four static pages under [`site/`](site/), no build step — see [`site/README.md`](site/README.md)
+for what each one covers. [`site/v1/`](site/v1/) is a frozen archive of the previous
+version of the site, kept live at `/v1/` with a banner back to the current pages.
 
 ## Publishing
 
