@@ -1,5 +1,5 @@
 /*
- * Shared light/dark toggle for the VSM-Pi site.
+ * Shared light/dark toggle for the regulator site.
  * The early inline snippet in <head> (theme-init) sets data-theme from
  * localStorage before first paint, so there's no flash of the wrong theme.
  * This file just wires up the button: what it shows, and what a click does.

@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <script>(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>VSM-Pi</title>
-<meta name="description" content="VSM-Pi's control plane: the Viable System Model as a harness architecture, its own orchestrator, the mechanism hierarchy, and the control room over the result.">
+<title>regulator</title>
+<meta name="description" content="regulator's control plane: the Viable System Model as a harness architecture, its own orchestrator, the mechanism hierarchy, and the control room over the result.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -286,7 +286,7 @@
 <header class="hero wrap">
   <div class="hero-eyebrow">The product behind the course</div>
   <h1>Cybernetic control<br>for <span class="accent">agentic</span> software.</h1>
-  <p class="tag">VSM-Pi asks whether Stafford Beer's <button type="button" class="gl" data-term="vsm">Viable System Model</button> can run inside an
+  <p class="tag">regulator asks whether Stafford Beer's <button type="button" class="gl" data-term="vsm">Viable System Model</button> can run inside an
     autonomous coding agent — not as five chatbot personas, but as explicit functions,
     authority boundaries, typed channels, verification gates, and feedback loops. It ships
     its own <button type="button" class="gl" data-term="orchestrator">orchestrator</button> to find out. <a href="index.html">Viable Agents</a>,
@@ -305,7 +305,7 @@
   <div class="vocab">
     <div class="vocab-head">
       <span class="vocab-title">Vocabulary — worth knowing before you scroll</span>
-      <a class="vocab-more" href="https://github.com/MetaCoding-io/vsm-pi/blob/main/course/GLOSSARY.md" target="_blank" rel="noopener">Full glossary ↗</a>
+      <a class="vocab-more" href="https://github.com/MetaCoding-io/regulator/blob/main/course/GLOSSARY.md" target="_blank" rel="noopener">Full glossary ↗</a>
     </div>
     <dl class="vocab-grid">
       <dt>orchestrator</dt><dd>The control loop that dispatches work and checks it — it never edits code itself.</dd>
@@ -320,7 +320,7 @@
 
 <section id="architecture" class="wrap">
   <div class="kicker">Architecture<span class="tick"></span></div>
-  <h2 class="title">VSM-Pi</h2>
+  <h2 class="title">regulator</h2>
   <p class="lede">A coding-agent harness built on <a href="https://pi.dev/">Pi</a>, with a
     typed VSM control plane layered on top of it — designed against one recurring failure
     mode of autonomous agents: architectural drift that outruns anyone's ability to review it.</p>
@@ -429,7 +429,7 @@
   <h3 class="sub">Where each function lives today</h3>
   <div class="tbl-wrap">
     <table>
-      <thead><tr><th>Name</th><th>Function</th><th>Initial VSM-Pi interpretation</th></tr></thead>
+      <thead><tr><th>Name</th><th>Function</th><th>regulator's interpretation</th></tr></thead>
       <tbody>
         <tr><td class="fn">S1 — Operations</td><td>The units that do the actual work, touching the world directly.</td><td>Coding, data, UI, infrastructure, migration, and integration capability profiles — any domain a workload declares, not only software.</td></tr>
         <tr><td class="fn">S2 — Coordination</td><td>Keeps operations from colliding with or thrashing against each other.</td><td>Tool contracts, worktree isolation, leases with liveness, reintegration, anti-oscillation mechanisms</td></tr>
@@ -466,17 +466,20 @@
                   check, registry check + REGULATORS.md / BOUNDARY.md
   checks/         deterministic S3* checks: host-run verification
                   bound to a revision, the technical verdict
-  pi-extension/   Pi lifecycle integration, S5 write gate, typed
-                  proposal / audit-finding / uncertainty tools
+  regulator/      the control plane: the `regulator` CLI, the S3 loop,
+                  the stores, the host seam, and the definition —
+                  registry (43 records), identity, profiles, policies,
+                  workloads, the drift eval suite and its committed
+                  reports; OPERATING.md says who runs what
+  regulator-pi/   the Pi host: the eleven session extensions, the
+                  dispatcher, the S5 write gate, typed proposal /
+                  audit-finding / uncertainty tools; `pi install`
   cli/            `regulator status`: the read model over a
                   definition and an instance
   control-room/   read-only page over the read model
 
-<b>course/lab/</b>       reference build — checkpoints 0–14, three fixtures,
-                  the registry (43 records), identity, profiles, policies,
-                  the drift eval suite and its committed reports,
-                  workload, the `regulator` CLI; installs as a pi
-                  package, OPERATING.md says who runs what
+<b>course/lab/</b>       the course's own two early checkpoints and the
+                  drill scripts; the lessons cite packages/regulator
 <b>course/modules/</b>   lessons 01–15, written
 <b>docs/</b>             architecture, roadmap, design notes, DEBT.md
 <b>vsm/</b>               committed S5 artifacts for this repo itself</pre>
@@ -487,7 +490,7 @@
 <section id="mechanism" class="wrap">
   <div class="kicker">Mechanism hierarchy<span class="tick"></span></div>
   <h2 class="title">Prefer the mechanism that survives adversarial pressure</h2>
-  <p class="lede">When adding a feature to the harness, VSM-Pi walks this ladder from the
+  <p class="lede">When adding a feature to the harness, regulator walks this ladder from the
     top down — reach for the highest level that can actually do the job, and only fall
     further down when it can't. If you can write the check, don't write the paragraph.</p>
   <div class="ladder">
@@ -504,9 +507,10 @@
   <h2 class="title">A small loop, purpose-built for regulation</h2>
   <p class="lede">The orchestrator is nothing but the S3 loop — contract → dispatch →
     verify → route → close — generic over workloads, with leases, budgets and attempts as
-    immutable records. Ten checkpoints built it directly on bare Pi: gates, effects,
+    immutable records. It was built directly on bare Pi, one module per lesson: gates, effects,
     profiles, leases, contracts, budgets, recovery, audit and authority, with no workflow
-    engine underneath it. Workload-specific concerns stay out of the loop entirely,
+    engine underneath it. The Pi-specific half lives in its own package, <code>regulator-pi</code>,
+    behind a host seam: the control plane never imports a host, it resolves one by name. Workload-specific concerns stay out of the loop entirely,
     declared instead in a workload definition — which is what keeps the loop itself small
     enough to read in one sitting. <a href="how-it-works.html">How a unit runs through the
     loop</a> is drawn out on its own page.</p>
@@ -516,7 +520,7 @@
       <h3 style="font-size:14px;margin:0 0 10px;">The orchestrator, sized</h3>
       <p style="font-size:13.5px;color:var(--ink-dim);margin:0 0 12px;">Nothing but the S3
         loop, generic over <button type="button" class="gl" data-term="workload">workloads</button>, with <button type="button" class="gl" data-term="lease">leases</button>, budgets, and <button type="button" class="gl" data-term="attempt">attempts</button> as immutable records.
-        All five stages exist in <code>course/lab/src/controller.ts</code>:</p>
+        All five stages exist in <code>packages/regulator/src/controller.ts</code>:</p>
       <div class="diagram-shell" style="padding:16px;">
         <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-family:var(--mono);font-size:12.5px;">
           <span class="pill written" style="border-radius:6px;">contract</span>
@@ -608,7 +612,7 @@
     <div><b style="color:var(--ink);"><code>--by</code> is asserted, not authenticated.</b> Disposition authority checks whether the named person may decide, not that the caller is that person; authentication is the deployment's to add.</div>
   </div>
   <div class="cards">
-    <div class="card"><div class="k">0–14</div><div class="l">Lab checkpoints built, each a loadable Pi extension tested without a model, under CI on two Node versions</div></div>
+    <div class="card"><div class="k">2</div><div class="l">Packages: <code>@metacoding/regulator</code>, the control plane, and <code>@metacoding/regulator-pi</code>, the Pi host — 0.1.0, Apache-2.0, tested without a model under CI on two Node versions</div></div>
     <div class="card"><div class="k">43</div><div class="l">Regulators in the <button type="button" class="gl" data-term="registryterm">registry</button>, each with a stated limitation, an ablation switch and a retirement condition; <code>REGULATORS.md</code> and <code>BOUNDARY.md</code> generated from the records</div></div>
     <div class="card"><div class="k">15 / 15</div><div class="l">Lessons written end to end; the capstone viability case is specified and its rubric awaits calibration</div></div>
   </div>
@@ -616,11 +620,11 @@
 
 <footer class="wrap">
   <div class="foot-row">
-    <div class="foot-note">VSM-Pi · the control plane behind the course.</div>
+    <div class="foot-note">regulator · the control plane behind the course. Formerly VSM-Pi.</div>
     <div class="foot-links">
       <a href="index.html">The course</a>
       <a href="how-it-works.html">How it works</a>
-      <a href="https://github.com/metacoding-io/vsm-pi">Repository ↗</a>
+      <a href="https://github.com/MetaCoding-io/regulator">Repository ↗</a>
       <a href="https://pi.dev/">Pi ↗</a>
     </div>
   </div>

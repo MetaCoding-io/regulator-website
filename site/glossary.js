@@ -1,15 +1,15 @@
 /*
- * Shared vocabulary tooltips for the VSM-Pi site.
+ * Shared vocabulary tooltips for the regulator site.
  * Tap-to-toggle by default (works on touch and desktop alike), with a
  * hover preview added only on pointers that actually support hover, so
  * mobile never depends on a hover state that can't exist there.
  *
  * Markup: <button type="button" class="gl" data-term="obligation">obligation</button>
- * Full glossary: https://github.com/MetaCoding-io/vsm-pi/blob/main/course/GLOSSARY.md
+ * Full glossary: https://github.com/MetaCoding-io/regulator/blob/main/docs/GLOSSARY.md
  */
 (function () {
-  var GLOSSARY = "https://github.com/MetaCoding-io/vsm-pi/blob/main/course/GLOSSARY.md";
-  var REGISTRY_DOC = "https://github.com/MetaCoding-io/vsm-pi/blob/main/course/CONTROL-REGISTRY.md";
+  var GLOSSARY = "https://github.com/MetaCoding-io/regulator/blob/main/docs/GLOSSARY.md";
+  var REGISTRY_DOC = "https://github.com/MetaCoding-io/regulator/blob/main/docs/archive/2026-09/CONTROL-REGISTRY.md";
 
   // term id -> { label: shown in the popover title (defaults to the button's own text),
   //              def: one plain sentence, href: link for "Full glossary entry ->" }
@@ -17,7 +17,7 @@
     vsm: { label: "Viable System Model (VSM)", href: GLOSSARY + "#L8",
       def: "Stafford Beer's theory of the functions any system needs to stay viable: five operational functions (S1–S5) plus an independent audit function (S3*)." },
     regulator: { label: "regulator (the word)", href: GLOSSARY + "#L16",
-      def: "In cybernetics, anything that keeps a system inside acceptable bounds — a gate, a check, a policy. VSM-Pi's own CLI is also literally named regulator; same word, two senses, on purpose." },
+      def: "In cybernetics, anything that keeps a system inside acceptable bounds — a gate, a check, a policy. The product's CLI is also literally named regulator; same word, two senses, on purpose." },
     algedonic: { label: "algedonic signal", href: GLOSSARY + "#L20",
       def: "An alert that skips the normal chain of command — Beer's term, literally “pain/pleasure.” Reserved for when a person must be interrupted now, not routed and queued." },
     s1: { label: "S1 — Operations", href: GLOSSARY + "#L26",

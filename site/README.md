@@ -5,7 +5,7 @@ static files.
 
 - `index.html` — the course sales page: Viable Agents, why cybernetics, who it's for, the
   full syllabus, and the reference build (`regulator`) it's built against.
-- `product.html` — the product page: VSM-Pi's architecture, the mechanism hierarchy, the
+- `product.html` — the product page: regulator's architecture, the mechanism hierarchy, the
   orchestrator, build status, and the control room.
 - `personal-finance.html` — the worked example, written as a followable tutorial: a goal
   outside software (agents that manage a household's finances) designed as a control
@@ -19,7 +19,7 @@ static files.
   directory contains.
 - `glossary.css` / `glossary.js` — the shared tap-to-toggle (with hover on desktop)
   vocabulary tooltip component all four pages use, sourced from
-  [`course/GLOSSARY.md`](https://github.com/MetaCoding-io/vsm-pi/blob/main/course/GLOSSARY.md).
+  [`course/GLOSSARY.md`](https://github.com/MetaCoding-io/regulator/blob/main/course/GLOSSARY.md).
 - `img/control-room/` — screenshots of `packages/control-room` over three instances (the
   ledger after its scripted August close, the drift scenario run by the drifter, and the
   fixture-repo close on the how-it-works page); retake them when the page changes.
