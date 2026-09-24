@@ -305,7 +305,7 @@
   <div class="vocab">
     <div class="vocab-head">
       <span class="vocab-title">Vocabulary — worth knowing before you scroll</span>
-      <a class="vocab-more" href="https://github.com/MetaCoding-io/vsm-pi/blob/main/course/GLOSSARY.md" target="_blank" rel="noopener">Full glossary ↗</a>
+      <a class="vocab-more" href="https://github.com/MetaCoding-io/regulator/blob/main/course/GLOSSARY.md" target="_blank" rel="noopener">Full glossary ↗</a>
     </div>
     <dl class="vocab-grid">
       <dt>orchestrator</dt><dd>The control loop that dispatches work and checks it — it never edits code itself.</dd>
@@ -466,17 +466,20 @@
                   check, registry check + REGULATORS.md / BOUNDARY.md
   checks/         deterministic S3* checks: host-run verification
                   bound to a revision, the technical verdict
-  pi-extension/   Pi lifecycle integration, S5 write gate, typed
-                  proposal / audit-finding / uncertainty tools
+  regulator/      the control plane: the `regulator` CLI, the S3 loop,
+                  the stores, the host seam, and the definition —
+                  registry (43 records), identity, profiles, policies,
+                  workloads, the drift eval suite and its committed
+                  reports; OPERATING.md says who runs what
+  regulator-pi/   the Pi host: the eleven session extensions, the
+                  dispatcher, the S5 write gate, typed proposal /
+                  audit-finding / uncertainty tools; `pi install`
   cli/            `regulator status`: the read model over a
                   definition and an instance
   control-room/   read-only page over the read model
 
-<b>course/lab/</b>       reference build — checkpoints 0–14, three fixtures,
-                  the registry (43 records), identity, profiles, policies,
-                  the drift eval suite and its committed reports,
-                  workload, the `regulator` CLI; installs as a pi
-                  package, OPERATING.md says who runs what
+<b>course/lab/</b>       the course's own two early checkpoints and the
+                  drill scripts; the lessons cite packages/regulator
 <b>course/modules/</b>   lessons 01–15, written
 <b>docs/</b>             architecture, roadmap, design notes, DEBT.md
 <b>vsm/</b>               committed S5 artifacts for this repo itself</pre>
@@ -504,9 +507,10 @@
   <h2 class="title">A small loop, purpose-built for regulation</h2>
   <p class="lede">The orchestrator is nothing but the S3 loop — contract → dispatch →
     verify → route → close — generic over workloads, with leases, budgets and attempts as
-    immutable records. Ten checkpoints built it directly on bare Pi: gates, effects,
+    immutable records. It was built directly on bare Pi, one module per lesson: gates, effects,
     profiles, leases, contracts, budgets, recovery, audit and authority, with no workflow
-    engine underneath it. Workload-specific concerns stay out of the loop entirely,
+    engine underneath it. The Pi-specific half lives in its own package, <code>regulator-pi</code>,
+    behind a host seam: the control plane never imports a host, it resolves one by name. Workload-specific concerns stay out of the loop entirely,
     declared instead in a workload definition — which is what keeps the loop itself small
     enough to read in one sitting. <a href="how-it-works.html">How a unit runs through the
     loop</a> is drawn out on its own page.</p>
@@ -516,7 +520,7 @@
       <h3 style="font-size:14px;margin:0 0 10px;">The orchestrator, sized</h3>
       <p style="font-size:13.5px;color:var(--ink-dim);margin:0 0 12px;">Nothing but the S3
         loop, generic over <button type="button" class="gl" data-term="workload">workloads</button>, with <button type="button" class="gl" data-term="lease">leases</button>, budgets, and <button type="button" class="gl" data-term="attempt">attempts</button> as immutable records.
-        All five stages exist in <code>course/lab/src/controller.ts</code>:</p>
+        All five stages exist in <code>packages/regulator/src/controller.ts</code>:</p>
       <div class="diagram-shell" style="padding:16px;">
         <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-family:var(--mono);font-size:12.5px;">
           <span class="pill written" style="border-radius:6px;">contract</span>
@@ -608,7 +612,7 @@
     <div><b style="color:var(--ink);"><code>--by</code> is asserted, not authenticated.</b> Disposition authority checks whether the named person may decide, not that the caller is that person; authentication is the deployment's to add.</div>
   </div>
   <div class="cards">
-    <div class="card"><div class="k">0–14</div><div class="l">Lab checkpoints built, each a loadable Pi extension tested without a model, under CI on two Node versions</div></div>
+    <div class="card"><div class="k">2</div><div class="l">Packages: <code>@metacoding/regulator</code>, the control plane, and <code>@metacoding/regulator-pi</code>, the Pi host — 0.1.0, Apache-2.0, tested without a model under CI on two Node versions</div></div>
     <div class="card"><div class="k">43</div><div class="l">Regulators in the <button type="button" class="gl" data-term="registryterm">registry</button>, each with a stated limitation, an ablation switch and a retirement condition; <code>REGULATORS.md</code> and <code>BOUNDARY.md</code> generated from the records</div></div>
     <div class="card"><div class="k">15 / 15</div><div class="l">Lessons written end to end; the capstone viability case is specified and its rubric awaits calibration</div></div>
   </div>
@@ -620,7 +624,7 @@
     <div class="foot-links">
       <a href="index.html">The course</a>
       <a href="how-it-works.html">How it works</a>
-      <a href="https://github.com/metacoding-io/vsm-pi">Repository ↗</a>
+      <a href="https://github.com/MetaCoding-io/regulator">Repository ↗</a>
       <a href="https://pi.dev/">Pi ↗</a>
     </div>
   </div>

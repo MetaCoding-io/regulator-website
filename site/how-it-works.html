@@ -134,7 +134,7 @@
   <p class="tag">The <button type="button" class="gl" data-term="orchestrator">orchestrator</button> never touches the code. It writes a contract, hands a
     session a worktree, reads the report the session wrote, re-runs the checks itself
     against the commit, and merges or routes. Everything on this page is what
-    <code>course/lab/src/controller.ts</code> and checkpoints 2–9 actually do; nothing is
+    <code>packages/regulator/src/controller.ts</code> and the Pi host's session extensions actually do; nothing is
     aspirational.</p>
   <p class="tag">This page runs deeper than the others on purpose. Where the product and
     course pages summarize, this one shows the actual sequence diagram, two state
@@ -146,7 +146,7 @@
   <div class="vocab">
     <div class="vocab-head">
       <span class="vocab-title">Vocabulary — for this page specifically</span>
-      <a class="vocab-more" href="https://github.com/MetaCoding-io/vsm-pi/blob/main/course/GLOSSARY.md" target="_blank" rel="noopener">Full glossary ↗</a>
+      <a class="vocab-more" href="https://github.com/MetaCoding-io/regulator/blob/main/course/GLOSSARY.md" target="_blank" rel="noopener">Full glossary ↗</a>
     </div>
     <dl class="vocab-grid">
       <dt>unit</dt><dd>The smallest piece of dispatched work — one contract, one session, one verdict.</dd>
@@ -169,7 +169,7 @@
   <div class="kicker">The loop<span class="tick"></span></div>
   <h2 class="title">Orchestrator, session, worktree, stores</h2>
   <p class="lede">Five participants. The orchestrator is the S3 loop in the base checkout.
-    The session is Pi with the checkpoints loaded, running in a git worktree that belongs to
+    The session is Pi with the host's extensions loaded, running in a git worktree that belongs to
     exactly one unit. The domain — the repository — is on the far right and is only ever
     read as a domain: never as state.</p>
 
@@ -189,7 +189,7 @@
         <text x="330" y="46" font-size="10" font-weight="400" fill="var(--ink-faint)">.regulator/units/u1/</text>
         <rect x="475" y="14" width="150" height="40" rx="4" fill="var(--signal-soft)" stroke="var(--signal)" stroke-width="1.4"/>
         <text x="550" y="31" fill="var(--signal-ink)">SESSION</text>
-        <text x="550" y="46" font-size="10" font-weight="400" fill="var(--ink-faint)">Pi + checkpoints 2–9</text>
+        <text x="550" y="46" font-size="10" font-weight="400" fill="var(--ink-faint)">Pi + regulator-pi</text>
         <rect x="695" y="14" width="150" height="40" rx="4" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
         <text x="770" y="31">WORKTREE</text>
         <text x="770" y="46" font-size="10" font-weight="400" fill="var(--ink-faint)">branch unit/u1</text>
@@ -501,7 +501,7 @@
     </table>
   </div>
   <p style="font-size:13px;color:var(--ink-faint);margin-top:12px;">Straight from
-    <code>course/lab/workload/software-development.json</code>. Note that <code>plan</code>
+    <code>packages/regulator/workload/software-development.json</code>. Note that <code>plan</code>
     is the one unit type that runs with no contract at all — it's the thing that
     <em>produces</em> contracts, so there's nothing yet for one to check it against.</p>
 </section>
@@ -509,7 +509,7 @@
 <section id="contract" class="wrap">
   <div class="kicker">A work contract<span class="tick"></span></div>
   <h2 class="title">What a unit is authorized to decide</h2>
-  <p class="lede">This is the real first contract from the lab, <code>course/lab/contracts/fix-known-issue.json</code>,
+  <p class="lede">This is the real first contract from the lab, <code>packages/regulator/contracts/fix-known-issue.json</code>,
     unchanged. A contract is not a task description: it allocates decisions. Some are fixed
     before the unit runs, some are delegated within bounds, and some are explicitly nobody's
     yet — and the report is refused if it settles one of those.</p>
@@ -851,7 +851,7 @@
     <div class="notes">
       <div class="note"><b>Two immutable files per attempt, one mutable</b>The contract and each report are written once with <code>wx</code> and never overwritten; <code>unit.json</code> is the one thing that changes, and it holds only status and the attempt count.</div>
       <div class="note"><b>Append-only logs, replayable</b>Attempts, observations, decisions, audit entries, signals and <button type="button" class="gl" data-term="effectjournal">effects</button> are NDJSON lines validated on write and on read. <code>regulator unit evidence u1</code> and the <button type="button" class="gl" data-term="controlroom">control room</button>'s inspector are replays of these files; the inspector's replay view lists one unit's records in time order, from the span projection.</div>
-      <div class="note"><b>The read model</b><code>regulator status --definition course/lab --instance &lt;repo&gt;</code> projects the definition (registry, workload, policies, profiles, identity, the eval suite and its committed reports, and each regulator's review date, ablation switch and retirement condition) and the instance (units with contract, report, budget, decisions, verdict and what is owed on them; leases; obligations with their deliveries; interactions — what units asked a person and what came back; memory; unrouted signals; the manifest) — from files only, the same shape as the <button type="button" class="gl" data-term="readmodel">read model</button> the control room serves. <code>regulator doctor</code> is the go/no-go over the same files before the first unit and in CI.</div>
+      <div class="note"><b>The read model</b><code>regulator status --definition packages/regulator --instance &lt;repo&gt;</code> projects the definition (registry, workload, policies, profiles, identity, the eval suite and its committed reports, and each regulator's review date, ablation switch and retirement condition) and the instance (units with contract, report, budget, decisions, verdict and what is owed on them; leases; obligations with their deliveries; interactions — what units asked a person and what came back; memory; unrouted signals; the manifest) — from files only, the same shape as the <button type="button" class="gl" data-term="readmodel">read model</button> the control room serves. <code>regulator doctor</code> is the go/no-go over the same files before the first unit and in CI.</div>
       <div class="note alarm"><b>What is not here</b>The transcript: Pi's session file is authoritative for the conversation and the orchestrator never reads it. And any notion of progress derived from the diff.</div>
     </div>
   </div>
@@ -863,9 +863,9 @@
     <div class="foot-links">
       <a href="product.html">The product</a>
       <a href="index.html">The course</a>
-      <a href="https://github.com/metacoding-io/vsm-pi/blob/main/course/lab/src/controller.ts">controller.ts ↗</a>
-      <a href="https://github.com/metacoding-io/vsm-pi/blob/main/course/lab/BOUNDARY.md">BOUNDARY.md ↗</a>
-      <a href="https://github.com/metacoding-io/vsm-pi/blob/main/docs/DEBT.md">DEBT.md ↗</a>
+      <a href="https://github.com/MetaCoding-io/regulator/blob/main/packages/regulator/src/controller.ts">controller.ts ↗</a>
+      <a href="https://github.com/MetaCoding-io/regulator/blob/main/packages/regulator/BOUNDARY.md">BOUNDARY.md ↗</a>
+      <a href="https://github.com/MetaCoding-io/regulator/blob/main/docs/DEBT.md">DEBT.md ↗</a>
     </div>
   </div>
 </footer>

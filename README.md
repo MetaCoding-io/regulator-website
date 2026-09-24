@@ -1,7 +1,7 @@
 # vsm-pi-website
 
 The public landing pages for VSM-Pi and its course, Viable Agents. The
-[VSM-Pi](https://github.com/MetaCoding-io/vsm-pi) repository itself is private; this repo
+[VSM-Pi](https://github.com/MetaCoding-io/regulator) repository itself is private; this repo
 exists so the pitch, the control model, and the course syllabus can be public and served
 from GitHub Pages without exposing the source.
 
