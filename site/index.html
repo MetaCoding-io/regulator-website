@@ -364,7 +364,10 @@
   <h2 class="title">Full syllabus — 15 modules, six parts</h2>
   <p class="lede">Every module is a fixed unit: question → concept → Pi mechanism → build
     step → break it → field study → checkpoint. Modules 01–15 are written end to end in
-    <code>course/modules/</code>; the capstone is specified in <code>course/ASSESSMENT.md</code>.</p>
+    <code>course/modules/</code>; the capstone is specified in <code>course/ASSESSMENT.md</code>,
+    and <code>course/PATHOLOGIES.md</code> catalogs the ways a viable system fails as a whole —
+    structural, functional, channel, and the agent-specific rows — each mapped to the regulator
+    that absorbs it, the fixture that reproduces it, and what nothing absorbs yet.</p>
 
   <div class="part">
     <div class="part-head"><span class="part-num">PART&nbsp;0</span><span class="part-name">Framing</span></div>
@@ -461,8 +464,8 @@
         <div class="num">09</div>
         <div class="body"><div class="name">Evidence, not claims</div>
           <div class="q">How do I know the work is done?</div>
-          <div class="desc">Build the closeout gate that never takes a unit's word for its own success. It re-runs the checks itself, against the exact commit, and produces a technical verdict that no amount of confident prose in the report can talk its way past.</div>
-          <div class="surface">tool_call / tool_result hooks · host-run checks · the closeout gate</div></div>
+          <div class="desc">Build the closeout gate that never takes a unit's word for its own success. It re-runs the checks itself, against the exact commit, and produces a technical verdict that no amount of confident prose in the report can talk its way past — and judges the unit by the test suite it inherited, so a failing test can't be made to pass by deleting it.</div>
+          <div class="surface">tool_call / tool_result hooks · host-run checks · the closeout gate · inherited-tests</div></div>
         <div class="pill written">Written</div>
       </div>
       <div class="mod written">
@@ -531,8 +534,13 @@
   <div class="capstone">
     <div class="name">CAPSTONE — THE VIABILITY CASE</div>
     <p>Present the finished harness as a control system, not a feature demo: a system map,
-      a channel table, a mechanism ledger, an enforcement-boundary statement, evidence, and
-      — graded like everything else — the residual uncertainty that's still unresolved.</p>
+      a channel table, a mechanism ledger, an enforcement-boundary statement, evidence,
+      the residual uncertainty that's still unresolved, and a boundary critique — who may
+      amend the system's purpose, who is affected but cannot challenge it, what its metrics
+      conceal, and when the system itself should be retired. The harness you present has
+      to have survived one run in which the regulatory machinery itself failed, not only
+      its executor; and the crit attacks from the course's catalog of pathologies, the
+      ways a viable system fails as a whole.</p>
   </div>
 </section>
 
@@ -546,7 +554,7 @@
     the same way, one checkpoint per lesson.</p>
   <div class="cards">
     <div class="card"><div class="k">0–14</div><div class="l">Lab checkpoints already built and tested — the exact path the course walks you through</div></div>
-    <div class="card"><div class="k">42</div><div class="l">Regulators in the registry, each with a stated limitation, an ablation switch and a retirement condition</div></div>
+    <div class="card"><div class="k">43</div><div class="l">Regulators in the registry, each with a stated limitation, an ablation switch and a retirement condition</div></div>
     <div class="card"><div class="k">15 / 15</div><div class="l">Lessons written end to end — nothing in the syllabus above is a placeholder</div></div>
   </div>
   <p style="font-size:13.5px;color:var(--ink-dim);margin-top:18px;">The full architecture —
