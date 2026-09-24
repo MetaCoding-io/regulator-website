@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Worked example: a household ledger</title>
 <meta name="description" content="A goal outside software — an agent system that manages a household's finances — designed as a control system first, then declared and run under VSM-Pi's regulator, with the control room over the result.">
@@ -46,7 +47,14 @@
   code,.mono{font-family:var(--mono);}
   code{font-size:.92em;}
   nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
-  .navrow{display:flex;align-items:center;gap:24px;padding-block:12px;overflow-x:auto;}
+  .navrow{display:flex;align-items:center;gap:24px;padding-block:12px;padding-right:44px;overflow-x:auto;}
+  .theme-toggle{
+    position:absolute;right:16px;top:50%;transform:translateY(-50%);
+    width:28px;height:28px;display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--line-strong);border-radius:50%;background:var(--surface);
+    color:var(--ink-dim);font-size:13px;line-height:1;cursor:pointer;padding:0;
+  }
+  .theme-toggle:hover{border-color:var(--signal);color:var(--signal-ink);}
   .navmark{font-family:var(--mono);font-weight:700;font-size:14px;letter-spacing:.02em;white-space:nowrap;display:flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink);}
   .navmark .dot{width:7px;height:7px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 3px var(--signal-soft);}
   .navlinks{display:flex;gap:18px;font-family:var(--mono);font-size:12.5px;white-space:nowrap;}
@@ -147,6 +155,7 @@
       <a href="index.html">The course ↗</a>
     </div>
   </div>
+  <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme">☾</button>
 </nav>
 
 <header class="hero wrap">
@@ -508,6 +517,7 @@ node packages/control-room/dist/cli.js --definition course/lab --instance ~/ledg
     </div>
   </div>
 </footer>
+<script src="theme.js" defer></script>
 <script src="glossary.js" defer></script>
 </body>
 </html>
