@@ -1,15 +1,18 @@
-# vsm-pi-website
+# regulator-website
 
-The public landing pages for VSM-Pi and its course, Viable Agents. The
-[VSM-Pi](https://github.com/MetaCoding-io/regulator) repository itself is private; this repo
-exists so the pitch, the control model, and the course syllabus can be public and served
-from GitHub Pages without exposing the source.
+The public landing pages for [regulator](https://github.com/MetaCoding-io/regulator) —
+a coding-agent harness with an explicit cybernetic control plane — and its course,
+[Viable Agents](https://github.com/MetaCoding-io/viable-agents-course). Served from
+GitHub Pages; no build step.
 
 ## What's here
 
-Four static pages under [`site/`](site/), no build step — see [`site/README.md`](site/README.md)
-for what each one covers. [`site/v1/`](site/v1/) is a frozen archive of the previous
-version of the site, kept live at `/v1/` with a banner back to the current pages.
+Four static pages under [`site/`](site/) — see [`site/README.md`](site/README.md) for
+what each one covers: the course page, the product page, the worked example (a
+household ledger under the same control plane), and how one unit of work runs.
+[`site/v1/`](site/v1/) is a frozen archive of the previous version of the site, kept
+live at `/v1/` with a banner back to the current pages; it still carries the project's
+former name, VSM-Pi.
 
 ## Publishing
 
@@ -23,7 +26,8 @@ One-time repo setting (not something a workflow can do): under **Settings → Pa
 
 ## Keeping this in sync
 
-These pages are hand-maintained snapshots, copied over from `site/` in the (private)
-`vsm-pi` repo when it changes in a way that affects what these pages state as fact
-(checkpoint status, package promotions, lessons written, registry count). There is no
-automation syncing the two repos today.
+These pages are hand-maintained. Update them when the product repository changes in a
+way a page states as fact — the package layout, the registry count, what ships — and
+retake the control-room screenshots under `site/img/control-room/` when the control room
+changes. The product's own documentation site is the reference; these pages are the
+pitch.
