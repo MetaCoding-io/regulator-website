@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Viable Agents</title>
 <meta name="description" content="Build your own agent harness. Viable Agents is a course on cybernetic control for autonomous agents, built lesson by lesson against VSM-Pi's reference build.">
@@ -97,8 +98,16 @@
     align-items:center;
     gap:24px;
     padding-block:12px;
+    padding-right:44px;
     overflow-x:auto;
   }
+  .theme-toggle{
+    position:absolute;right:16px;top:50%;transform:translateY(-50%);
+    width:28px;height:28px;display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--line-strong);border-radius:50%;background:var(--surface);
+    color:var(--ink-dim);font-size:13px;line-height:1;cursor:pointer;padding:0;
+  }
+  .theme-toggle:hover{border-color:var(--signal);color:var(--signal-ink);}
   .navmark{
     font-family:var(--mono);
     font-weight:700;
@@ -272,6 +281,7 @@
       <a href="personal-finance.html">Worked example ↗</a>
     </div>
   </div>
+  <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme">☾</button>
 </nav>
 
 <header class="hero wrap">
@@ -560,6 +570,7 @@
     </div>
   </div>
 </footer>
+<script src="theme.js" defer></script>
 <script src="glossary.js" defer></script>
 </body>
 </html>
