@@ -4,10 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Viable Agents</title>
-<meta name="description" content="VSM-Pi is a cybernetic control plane for agentic software development, and Viable Agents is the course that builds it lesson by lesson.">
+<meta name="description" content="Build your own agent harness. Viable Agents is a course on cybernetic control for autonomous agents, built lesson by lesson against VSM-Pi's reference build.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="glossary.css">
 <style>
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -74,7 +75,7 @@
     -webkit-font-smoothing:antialiased;
   }
   .wrap{
-    max-width:980px;
+    max-width:1120px;
     margin:0 auto;
     padding-inline:20px;
   }
@@ -114,8 +115,7 @@
   .navlinks a:hover{color:var(--signal-ink);}
 
   /* ---- section scaffolding ---- */
-  section{padding-block:56px;border-bottom:1px solid var(--line);}
-  section:last-of-type{border-bottom:none;}
+  section{padding-block:30px;}
   .kicker{
     font-family:var(--mono);
     font-size:12px;
@@ -130,10 +130,12 @@
   .kicker::before{content:"§";color:var(--ink-faint);}
   .kicker .tick{flex:1;height:1px;background:var(--line-strong);}
   h2.title{font-size:clamp(22px,3vw,30px);margin:0 0 6px;}
-  .lede{color:var(--ink-dim);max-width:62ch;font-size:15.5px;margin:0 0 28px;}
+  .lede{color:var(--ink-dim);font-size:15.5px;margin:0 0 28px;}
+  h3.sub{font-size:16px;margin:40px 0 10px;}
+  h3.sub:first-of-type{margin-top:8px;}
 
   /* ---- hero ---- */
-  .hero{padding-block:64px 48px;border-bottom:1px solid var(--line);}
+  .hero{padding-block:64px 48px;}
   .hero-eyebrow{
     font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);
     letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px;
@@ -146,7 +148,7 @@
   }
   .hero h1 .accent{color:var(--signal-ink);}
   .hero p.tag{
-    font-size:17px;color:var(--ink-dim);max-width:56ch;margin:0 0 28px;
+    font-size:17px;color:var(--ink-dim);margin:0 0 28px;
   }
   .quote{
     font-family:var(--mono);
@@ -166,63 +168,24 @@
   .btn.primary{background:var(--signal);border-color:var(--signal);color:#f2fbfb;}
   .btn:hover{border-color:var(--signal);}
 
-  /* ---- diagram ---- */
-  .diagram-shell{
-    background:var(--surface);border:1px solid var(--line);border-radius:6px;
-    padding:18px 8px;margin-top:8px;
-  }
-  .diagram-cap{font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);text-align:center;margin-top:10px;letter-spacing:.03em;}
-
-  /* ---- ladder (mechanism hierarchy) ---- */
-  .ladder{display:flex;flex-direction:column;gap:2px;margin-top:8px;}
-  .rung{
-    display:grid;grid-template-columns:34px 1fr;gap:14px;align-items:center;
-    padding:12px 14px;background:var(--surface);border:1px solid var(--line);
-  }
-  .rung:not(:last-child){border-bottom:none;}
-  .rung:first-child{border-radius:6px 6px 0 0;}
-  .rung:last-child{border-radius:0 0 6px 6px;}
-  .rung .n{font-family:var(--mono);font-weight:700;color:var(--signal-ink);font-size:15px;}
-  .rung .t{font-weight:600;font-size:14.5px;}
-  .rung .d{color:var(--ink-dim);font-size:13.5px;margin-top:2px;}
-  .rung.judgment{background:color-mix(in srgb, var(--alarm-soft) 55%, var(--surface));}
-
-  /* ---- vsm table ---- */
-  table{width:100%;border-collapse:collapse;font-size:13.8px;}
-  .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface);}
-  th{
-    text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
-    color:var(--ink-faint);padding:10px 14px;border-bottom:1px solid var(--line-strong);white-space:nowrap;
-  }
-  td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;}
-  tr:last-child td{border-bottom:none;}
-  .fn{font-family:var(--mono);font-weight:700;color:var(--signal-ink);white-space:nowrap;}
-
-  /* ---- two col ---- */
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
-  @media (max-width:760px){.grid2{grid-template-columns:1fr;}}
-
-  /* ---- status card row ---- */
+  /* ---- status card row (reused for the reference-build teaser) ---- */
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px;}
   @media (max-width:700px){.cards{grid-template-columns:1fr;}}
   .card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px;}
   .card .k{font-family:var(--mono);font-size:26px;font-weight:700;color:var(--signal-ink);font-variant-numeric:tabular-nums;}
   .card .l{font-size:12.5px;color:var(--ink-dim);margin-top:4px;}
 
-  pre.tree{
-    background:var(--surface);border:1px solid var(--line);border-radius:6px;
-    padding:16px 18px;font-family:var(--mono);font-size:12.5px;line-height:1.65;color:var(--ink-dim);
-    overflow-x:auto;margin:0;
-  }
-  pre.tree b{color:var(--ink);}
-
   /* ---- audience table ---- */
-  .aud{display:flex;flex-direction:column;gap:10px;}
-  .aud .row{display:grid;grid-template-columns:220px 1fr;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);}
-  .aud .row:last-child{border-bottom:none;}
-  .aud .who{font-weight:600;font-size:13.8px;}
-  .aud .what{color:var(--ink-dim);font-size:13.8px;}
-  @media (max-width:640px){.aud .row{grid-template-columns:1fr;gap:2px;}}
+  table{width:100%;border-collapse:collapse;font-size:13.8px;}
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface);}
+  #who .tbl-wrap{margin-bottom:34px;}
+  th{
+    text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--ink-faint);padding:10px 14px;border-bottom:1px solid var(--line-strong);white-space:nowrap;
+  }
+  td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  .fn{font-family:var(--mono);font-weight:700;color:var(--signal-ink);white-space:nowrap;}
 
   .outcomes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0;counter-reset:oc;}
   .outcomes li{
@@ -258,7 +221,8 @@
   .mod.written .num{color:var(--signal-ink);}
   .mod .body .name{font-weight:600;font-size:14.3px;margin-bottom:3px;}
   .mod .body .q{color:var(--ink-dim);font-size:13.2px;}
-  .mod .body .surface{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-top:6px;letter-spacing:.02em;}
+  .mod .body .desc{color:var(--ink-dim);font-size:13px;margin-top:8px;line-height:1.5;}
+  .mod .body .surface{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-top:8px;letter-spacing:.02em;}
   .pill{
     font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
     padding:4px 8px;border-radius:20px;white-space:nowrap;align-self:start;margin-top:2px;
@@ -285,68 +249,6 @@
   .env-card .len{font-family:var(--mono);font-size:12px;color:var(--signal-ink);margin-bottom:8px;}
   .env-card p{margin:0;font-size:13px;color:var(--ink-dim);}
 
-  /* ---- control room mockups ---- */
-  .fake-tag{
-    display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;
-    letter-spacing:.06em;text-transform:uppercase;color:var(--alarm);border:1px solid var(--alarm);
-    background:var(--alarm-soft);padding:4px 10px;border-radius:20px;margin-bottom:16px;
-  }
-  .fake-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--alarm);}
-  .fake-tag.ok{color:var(--signal);border-color:var(--signal);background:var(--signal-soft);}
-  .fake-tag.ok::before{background:var(--signal);}
-  .crframe{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface);margin-top:18px;box-shadow:0 1px 0 var(--line);}
-  .crframe .chrome{
-    display:flex;align-items:center;gap:8px;padding:0 12px;height:38px;
-    background:var(--surface-2);border-bottom:1px solid var(--line);
-  }
-  .crframe .wdot{width:8px;height:8px;border-radius:50%;background:var(--line-strong);}
-  .crframe .tabs{display:flex;gap:2px;margin-left:10px;font-family:var(--mono);font-size:11px;overflow-x:auto;}
-  .crframe .tab{padding:9px 12px 8px;color:var(--ink-faint);white-space:nowrap;border-bottom:2px solid transparent;}
-  .crframe .tab.active{color:var(--signal-ink);border-bottom-color:var(--signal);}
-  .crframe .body{padding:18px;}
-  .cr-topo{display:grid;grid-template-columns:170px 1fr;gap:16px;}
-  @media (max-width:640px){.cr-topo{grid-template-columns:1fr;}}
-  .cr-nodelist{display:flex;flex-direction:column;gap:3px;}
-  .cr-node{
-    display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:5px;
-    font-family:var(--mono);font-size:12px;color:var(--ink-dim);
-  }
-  .cr-node .d{width:6px;height:6px;border-radius:50%;background:var(--line-strong);flex:none;}
-  .cr-node.sel{background:var(--signal-soft);color:var(--signal-ink);}
-  .cr-node.sel .d{background:var(--signal);}
-  .cr-node.pulse .d{background:var(--alarm);}
-  .cr-inspector{border:1px solid var(--line);border-radius:6px;padding:14px;background:var(--surface-2);}
-  .cr-inspector .id{font-family:var(--mono);font-size:12px;color:var(--signal-ink);margin-bottom:10px;word-break:break-all;}
-  .cr-field{display:grid;grid-template-columns:96px 1fr;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:12.5px;}
-  .cr-field:last-child{border-bottom:none;}
-  .cr-field .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);padding-top:1px;}
-  .cr-field .v{color:var(--ink-dim);}
-  .cr-banner{
-    display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:6px;margin-bottom:14px;
-    background:var(--alarm-soft);border:1px solid var(--alarm);font-family:var(--mono);font-size:12px;color:var(--alarm);
-  }
-  .cr-banner .d{width:7px;height:7px;border-radius:50%;background:var(--alarm);flex:none;}
-  .cr-table{width:100%;border-collapse:collapse;font-size:12.5px;}
-  .cr-table th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);padding:6px 10px;border-bottom:1px solid var(--line-strong);}
-  .cr-table td{padding:9px 10px;border-bottom:1px solid var(--line);color:var(--ink-dim);}
-  .cr-table tr:last-child td{border-bottom:none;}
-  .cr-table td.unit{font-family:var(--mono);color:var(--ink);}
-  .cr-status{font-family:var(--mono);font-size:10.5px;padding:3px 8px;border-radius:20px;white-space:nowrap;}
-  .cr-status.run{background:var(--signal-soft);color:var(--signal-ink);}
-  .cr-status.block{background:var(--alarm-soft);color:var(--alarm);}
-  .cr-caption{font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);margin-top:10px;}
-  figure.shot{margin:18px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px;box-shadow:0 1px 0 var(--line);}
-  figure.shot img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:4px;background:#fff;}
-  figure.shot figcaption{font-size:13.2px;color:var(--ink-dim);margin:10px 6px 2px;}
-  figure.shot figcaption b{color:var(--ink);font-family:var(--mono);font-size:12.5px;}
-  .shots2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-  @media (max-width:760px){.shots2{grid-template-columns:1fr;}}
-  .cr-next{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px;}
-  @media (max-width:700px){.cr-next{grid-template-columns:1fr;}}
-  .cr-next-card{border:1px dashed var(--line-strong);border-radius:6px;padding:13px;}
-  .cr-next-card .t{font-family:var(--mono);font-weight:600;font-size:12.5px;margin-bottom:4px;}
-  .cr-next-card .d{font-size:12px;color:var(--ink-dim);}
-
   footer{padding-block:36px;}
   .foot-row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center;}
   .foot-links{display:flex;gap:16px;font-family:var(--mono);font-size:12.5px;flex-wrap:wrap;}
@@ -361,13 +263,11 @@
   <div class="wrap navrow">
     <div class="navmark"><span class="dot"></span>VSM&#8202;·&#8202;PI</div>
     <div class="navlinks">
-      <a href="#product">Product</a>
-      <a href="#model">Control model</a>
-      <a href="#orchestrator">Orchestrator</a>
-      <a href="#control-room">Control room</a>
-      <a href="#course">Course</a>
+      <a href="#why-vsm">Why cybernetics</a>
+      <a href="#who">Who it's for</a>
       <a href="#syllabus">Syllabus</a>
-      <a href="#status">Status</a>
+      <a href="#build">The reference build</a>
+      <a href="product.html">The product ↗</a>
       <a href="how-it-works.html">How it works ↗</a>
       <a href="personal-finance.html">Worked example ↗</a>
     </div>
@@ -375,351 +275,75 @@
 </nav>
 
 <header class="hero wrap">
-  <div class="hero-eyebrow">A control plane, and the course that builds it</div>
-  <h1>Cybernetic control<br>for <span class="accent">agentic</span> software.</h1>
-  <p class="tag">VSM-Pi asks whether Stafford Beer's Viable System Model can run inside an
-    autonomous coding agent — not as five chatbot personas, but as explicit functions,
-    authority boundaries, typed channels, verification gates, and feedback loops. It ships
-    its own orchestrator to find out, and a course, <strong>Viable Agents</strong>, that builds
-    it lesson by lesson.</p>
+  <div class="hero-eyebrow">Viable Agents — a course, not a feature tour</div>
+  <h1>Build your own <span class="accent">agent harness</span>.</h1>
+  <p class="tag">Most agent courses teach you the buttons. This one teaches the control
+    system, and you leave holding a harness you wrote yourself: <code>regulator</code>.
+    Each module opens with a regulatory question an autonomous agent forces on you,
+    derives the mechanism that answers it, then shows the Pi feature and the typed
+    treatment underneath <a href="product.html">VSM-Pi</a>, the control plane this course
+    is built against.</p>
   <div class="quote">Prompts advise. Types describe. Gates enforce.
-    <span>The premise the whole project starts from</span>
+    <span>The premise the whole course is organized around</span>
   </div>
   <div class="hero-links">
     <a class="btn primary" href="#syllabus">Read the syllabus</a>
-    <a class="btn" href="#model">See the control model</a>
+    <a class="btn" href="#who">Who it's for</a>
     <a class="btn" href="how-it-works.html">How a unit runs (diagrams)</a>
-    <a class="btn" href="https://pi.dev/">Pi, the substrate ↗</a>
+    <a class="btn" href="product.html">The architecture ↗</a>
+    <a class="btn" href="personal-finance.html">The worked example ↗</a>
   </div>
 </header>
 
-<section id="product" class="wrap">
-  <div class="kicker">Product<span class="tick"></span></div>
-  <h2 class="title">VSM-Pi</h2>
-  <p class="lede">A coding-agent harness built on <a href="https://pi.dev/">Pi</a>, with a
-    typed VSM control plane layered on top of it — designed against one recurring failure
-    mode of autonomous agents: architectural drift that outruns anyone's ability to review it.</p>
-
-  <div class="grid2">
-    <div>
-      <h3 style="font-size:14px;margin:0 0 10px;">Design goals</h3>
-      <ul class="outcomes" style="counter-reset:none;">
-        <li style="padding-left:14px;">Keep the orchestrator small — the S3 loop of contract → dispatch → verify → route → close, generic over workloads.</li>
-        <li style="padding-left:14px;">Declare the control plane rather than assemble it: registry, capability profiles, policy, and workload live in a versioned, checked definition.</li>
-        <li style="padding-left:14px;">Make S5 identity and policy durable and version-controlled, independent of any one context window.</li>
-        <li style="padding-left:14px;">Keep S3* audit independent of S1 self-reporting.</li>
-        <li style="padding-left:14px;">Differentiate operations by capability profile, not roleplay persona.</li>
-      </ul>
-    </div>
-    <div>
-      <h3 style="font-size:14px;margin:0 0 10px;">Repository layout</h3>
-      <pre class="tree"><b>packages/</b>
-  protocol/       VSM vocabulary + runtime schemas — messages, trace,
-                  effects, profiles, registry, contracts, execution,
-                  policy, recovery, audit, obligations, memory
-  core/           authority (write preflight), leases, thrash detector,
-                  execution store, signal sink, budgets, recovery
-                  router, effect journal, audit log, obligation ledger
-                  and router, identity + memory stores, definition
-                  check, registry check + REGULATORS.md / BOUNDARY.md
-  checks/         deterministic S3* checks: host-run verification
-                  bound to a revision, the technical verdict
-  pi-extension/   Pi lifecycle integration, S5 write gate, typed
-                  proposal / audit-finding / uncertainty tools
-  cli/            `regulator status`: the read model over a
-                  definition and an instance
-  control-room/   read-only page over the read model
-
-<b>course/lab/</b>       reference build — checkpoints 0–14, three fixtures,
-                  the registry (42 records), identity, profiles, policies,
-                  the drift eval suite and its committed reports,
-                  workload, the `regulator` CLI; installs as a pi
-                  package, OPERATING.md says who runs what
-<b>course/modules/</b>   lessons 01–15, written
-<b>docs/</b>             architecture, roadmap, design notes, DEBT.md
-<b>vsm/</b>               committed S5 artifacts for this repo itself
-<b>site/</b>              this page</pre>
-    </div>
-  </div>
-  <p style="font-size:12.5px;color:var(--ink-dim);margin-top:18px;">
-    Promotion is a standing rule, not a one-off: a checkpoint's Pi-free module moves from
-    <code>course/lab</code> into <code>packages/</code> once two lessons depend on it, and
-    the lab imports it back rather than re-implementing it. Trace, effects, profiles and the
-    registry went first; contracts, the execution store, leases, budgets, the recovery
-    router, the effect journal, the host-run checks, the audit log, the write preflight, the
-    obligation ledger, and identity, memory and the definition check have followed.
-  </p>
+<section id="why-vsm" class="wrap">
+  <div class="kicker">Why cybernetics<span class="tick"></span></div>
+  <h2 class="title">Agents need a regulator, not just a good prompt</h2>
+  <p class="lede">The Viable System Model (VSM) is Stafford Beer's answer to an old
+    question: what does any system — an organism, a company, an autonomous agent — need
+    structurally to stay viable while its environment keeps generating more variety than
+    anyone predicted? Ashby's Law gives the constraint: only variety can absorb variety, so
+    a regulator with fewer possible responses than the disturbances it faces will eventually
+    fail somewhere it can't see. A model plus a good prompt is not a regulator — it's a
+    hope, and hope doesn't survive contact with a real codebase, a real filesystem, or real
+    money moving. This course treats the harness itself as the regulator: explicit
+    functions, typed channels, and gates that hold even when the prompt is ignored, the
+    model changes, or the task has nothing to do with code. <a href="product.html#vsm">More
+    on VSM and the six functions →</a></p>
 </section>
 
-<section id="model" class="wrap">
-  <div class="kicker">Control model<span class="tick"></span></div>
-  <h2 class="title">Six functions, one loop</h2>
-  <p class="lede">Beer's Viable System Model, read as a harness architecture. Regulatory
-    variety flows down as attenuated instruction and back up as amplified evidence —
-    S3&#42; audits independently of what S1 reports, and S4 argues with S3 about the future
-    on S5's terms.</p>
-
-  <div class="diagram-shell">
-    <svg viewBox="0 0 760 400" width="100%" role="img" aria-label="Diagram of the Viable System Model: S5 identity at top, S4 intelligence facing the environment, S3 control with S3-star audit alongside, S2 coordination, and three S1 operational units at the bottom each touching the environment.">
-      <defs>
-        <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-          <path d="M0,0 L6,3 L0,6 Z" fill="var(--ink-faint)"/>
-        </marker>
-      </defs>
-      <!-- environment -->
-      <path d="M 560 20 C 660 40, 700 120, 690 200 C 700 280, 660 360, 560 380"
-            fill="none" stroke="var(--line-strong)" stroke-width="1.5" stroke-dasharray="3 5"/>
-      <text x="752" y="16" text-anchor="end" font-family="var(--mono)" font-size="11" fill="var(--ink-faint)">ENVIRONMENT</text>
-
-      <!-- spine -->
-      <line x1="150" y1="46" x2="150" y2="330" stroke="var(--line-strong)" stroke-width="1.5"/>
-
-      <!-- S5 -->
-      <rect x="60" y="18" width="180" height="46" rx="4" fill="var(--surface)" stroke="var(--signal)" stroke-width="1.6"/>
-      <text x="150" y="38" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="13" fill="var(--signal-ink)">S5 — IDENTITY</text>
-      <text x="150" y="54" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-faint)">policy · invariants</text>
-
-      <!-- S4 -->
-      <rect x="60" y="96" width="180" height="46" rx="4" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="1.4"/>
-      <text x="150" y="116" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="13" fill="var(--ink)">S4 — INTELLIGENCE</text>
-      <text x="150" y="132" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-faint)">environment · future</text>
-      <line x1="240" y1="119" x2="470" y2="119" stroke="var(--ink-faint)" stroke-width="1.3" marker-end="url(#arrow)"/>
-
-      <!-- S3 + S3* -->
-      <rect x="60" y="174" width="180" height="46" rx="4" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="1.4"/>
-      <text x="150" y="194" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="13" fill="var(--ink)">S3 — CONTROL</text>
-      <text x="150" y="210" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-faint)">contract · dispatch · budget</text>
-      <rect x="255" y="174" width="120" height="46" rx="4" fill="var(--alarm-soft)" stroke="var(--alarm)" stroke-width="1.4"/>
-      <text x="315" y="194" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--alarm)">S3&#42; AUDIT</text>
-      <text x="315" y="210" text-anchor="middle" font-family="var(--mono)" font-size="9.5" fill="var(--ink-dim)">independent</text>
-
-      <!-- S2 -->
-      <rect x="60" y="252" width="180" height="42" rx="4" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="1.4"/>
-      <text x="150" y="271" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="13" fill="var(--ink)">S2 — COORDINATION</text>
-      <text x="150" y="286" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-faint)">leases · anti-oscillation</text>
-
-      <!-- S1 units -->
-      <rect x="30" y="330" width="90" height="46" rx="4" fill="var(--surface)" stroke="var(--signal)" stroke-width="1.4"/>
-      <text x="75" y="350" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="11.5" fill="var(--signal-ink)">S1</text>
-      <text x="75" y="364" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">coding</text>
-
-      <rect x="130" y="330" width="90" height="46" rx="4" fill="var(--surface)" stroke="var(--signal)" stroke-width="1.4"/>
-      <text x="175" y="350" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="11.5" fill="var(--signal-ink)">S1</text>
-      <text x="175" y="364" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">infra</text>
-
-      <rect x="230" y="330" width="90" height="46" rx="4" fill="var(--surface)" stroke="var(--signal)" stroke-width="1.4"/>
-      <text x="275" y="350" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="11.5" fill="var(--signal-ink)">S1</text>
-      <text x="275" y="364" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">migration</text>
-
-      <line x1="75" y1="330" x2="130" y2="230" stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="2 4"/>
-      <line x1="175" y1="330" x2="150" y2="230" stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="2 4"/>
-      <line x1="275" y1="330" x2="170" y2="230" stroke="var(--ink-faint)" stroke-width="1" stroke-dasharray="2 4"/>
-
-      <line x1="75" y1="330" x2="560" y2="220" stroke="var(--line-strong)" stroke-width="1" stroke-dasharray="1 5"/>
-      <line x1="175" y1="330" x2="560" y2="260" stroke="var(--line-strong)" stroke-width="1" stroke-dasharray="1 5"/>
-      <line x1="275" y1="330" x2="560" y2="300" stroke="var(--line-strong)" stroke-width="1" stroke-dasharray="1 5"/>
-    </svg>
-    <div class="diagram-cap">S1 units act directly on the environment; S3&#42; audits independently of what they report; S4 and S3 argue about now vs. next, arbitrated by S5 policy.</div>
-  </div>
-</section>
-
-<section class="wrap">
-  <div class="kicker">Mechanism hierarchy<span class="tick"></span></div>
-  <h2 class="title">Prefer the mechanism that survives adversarial pressure</h2>
-  <p class="lede">When adding a feature to the harness, VSM-Pi walks this ladder from the
-    top down. It is an ordering by reliability, not by elegance: if you can write the check,
-    don't write the paragraph.</p>
-  <div class="ladder">
-    <div class="rung"><div class="n">1</div><div><div class="t">TypeScript invariant</div><div class="d">Use the type system — errors that can't compile.</div></div></div>
-    <div class="rung"><div class="n">2</div><div><div class="t">Deterministic runtime check</div><div class="d">A gate that mechanically enforces a rule at execution time.</div></div></div>
-    <div class="rung"><div class="n">3</div><div><div class="t">Structured tool / protocol</div><div class="d">A runtime schema and a typed message, not a free-text instruction.</div></div></div>
-    <div class="rung judgment"><div class="n">4</div><div><div class="t">Model judgment</div><div class="d">Reached for when the decision genuinely requires interpretation.</div></div></div>
-    <div class="rung judgment"><div class="n">5</div><div><div class="t">Prompt / context engineering</div><div class="d">Advice for what no gate above it can know — taste, intent, convention.</div></div></div>
-  </div>
-</section>
-
-<section class="wrap">
-  <div class="kicker">Working VSM mapping<span class="tick"></span></div>
-  <h2 class="title">Where each function lives today</h2>
+<section id="who" class="wrap">
+  <div class="kicker">Who it's for<span class="tick"></span></div>
+  <h2 class="title">Not a prompt pack, not a persona library</h2>
+  <p class="lede">If you've used a coding agent for real work and hit its limits, this
+    course gives you the vocabulary and the mechanism to fix that — not another framework
+    to bolt on top.</p>
   <div class="tbl-wrap">
     <table>
-      <thead><tr><th>Function</th><th>Initial VSM-Pi interpretation</th></tr></thead>
+      <thead><tr><th>Who</th><th>What this course gives you</th></tr></thead>
       <tbody>
-        <tr><td class="fn">S1 · Operations</td><td>Coding, data, UI, infrastructure, migration, and integration capability profiles</td></tr>
-        <tr><td class="fn">S2 · Coordination</td><td>Tool contracts, worktree isolation, leases with liveness, reintegration, anti-oscillation mechanisms</td></tr>
-        <tr><td class="fn">S3 · Control</td><td>The orchestrator — work contracts, dispatch, budgets, the recovery lattice, execution-state authority</td></tr>
-        <tr><td class="fn">S3&#42; · Audit</td><td>Harness-run verification plus architectural/domain checks and independent audit findings</td></tr>
-        <tr><td class="fn">S4 · Intelligence</td><td>Read-only specialists and external/environmental intelligence feeding planning and reassessment</td></tr>
-        <tr><td class="fn">S5 · Identity/Policy</td><td>Versioned product identity, architecture, domain model, invariants, and policy</td></tr>
+        <tr><td class="fn">Senior / staff engineers</td><td>running agents on real codebases — a principled reason for every guardrail, tuned to their repo.</td></tr>
+        <tr><td class="fn">Platform &amp; DevEx teams</td><td>a design method for an internal agent platform, plus the evaluation machinery to prove it helps.</td></tr>
+        <tr><td class="fn">Agent-tool builders</td><td>deep Pi extension/SDK competence and a structural critique of "five agents in a trench coat."</td></tr>
+        <tr><td class="fn">Technical leaders</td><td>a vocabulary for where autonomy is safe, and what evidence would demonstrate it.</td></tr>
       </tbody>
     </table>
   </div>
-</section>
 
-<section id="orchestrator" class="wrap">
-  <div class="kicker">Architecture<span class="tick"></span></div>
-  <h2 class="title">VSM-Pi provides its own orchestrator</h2>
-  <p class="lede">The project does not scope itself as a regulation layer riding on
-    <a href="https://github.com/open-gsd/gsd-pi">GSD-Pi</a>'s workflow kernel. GSD-Pi is
-    mid-cutover to a database-authoritative lifecycle, OpenGSD is fanning out into separate
-    projects, and the course lab already proved the regulation layer needs <em>an</em>
-    orchestrator, not GSD's — ten checkpoints of gates, effects, profiles, leases,
-    contracts, budgets, recovery, audit and authority run on bare Pi. <code>packages/</code>
-    has no GSD dependency; GSD-Pi stays in the course purely as comparison material.
-    <a href="how-it-works.html">How a unit runs through the loop</a> is drawn out on its
-    own page.</p>
-
-  <div class="grid2">
-    <div>
-      <h3 style="font-size:14px;margin:0 0 10px;">The orchestrator, sized</h3>
-      <p style="font-size:13.5px;color:var(--ink-dim);margin:0 0 12px;">Nothing but the S3
-        loop, generic over workloads, with leases, budgets, and attempts as immutable records.
-        All five stages exist in <code>course/lab/src/controller.ts</code>:</p>
-      <div class="diagram-shell" style="padding:16px;">
-        <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-family:var(--mono);font-size:12.5px;">
-          <span class="pill written" style="border-radius:6px;">contract</span>
-          <span style="color:var(--ink-faint);">→</span>
-          <span class="pill written" style="border-radius:6px;">dispatch</span>
-          <span style="color:var(--ink-faint);">→</span>
-          <span class="pill written" style="border-radius:6px;">research</span>
-          <span class="pill written" style="border-radius:6px;">verify</span>
-          <span style="color:var(--ink-faint);">→</span>
-          <span class="pill written" style="border-radius:6px;">route</span>
-          <span style="color:var(--ink-faint);">→</span>
-          <span class="pill written" style="border-radius:6px;">close</span>
-        </div>
-      </div>
-      <p style="font-size:12px;color:var(--ink-faint);margin-top:10px;">What made GSD heavy —
-        seven fixed phases, milestone lifecycles, UAT, projections — is <em>workload</em>,
-        and lives in a workload definition, not in this loop. Recovery decisions cite a
-        versioned policy; closeout is refused on anything but fresh, host-run evidence.</p>
-    </div>
-    <div>
-      <h3 style="font-size:14px;margin:0 0 10px;">The first workload: the autoloop</h3>
-      <p style="font-size:13.5px;color:var(--ink-dim);margin:0 0 12px;">The
-        software-development autoloop is the first workload definition, and the one the
-        course builds against its fixture repository — "build my own GSD" satisfied by
-        <em>declaring</em> one rather than adapting it:</p>
-      <div class="diagram-shell" style="padding:16px;">
-        <div style="display:flex;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:12px;">
-          <span class="pill written" style="border-radius:6px;">plan</span>
-          <span class="pill written" style="border-radius:6px;">implement</span>
-          <span class="pill written" style="border-radius:6px;">verify</span>
-          <span class="pill written" style="border-radius:6px;">integrate</span>
-          <span class="pill written" style="border-radius:6px;">close</span>
-        </div>
-        <p style="font-size:10.5px;color:var(--ink-faint);letter-spacing:.03em;text-transform:uppercase;margin:14px 0 2px;">six unit types, declared in <code>workload/software-development.json</code>, each naming:</p>
-        <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;font-size:12.5px;color:var(--ink-dim);">
-          <div><b style="color:var(--ink);">A capability profile</b> the unit runs under — <code>implement</code> may write <code>src/</code> and <code>test/</code>; <code>research</code> is read-only by declared effect</div>
-          <div><b style="color:var(--ink);">Checks</b> the orchestrator re-runs itself at closeout — <code>run_checks</code>, <code>run_tests</code> — bound to the revision they ran against</div>
-          <div><b style="color:var(--ink);">Intelligence</b> from a <code>research</code> unit is routed into an obligation that holds the units it names until a person or S3 dispositions it — never applied, never replanned</div>
-          <div><b style="color:var(--ink);">Still design:</b> S4 triggers that raise a research unit unasked, and consent before irreversible actions (lesson 13)</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="status" class="wrap">
-  <div class="kicker">Status<span class="tick"></span></div>
-  <h2 class="title">The loop runs; the metasystem is next</h2>
-  <p class="lede">The S3 loop exists end to end — contract, dispatch, verify, route, close —
-    with leases, budgets, a versioned recovery policy, a closeout gate over host-run evidence,
-    obligations that say who owes what and hold a unit until it is settled, and an identity
-    set rendered from the files, write-protected, and enforced at closeout by a check that
-    reads the branch. The algedonic path is in: a unit asks a person through one typed tool,
-    only a recap continues without an answer, an unanswered question pauses the unit by gate,
-    what is owed to a person is delivered and reminded, and who may answer is declared and
-    checked. And the regulators owe evidence now: an eval harness runs the drift
-    scenario under declared arms with outcome and trajectory graders, three committed
-    reports say where the gated arm loses, every record carries an ablation switch and a
-    retirement condition, and every instance store reads as OpenTelemetry spans. And it
-    operates: the lab installs as a pi package, <code>regulator init</code> installs it into
-    an existing repository under a declared manifest, <code>doctor</code> checks the
-    instance before the first unit and in CI, the base is verified after every merge and
-    a failure holds the whole instance, the glossary's refused words are linted, the outbox
-    is watched, and an identity decision promotes back into the definition. What remains is
-    the capstone.
-    <code>course/lab</code> is the reference build; each checkpoint promotes into
-    <code>packages/</code> as it stabilizes. What the build still owes is listed in
-    <code>docs/DEBT.md</code>.</p>
-  <div class="cards">
-    <div class="card"><div class="k">0–14</div><div class="l">Lab checkpoints built, each a loadable Pi extension tested without a model, under CI on two Node versions</div></div>
-    <div class="card"><div class="k">42</div><div class="l">Regulators in the registry, each with a stated limitation, an ablation switch and a retirement condition; <code>REGULATORS.md</code> and <code>BOUNDARY.md</code> generated from the records</div></div>
-    <div class="card"><div class="k">15 / 15</div><div class="l">Lessons written end to end; the capstone viability case is specified and its rubric awaits calibration</div></div>
-  </div>
-</section>
-
-<section id="control-room" class="wrap">
-  <div class="kicker">The maintainer's interface<span class="tick"></span></div>
-  <span class="fake-tag ok">All five views ship today — two recreated below</span>
-  <h2 class="title">The control room</h2>
-  <p class="lede">A projection of <em>registry ∪ execution store ∪ regulatory state</em>.
-    It owns no state of its own — every screen is read from records that already exist
-    elsewhere. <code>packages/control-room</code> serves the page today over the
-    <code>regulator status</code> read model: the topology (regulators by function with the
-    channels each declares), every instance's units with their budget, routing decision, audit
-    verdict and what is owed on them, leases, obligations by consumer with the veto marked,
-    unrouted signals and the instance manifest; the assurance view over the committed eval
-    reports; the lifecycle view of review dates, ablation switches and retirement conditions;
-    and an inspector showing the whole record for a regulator or a unit, with the unit's
-    replay in time order from the span projection. Below, the page itself over two instances.</p>
-
-  <figure class="shot"><img src="img/control-room/overview.webp" alt="The control room as it opens: the definition's topology of 42 regulators in S5 to S1 columns on the left, and the inspector on the right showing the closeout gate's record." loading="lazy">
-    <figcaption><b>The page as it opens.</b> Left, the definition: 42 regulators by function, each card the channels it consumes and emits. Right, the inspector on a selected card — the closeout gate's record: purpose, what it absorbs, mechanism, authority, evidence, limitations, review date, ablation, retirement. The record, not a summary of it.</figcaption></figure>
-
-  <div class="shots2">
-    <figure class="shot"><img src="img/control-room/instances-ledger.webp" alt="The instances view for a household-ledger instance: manifest line, five units, a live lease, an open consent obligation with the veto marked, an interaction row and a memory entry." loading="lazy">
-      <figcaption><b>Instances.</b> The <a href="personal-finance.html">household ledger</a> after its August close: four units closed, one paused on a consent question that is an open obligation owed to a person, delivered to the outbox, holding the unit.</figcaption></figure>
-    <figure class="shot"><img src="img/control-room/instances-drift.webp" alt="The instances view for the slugkit drift instance: six units blocked after three attempts each, routed check-failure to replan, six live leases, six recovery-decision obligations owed to S3." loading="lazy">
-      <figcaption><b>Instances.</b> The drift scenario run by the drifter under the treatment arm: every unit refused three times by the closeout checks, routed <code>repair → repair → replan</code>, and held by the obligation the replan opened for S3.</figcaption></figure>
-  </div>
-
-  <div class="shots2">
-    <figure class="shot"><img src="img/control-room/assurance.webp" alt="The assurance view: the drift suite's arms and the committed reports' metrics per arm with confidence intervals and the interpretation." loading="lazy">
-      <figcaption><b>Assurance.</b> The suite's arms — control, treatment, three ablations — and each committed report: every metric per arm with its interval, and the person's interpretation, including where the gated arm lost.</figcaption></figure>
-    <figure class="shot"><img src="img/control-room/lifecycle.webp" alt="The lifecycle view: each regulator's review date, ablation switch, the arm that covers it, and its retirement condition." loading="lazy">
-      <figcaption><b>Lifecycle.</b> Every regulator's review date (overdue fails <code>regulator check</code>), its ablation switch and the arm that throws it, and the condition under which it retires.</figcaption></figure>
-  </div>
-
-  <figure class="shot"><img src="img/control-room/inspector-unit-drift.webp" alt="The unit inspector for d1-fix in the drift instance: three attempts each refused, the recovery decisions with their hints, the replay of every host check with its observation, and the audit verdicts." loading="lazy">
-    <figcaption><b>Inspector — a unit's replay</b> (the top of it). One drifting unit: three attempts, each refused by <code>export-signature</code> and the vendor and identity checks; the router's decisions with the hint each attempt was given; the obligations each opened and resolved; then the replay — contract, <code>invoke_agent</code>, every <code>execute_tool</code> check with its observation, verdict, decision, obligation — from the span projection, never the transcript. Below what is shown: the audit log, the contract and the three reports as written.</figcaption></figure>
-
-  <p style="font-size:13.5px;color:var(--ink-dim);margin-top:14px;">The ledger's own inspector views — the paused payment unit and the careless ingest unit refused and repaired — are on the <a href="personal-finance.html#room">worked example</a>.</p>
-</section>
-
-<section id="course" class="wrap">
-  <div class="kicker">The course<span class="tick"></span></div>
-  <h2 class="title">Viable Agents — build your own coding-agent harness</h2>
-  <p class="lede">Most agent courses teach you the buttons. This one teaches the control
-    system, and you leave holding a harness you wrote yourself: <strong>regulator</strong>,
-    which <em>is</em> VSM-Pi's reference build. Each module opens with a regulatory question
-    an autonomous coding agent forces on you, derives the mechanism that answers it, then
-    shows the Pi feature, the GSD-Pi production comparison, and the typed VSM-Pi treatment.</p>
-
-  <h3 style="font-size:14px;margin:36px 0 12px;">Who it's for</h3>
-  <div class="aud">
-    <div class="row"><div class="who">Senior / staff engineers</div><div class="what">running agents on real codebases — a principled reason for every guardrail, tuned to their repo.</div></div>
-    <div class="row"><div class="who">Platform &amp; DevEx teams</div><div class="what">a design method for an internal agent platform, plus the evaluation machinery to prove it helps.</div></div>
-    <div class="row"><div class="who">Agent-tool builders</div><div class="what">deep Pi extension/SDK competence and a structural critique of "five agents in a trench coat."</div></div>
-    <div class="row"><div class="who">Technical leaders</div><div class="what">a vocabulary for where autonomy is safe, and what evidence would demonstrate it.</div></div>
-  </div>
-
-  <h3 style="font-size:14px;margin:36px 0 12px;">By the end, a participant can</h3>
+  <h3 class="sub">By the end, you can</h3>
   <ol class="outcomes">
     <li>Describe a coding-agent harness as a control system: what regulates what, over which channel, with what authority, closing which feedback loop.</li>
     <li>Apply the mechanism hierarchy instead of solving every problem with prompt text.</li>
     <li>Extend Pi confidently — typed tools, the tool-call lifecycle, context shaping, per-phase model routing, SDK/RPC, packaging.</li>
-    <li>Design work units as contracts — fixed, delegated, unresolved — rather than prose task descriptions.</li>
+    <li>Design work units as <button type="button" class="gl" data-term="contract">contracts</button> — each decision marked fixed (not up for grabs), delegated (the agent chooses, within bounds), or unresolved (nobody's decided yet) — rather than prose task descriptions.</li>
     <li>Build audit that does not depend on the executor's self-report.</li>
     <li>Keep system identity durable and version-controlled instead of trapped in a context window.</li>
     <li>Decide when a human must be interrupted, and build the channel that does it.</li>
-    <li>Measure whether their regulation actually improved outcomes, with a control arm.</li>
+    <li>Measure whether your regulation actually improved outcomes, with a control arm.</li>
   </ol>
 
-  <h3 style="font-size:14px;margin:36px 0 12px;">Three envelopes, one curriculum</h3>
+  <h3 class="sub">Three ways to take it</h3>
   <div class="env-cards">
-    <div class="env-card"><h4>Self-paced</h4><div class="len">~40h + capstone</div><p>Repo, written modules, recorded walkthroughs, graded labs. Ends at <code>regulator</code> checkpoint 14.</p></div>
+    <div class="env-card"><h4>Self-paced</h4><div class="len">~40h + capstone</div><p>Repo, written modules, recorded walkthroughs, graded labs. Ends at reference-build checkpoint 14.</p></div>
     <div class="env-card"><h4>Cohort</h4><div class="len">6 weeks</div><p>Two 90-minute live sessions a week, labs between, design reviews, capstone crit.</p></div>
     <div class="env-card"><h4>Team intensive</h4><div class="len">2 days</div><p>Modules 01, 02, 03, 09 &amp; 10 only — labs run on the team's own repository.</p></div>
   </div>
@@ -730,9 +354,7 @@
   <h2 class="title">Full syllabus — 15 modules, six parts</h2>
   <p class="lede">Every module is a fixed unit: question → concept → Pi mechanism → build
     step → break it → field study → checkpoint. Modules 01–15 are written end to end in
-    <code>course/modules/</code>; the capstone is specified in <code>course/ASSESSMENT.md</code>. A
-    <a href="personal-finance.html">worked example</a> takes a goal outside software — agents that manage a
-    household's finances — through the design questions and then through the declaration that runs it.</p>
+    <code>course/modules/</code>; the capstone is specified in <code>course/ASSESSMENT.md</code>.</p>
 
   <div class="part">
     <div class="part-head"><span class="part-num">PART&nbsp;0</span><span class="part-name">Framing</span></div>
@@ -741,6 +363,7 @@
         <div class="num">01</div>
         <div class="body"><div class="name">The harness is the regulator</div>
           <div class="q">Why doesn't a good model plus a good prompt suffice?</div>
+          <div class="desc">Set up the mental model the rest of the course builds on: the model supplies judgment, the harness supplies control. You'll sketch your own harness as a system diagram before writing a line of it, and see exactly where a prompt-only approach runs out of road.</div>
           <div class="surface">CLI · TUI · sessions · -e</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -748,6 +371,7 @@
         <div class="num">02</div>
         <div class="body"><div class="name">Anatomy of a turn</div>
           <div class="q">Where exactly can I intervene?</div>
+          <div class="desc">Trace one agent turn through Pi's extension lifecycle end to end — tool call, tool result, session settle — and mark every point where your code, not the model, gets the last word. This map is what every later module hooks into.</div>
           <div class="surface">Extension event lifecycle</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -761,6 +385,7 @@
         <div class="num">03</div>
         <div class="body"><div class="name">Tools as the variety interface</div>
           <div class="q">How does the agent act on the world, and how narrowly?</div>
+          <div class="desc">Register your first typed tool with a runtime schema instead of a loose function call, and see why a tool's declared effect — filesystem, execution, network — is what actually bounds an agent, not its name or its docstring.</div>
           <div class="surface">registerTool · typebox · truncation</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -768,6 +393,7 @@
         <div class="num">04</div>
         <div class="body"><div class="name">Capability profiles and the advisory layer</div>
           <div class="q">How do I specialize work without roleplay?</div>
+          <div class="desc">Retire the persona prompt ("you are a careful senior reviewer") in favor of a capability profile that grants real tools and real writable paths — the difference between asking an agent to behave and making it unable to do otherwise.</div>
           <div class="surface">setActiveTools · skills · AGENTS.md</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -781,6 +407,7 @@
         <div class="num">05</div>
         <div class="body"><div class="name">Isolation, leases, and the anti-oscillation problem</div>
           <div class="q">What stops two operations from fighting?</div>
+          <div class="desc">Give concurrent units their own worktrees and a time-limited lease that expires if whoever holds it goes quiet, then build the thrash detector that catches "fix A breaks B, fix B breaks A" before it burns through your whole budget.</div>
           <div class="surface">pi.exec · worktrees · tool execution events · no-sandbox position</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -794,6 +421,7 @@
         <div class="num">06</div>
         <div class="body"><div class="name">Work contracts: what you are actually authorizing</div>
           <div class="q">What am I actually authorizing this run to decide?</div>
+          <div class="desc">Stop writing task descriptions in prose. Declare a work contract that marks each decision fixed, delegated within bounds, or genuinely unresolved — and see how much ambiguity that removes from every review you'll ever do on this unit's output.</div>
           <div class="surface">SDK sessions as a driver · typed session entries · extension flags</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -801,6 +429,7 @@
         <div class="num">07</div>
         <div class="body"><div class="name">Context and budget as regulated resources</div>
           <div class="q">What do I spend, and on what?</div>
+          <div class="desc">Turn tokens and turns into a metered, policy-governed resource: route cheap models to cheap phases, compact context without silently discarding a decision that mattered, and cut a run off before it runs away from you.</div>
           <div class="surface">compaction hooks · ctx.abort · model_select · ModelRuntime</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -808,6 +437,7 @@
         <div class="num">08</div>
         <div class="body"><div class="name">Failure, recovery, and the retry lattice</div>
           <div class="q">What happens on attempt two, and on attempt six?</div>
+          <div class="desc">Design what happens after a unit fails — not just "try again," but a versioned recovery policy that reads the failure and routes it, plus a durable effect journal so a crash mid-write never gets silently repeated or lost.</div>
           <div class="surface">agent_end · agent_before_settle · effect journal · recovery routing</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -821,6 +451,7 @@
         <div class="num">09</div>
         <div class="body"><div class="name">Evidence, not claims</div>
           <div class="q">How do I know the work is done?</div>
+          <div class="desc">Build the closeout gate that never takes a unit's word for its own success. It re-runs the checks itself, against the exact commit, and produces a technical verdict that no amount of confident prose in the report can talk its way past.</div>
           <div class="surface">tool_call / tool_result hooks · host-run checks · the closeout gate</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -828,6 +459,7 @@
         <div class="num">10</div>
         <div class="body"><div class="name">Authority boundaries and protected state</div>
           <div class="q">What must the agent never be able to change?</div>
+          <div class="desc">Draw a hard line around the files an agent must never edit on its own — identity, policy, invariants — and enforce it with a write preflight the agent literally cannot route around, instead of a rule it's merely asked to remember.</div>
           <div class="surface">tool_call blocking · the write preflight · project trust · BOUNDARY.md</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -841,6 +473,7 @@
         <div class="num">11</div>
         <div class="body"><div class="name">Environmental intelligence and the obligation lifecycle</div>
           <div class="q">How does the system learn about its world, and how does that knowledge get a say without becoming the decision?</div>
+          <div class="desc">Add a research unit that can raise a flag about the environment — a dependency advisory, a deadline coming due — and route it into an obligation that stays visible until a person or S3 actually resolves it. Intelligence gets a voice here, never a vote.</div>
           <div class="surface">research unit · report_intelligence · obligation ledger · routing policy · progression veto</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -848,6 +481,7 @@
         <div class="num">12</div>
         <div class="body"><div class="name">Durable identity and policy</div>
           <div class="q">Six months and four model versions later, what keeps this system the same system?</div>
+          <div class="desc">Move your harness's identity — its invariants, its policy, its domain model — out of any one session's context window and into version-controlled files that only a single, declared decision path is ever allowed to write.</div>
           <div class="surface">identity set · identity-untouched check · remember · S5 decision path · definition check</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -855,6 +489,7 @@
         <div class="num">13</div>
         <div class="body"><div class="name">Algedonic channels and human interaction contracts</div>
           <div class="q">Normal regulation is not working and the loop cannot close. Who gets interrupted, how fast, and what counts as an answer?</div>
+          <div class="desc">Build the exception channel Beer called algedonic — literally "pain/pleasure" — the interrupt that skips the normal chain of command, plus the interaction contract that decides whether silence, a timeout, or a stray click ever counts as a real answer.</div>
           <div class="surface">ask_human · interaction kinds · pause gate · outbox delivery · disposition authority</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -868,6 +503,7 @@
         <div class="num">14</div>
         <div class="body"><div class="name">Observability, evals, and longitudinal drift</div>
           <div class="q">You added all this regulation. Did it help, or does it just feel rigorous?</div>
+          <div class="desc">Run your harness against a scripted drift scenario with an ablation arm — the same system with one regulator switched off — and walk away with a statistically-backed answer about what your guardrails actually bought you, not a feeling.</div>
           <div class="surface">eval harness · arms and ablation · outcome and trajectory graders · export-signature · OpenTelemetry spans · review and retirement</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -875,6 +511,7 @@
         <div class="num">15</div>
         <div class="body"><div class="name">Packaging and operating your harness</div>
           <div class="q">It works on your laptop. How does your team run it on Monday, and who owns it in three months?</div>
+          <div class="desc">Ship the harness as an installable package with a CI entry point, a doctor command, and a review date on every regulator in the registry — so "who owns this, and is it still earning its keep" has a file behind it, not just a hallway answer.</div>
           <div class="surface">pi package · regulator init · doctor · post-merge check · glossary-lint · watch · identity promote</div></div>
         <div class="pill written">Written</div>
       </div>
@@ -889,16 +526,40 @@
   </div>
 </section>
 
+<section id="build" class="wrap">
+  <div class="kicker">The reference build<span class="tick"></span></div>
+  <h2 class="title">regulator — what you'll actually build</h2>
+  <p class="lede">This isn't a hypothetical. <code>regulator</code> is VSM-Pi's own
+    reference build, and it's already running end to end: the agentic loop, a versioned
+    recovery policy, a <button type="button" class="gl" data-term="closeout">closeout gate</button> that never
+    trusts a unit's own report, and a read-only control room over all of it. You build it
+    the same way, one checkpoint per lesson.</p>
+  <div class="cards">
+    <div class="card"><div class="k">0–14</div><div class="l">Lab checkpoints already built and tested — the exact path the course walks you through</div></div>
+    <div class="card"><div class="k">42</div><div class="l">Regulators in the registry, each with a stated limitation, an ablation switch and a retirement condition</div></div>
+    <div class="card"><div class="k">15 / 15</div><div class="l">Lessons written end to end — nothing in the syllabus above is a placeholder</div></div>
+  </div>
+  <p style="font-size:13.5px;color:var(--ink-dim);margin-top:18px;">The full architecture —
+    the control model, the orchestrator, the mechanism hierarchy, and the control room —
+    has <a href="product.html">its own page</a>. <a href="how-it-works.html">How a unit
+    runs</a> draws the mechanism out end to end, and the
+    <a href="personal-finance.html">worked example</a> declares a second workload — a
+    household ledger, not code — to show what's yours to design versus what the harness
+    already gives you.</p>
+</section>
+
 <footer class="wrap">
   <div class="foot-row">
-    <div class="foot-note">VSM-Pi · a control plane, and the course that builds it.</div>
+    <div class="foot-note">Viable Agents · build your own agent harness.</div>
     <div class="foot-links">
+      <a href="product.html">The product</a>
       <a href="how-it-works.html">How it works</a>
+      <a href="personal-finance.html">Worked example</a>
       <a href="https://github.com/metacoding-io/vsm-pi">Repository ↗</a>
       <a href="https://pi.dev/">Pi ↗</a>
-      <a href="https://github.com/open-gsd/gsd-pi">GSD-Pi (comparison) ↗</a>
     </div>
   </div>
 </footer>
+<script src="glossary.js" defer></script>
 </body>
 </html>

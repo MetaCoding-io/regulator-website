@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="glossary.css">
 <style>
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -39,7 +40,7 @@
     --alarm:#ff8f5c; --alarm-soft:#2e1f16;
   }
   body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased;}
-  .wrap{max-width:980px;margin:0 auto;padding-inline:16px;}
+  .wrap{max-width:1120px;margin:0 auto;padding-inline:16px;}
   a{color:var(--signal-ink);}
   h1,h2,h3{font-family:var(--mono);letter-spacing:-0.01em;text-wrap:balance;}
   code,.mono{font-family:var(--mono);}
@@ -51,19 +52,17 @@
   .navlinks{display:flex;gap:18px;font-family:var(--mono);font-size:12.5px;white-space:nowrap;}
   .navlinks a{color:var(--ink-dim);text-decoration:none;}
   .navlinks a:hover{color:var(--signal-ink);}
-  section{padding-block:48px;border-bottom:1px solid var(--line);}
-  section:last-of-type{border-bottom:none;}
+  section{padding-block:30px;}
   .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--signal-ink);display:flex;align-items:center;gap:10px;margin-bottom:14px;}
   .kicker::before{content:"§";color:var(--ink-faint);}
   .kicker .tick{flex:1;height:1px;background:var(--line-strong);}
   h2.title{font-size:clamp(22px,3vw,30px);margin:0 0 6px;}
-  .lede{color:var(--ink-dim);max-width:64ch;font-size:15.5px;margin:0 0 24px;}
-  p{max-width:70ch;}
-  .hero{padding-block:56px 40px;border-bottom:1px solid var(--line);}
+  .lede{color:var(--ink-dim);font-size:15.5px;margin:0 0 24px;}
+  .hero{padding-block:56px 40px;}
   .hero-eyebrow{font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px;}
   .hero h1{font-size:clamp(30px,5vw,48px);line-height:1.05;margin:0 0 18px;font-weight:700;}
   .hero h1 .accent{color:var(--signal-ink);}
-  .hero p.tag{font-size:16.5px;color:var(--ink-dim);max-width:60ch;margin:0 0 20px;}
+  .hero p.tag{font-size:16.5px;color:var(--ink-dim);margin:0 0 20px;}
   figure{margin:24px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px 10px 12px;}
   figure svg{display:block;max-width:100%;height:auto;margin:0 auto;color:var(--ink);font-family:var(--mono);}
   figcaption{font-family:var(--sans);font-size:13.5px;color:var(--ink-dim);margin:12px 8px 0;max-width:none;}
@@ -108,8 +107,27 @@
   @media (max-width:640px){.qa .row{grid-template-columns:1fr;}}
   .lvl{font-family:var(--mono);font-size:11px;white-space:nowrap;padding:1px 7px;border:1px solid var(--line-strong);border-radius:999px;color:var(--signal-ink);}
   pre.code .c{color:var(--ink-faint);}
-  .grid1{display:grid;grid-template-columns:1fr;gap:12px;}
-  .grid1 pre.code{margin-top:0;}
+  .start-box{border:1px solid var(--line);border-left:3px solid var(--signal);border-radius:6px;background:var(--surface);padding:14px 16px;margin-top:22px;}
+  .start-head{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--signal-ink);margin-bottom:10px;}
+  .start-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;font-size:13px;color:var(--ink-dim);}
+  .start-grid b{display:block;color:var(--ink);font-family:var(--mono);font-size:12px;margin-bottom:3px;}
+  @media (max-width:760px){.start-grid{grid-template-columns:1fr;}}
+  .checkpoint{border:1px solid var(--line);border-left:3px solid var(--signal);border-radius:6px;background:var(--surface);padding:12px 14px;margin-top:16px;font-size:13.2px;color:var(--ink-dim);}
+  .checkpoint b{display:block;color:var(--ink);font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px;}
+  .checkpoint ul{margin:0;padding-left:18px;}
+  .checkpoint li{margin:3px 0;}
+  .step-lead{font-size:13.5px;color:var(--ink-dim);margin:18px 0 6px;}
+  .step-lead:first-child{margin-top:0;}
+  .shot-row{display:grid;grid-template-columns:1.1fr 1fr;gap:0;align-items:stretch;margin-top:20px;border:1px solid var(--line);border-radius:6px;background:var(--surface);overflow:hidden;}
+  @media (max-width:820px){.shot-row{grid-template-columns:1fr;}}
+  .shot-row .shot-img{padding:14px;border-right:1px solid var(--line);}
+  @media (max-width:820px){.shot-row .shot-img{border-right:none;border-bottom:1px solid var(--line);}}
+  .shot-row .shot-img img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:4px;background:#fff;}
+  .shot-notes{padding:16px 18px;font-size:13.3px;color:var(--ink-dim);}
+  .shot-notes .shot-title{font-family:var(--mono);font-weight:700;color:var(--ink);font-size:13.5px;margin-bottom:10px;}
+  .shot-notes ul{margin:0;padding-left:18px;}
+  .shot-notes li{margin:7px 0;}
+  .shot-notes li b{color:var(--ink);}
 </style>
 </head>
 <body>
@@ -118,13 +136,15 @@
   <div class="wrap navrow">
     <a class="navmark" href="index.html"><span class="dot"></span>VSM&#8202;·&#8202;PI</a>
     <div class="navlinks">
+      <a href="#goal">The goal</a>
       <a href="#design">Design first</a>
       <a href="#declaration">The declaration</a>
       <a href="#run">Running it</a>
       <a href="#room">The control room</a>
       <a href="#honest">What it does not do</a>
       <a href="#recipe">Your domain</a>
-      <a href="index.html">← Overview</a>
+      <a href="product.html">← The product</a>
+      <a href="index.html">The course ↗</a>
     </div>
   </div>
 </nav>
@@ -132,11 +152,56 @@
 <header class="hero wrap">
   <div class="hero-eyebrow">Worked example · a second workload, not software</div>
   <h1>"I want agents to <span class="accent">manage my finances</span>."</h1>
-  <p class="tag">How a person with that goal thinks it through as a control system first — six
-    questions, one mechanism each — and then declares it and runs it under <code>regulator</code>
-    without touching the orchestrator. Everything on this page runs today, scripted, under the
-    project's CI; the screenshots are the control room over the result.</p>
+  <p class="tag">Follow the same six questions, in order, that turn that sentence into a
+    declared workload: one mechanism per answer, then the files that declare it, then the
+    commands that run it with the <button type="button" class="gl" data-term="regulator">regulator</button> CLI. The point of doing this with money
+    instead of code: none of the <button type="button" class="gl" data-term="orchestrator">orchestrator</button>'s own logic had to change to support
+    a household ledger — only new declaration files did. Everything here runs today,
+    scripted, under the project's CI; the screenshots are the <button type="button" class="gl" data-term="controlroom">control room</button>'s read-out
+    of the result.</p>
+
+  <div class="vocab">
+    <div class="vocab-head">
+      <span class="vocab-title">Vocabulary — for this page specifically</span>
+      <a class="vocab-more" href="https://github.com/MetaCoding-io/vsm-pi/blob/main/course/GLOSSARY.md" target="_blank" rel="noopener">Full glossary ↗</a>
+    </div>
+    <dl class="vocab-grid">
+      <dt>workload</dt><dd>A declared set of unit types for one kind of job. This page's job is a household ledger, not code.</dd>
+      <dt>capability profile</dt><dd>A bounded grant of tools and writable paths — the bookkeeper can write the ledger, never the bank statement.</dd>
+      <dt>work contract</dt><dd>What a unit is authorized to decide, split into fixed, delegated, and unresolved.</dd>
+      <dt>obligation</dt><dd>A signal that stays open until a person or S3 actually resolves it — an unknown merchant, say.</dd>
+      <dt>consent</dt><dd>An explicit yes to something irreversible. Silence is never read as consent.</dd>
+      <dt>closeout gate</dt><dd>The check that re-runs the ledger's own tests before trusting any unit's report.</dd>
+    </dl>
+  </div>
+
+  <div class="start-box">
+    <div class="start-head">Before you start</div>
+    <div class="start-grid">
+      <div><b>Time</b>~15 minutes to read straight through; a few more if you run step 3's commands yourself.</div>
+      <div><b>Prerequisites</b>None beyond curiosity to read it. To run it, <code>course/lab</code> built and <code>regulator</code> on the path (<code>OPERATING.md</code>) — otherwise just follow along.</div>
+      <div><b>What you'll have at the end</b>A second workload — a household ledger, not code — designed, declared, driven through five units, and read back in the control room.</div>
+    </div>
+  </div>
 </header>
+
+<section id="goal" class="wrap">
+  <div class="kicker">The goal<span class="tick"></span></div>
+  <h2 class="title">What these agents actually do, month to month</h2>
+  <p class="lede">Strip away the control-system vocabulary for a moment. Once a month,
+    this system is supposed to:</p>
+  <ol class="steps">
+    <li><b>Read the bank's statement</b> — a CSV export the bank produces, dropped into a folder by hand.</li>
+    <li><b>Sort every transaction into a category</b> — groceries, rent, utilities — from a fixed list, not invented on the spot.</li>
+    <li><b>Check the math</b> — the categorized ledger has to add up to exactly what the bank statement says, row for row.</li>
+    <li><b>Write a plain-English report</b> — a short monthly summary a person can actually read.</li>
+    <li><b>Draft a payment, then stop</b> — e.g. "pay the landlord $1,800 on the 5th" — and wait for a person to say yes before anything is final. It never sends money on its own.</li>
+  </ol>
+  <p class="lede" style="margin-top:16px;margin-bottom:0;">The rest of this page builds
+    that system for real, in five steps: design it as a control system first, declare it
+    as files, run it end to end, read the results back, and check it against what it
+    honestly doesn't do yet.</p>
+</section>
 
 <section id="why" class="wrap">
   <div class="kicker">Why this domain<span class="tick"></span></div>
@@ -153,7 +218,7 @@
 </section>
 
 <section id="design" class="wrap">
-  <div class="kicker">1 · Design first<span class="tick"></span></div>
+  <div class="kicker">Step 1 of 5 · Design first<span class="tick"></span></div>
   <h2 class="title">Six questions, and the level each answer sits at</h2>
   <p class="lede">For each function of the Viable System Model, ask the regulatory question it exists to
     answer, and answer it with a <em>mechanism</em> at the highest level of the hierarchy that fits —
@@ -162,13 +227,13 @@
 
   <div class="qa">
     <div class="row"><div class="fn">Domain</div><div><span class="q">What is the output, and where is the truth?</span>Output: <code>ledger/&lt;period&gt;.csv</code>, <code>reports/&lt;period&gt;.md</code>, <code>payments/pending/*.json</code>. Truth: <code>statements/</code>, protected. The person's record: <code>payments/executed/</code>, protected. The domain's own checks: <code>test/ledger.test.js</code> — every category is in the taxonomy; every period balances to its statement row for row and in total; a report's totals are the ledger's; a pending payment is well formed.</div></div>
-    <div class="row"><div class="fn">S1</div><div><span class="q">What are the units of work, and what may each touch?</span>Not "a finance agent". Six unit types — <code>ingest</code>, <code>categorize</code>, <code>reconcile</code>, <code>report</code>, <code>prepare-payment</code>, <code>close</code> — under two capability profiles that are grants over declared tool effects. The <b>bookkeeper</b> writes under <code>ledger/</code>, <code>reports/</code>, <code>payments/pending/</code> and gets <b>no shell</b>, so the grant is complete at the tool boundary. The <b>auditor</b> is read-only by declared effect. <code>lib/</code> and <code>test/</code> — the checks that will judge a unit — are under nobody's write grant.</div></div>
-    <div class="row"><div class="fn">S2</div><div><span class="q">What stops units tripping over each other?</span>Unchanged from the lab: a lease per worktree, one period per unit, reintegration by the orchestrator, and the thrash detector — a category that flips between attempts is a coordination signal, not two edits.</div></div>
-    <div class="row"><div class="fn">S3</div><div><span class="q">What is a unit told; what is fixed, delegated, unresolved?</span>A work contract per unit. For <code>categorize</code>: <b>fixed</b> — the statement is not edited, the taxonomy is not extended; <b>delegated</b> — each row's category within the taxonomy, July as precedent, every new merchant reported; <b>unresolved</b> — <code>UNKNOWN MERCHANT 8831</code>, a 120.00 debit nobody can explain: <em>defer</em>. The unit does not guess; the close carries it as an open item. Budgets and routes per unit type in a policy file.</div></div>
-    <div class="row"><div class="fn">S3*</div><div><span class="q">How do we know the close is right without believing the unit?</span>The host runs the ledger's own suite against the committed revision and binds the result to unit, attempt, contract and revision; the report's claims satisfy nothing. <code>identity-untouched</code> diffs the protected prefixes against the base at closeout, so an edit committed around a gate is a failing check. <code>glossary-lint</code> reads the branch for the identity's refused words. After every merge the base is checked again, and a failure there holds the whole instance.</div></div>
-    <div class="row"><div class="fn">S4</div><div><span class="q">What in the environment matters?</span>A statement arriving, a bill due, the tax calendar. Not automated here — the person drops the file in and dispatches the close. When it is, it is a research unit or the watcher raising an <em>obligation</em>: intelligence starts a loop, it never is a decision.</div></div>
-    <div class="row"><div class="fn">S5</div><div><span class="q">What must the system never be able to do?</span>Write the statement (outside the grant in the session; <code>--protected statements/</code> at closeout). Write a payment file without a person's yes (<code>ask_human</code> with <code>kind=consent</code> opens a blocking obligation; the pause gate refuses every tool with an effect until it is answered; silence is never consent, by protocol constant). Write <code>payments/executed/</code> (as the statement). In your own definition these are <code>INV-005…007</code> in the identity, seeded into every instance and cited by contracts; the lab's identity is the software harness's, so the contracts here cite the person who fixed them, and the mechanisms are the same.</div></div>
-    <div class="row"><div class="fn">Algedonic</div><div><span class="q">When must a person be interrupted?</span>Once: before a payment file exists. The unknown merchant is <em>not</em> an interrupt — it is an open item, owed to a person as an obligation, delivered to the outbox, reminded, and it stops nothing. A question that waits and a question that does not are different <em>kinds</em>, and the kind is a typed field.</div></div>
+    <div class="row"><div class="fn"><button type="button" class="gl" data-term="s1">S1</button></div><div><span class="q">What are the units of work, and what may each touch?</span>Not "a finance agent". Six unit types — <code>ingest</code>, <code>categorize</code>, <code>reconcile</code>, <code>report</code>, <code>prepare-payment</code>, <code>close</code> — under two <button type="button" class="gl" data-term="profile">capability profiles</button> that are grants over declared tool effects. The <b>bookkeeper</b> writes under <code>ledger/</code>, <code>reports/</code>, <code>payments/pending/</code> and gets <b>no shell</b>, so the grant is complete at the tool boundary. The <b>auditor</b> is read-only by declared effect. <code>lib/</code> and <code>test/</code> — the checks that will judge a unit — are under nobody's write grant.</div></div>
+    <div class="row"><div class="fn"><button type="button" class="gl" data-term="s2">S2</button></div><div><span class="q">What stops units tripping over each other?</span>Unchanged from the lab: a lease per worktree, one period per unit, <button type="button" class="gl" data-term="reintegration">reintegration</button> by the orchestrator, and the thrash detector — a category that flips between attempts is a coordination signal, not two edits.</div></div>
+    <div class="row"><div class="fn"><button type="button" class="gl" data-term="s3">S3</button></div><div><span class="q">What is a unit told; what is fixed, delegated, unresolved?</span>A <button type="button" class="gl" data-term="contract">work contract</button> per unit. For <code>categorize</code>: <b>fixed</b> — the statement is not edited, the taxonomy is not extended; <b>delegated</b> — each row's category within the taxonomy, July as precedent, every new merchant reported; <b>unresolved</b> — <code>UNKNOWN MERCHANT 8831</code>, a 120.00 debit nobody can explain: <em>defer</em>. The unit does not guess; the close carries it as an open item. Budgets and routes per unit type in a policy file.</div></div>
+    <div class="row"><div class="fn"><button type="button" class="gl" data-term="s3star">S3*</button></div><div><span class="q">How do we know the close is right without believing the unit?</span>The host runs the ledger's own suite against the committed revision and binds the result to unit, attempt, contract and revision; the report's claims satisfy nothing. <code>identity-untouched</code> diffs the protected prefixes against the base at closeout, so an edit committed around a gate is a failing check. <code>glossary-lint</code> reads the branch for the identity's refused words. After every merge the base is checked again, and a failure there holds the whole instance.</div></div>
+    <div class="row"><div class="fn"><button type="button" class="gl" data-term="s4">S4</button></div><div><span class="q">What in the environment matters?</span>A statement arriving, a bill due, the tax calendar. Not automated here — the person drops the file in and dispatches the close. When it is, it is a research unit or the watcher raising an <button type="button" class="gl" data-term="obligation">obligation</button>: intelligence starts a loop, it never is a decision.</div></div>
+    <div class="row"><div class="fn"><button type="button" class="gl" data-term="s5">S5</button></div><div><span class="q">What must the system never be able to do?</span>Write the statement (outside the grant in the session; <code>--protected statements/</code> at closeout). Write a payment file without a person's yes (<code>ask_human</code> with <code>kind=consent</code> opens a blocking obligation; the pause gate refuses every tool with an effect until it is answered; silence is never <button type="button" class="gl" data-term="consent">consent</button>, by protocol constant). Write <code>payments/executed/</code> (as the statement). In your own definition these are <code>INV-005…007</code> in the identity, seeded into every instance and cited by contracts; the lab's identity is the software harness's, so the contracts here cite the person who fixed them, and the mechanisms are the same.</div></div>
+    <div class="row"><div class="fn"><button type="button" class="gl" data-term="algedonic">Algedonic</button></div><div><span class="q">When must a person be interrupted?</span>Once: before a payment file exists. The unknown merchant is <em>not</em> an interrupt — it is an open item, owed to a person as an obligation, delivered to the outbox, reminded, and it stops nothing. A question that waits and a question that does not are different <em>kinds</em>, and the kind is a typed field.</div></div>
   </div>
 
   <div class="tbl-wrap">
@@ -189,15 +254,17 @@
 </section>
 
 <section id="declaration" class="wrap">
-  <div class="kicker">2 · The declaration<span class="tick"></span></div>
+  <div class="kicker">Step 2 of 5 · The declaration<span class="tick"></span></div>
   <h2 class="title">A control plane is declared, not assembled</h2>
   <p class="lede">This is the whole implementation. Nothing in the orchestrator changed for it except
     one line: the CLI now loads the workload a contract names. Each file is in
     <code>course/lab</code> and checked by <code>regulator check</code>.</p>
 
-  <div class="grid1">
-    <div>
-      <pre class="code"><b>household-ledger/</b>                <i>the domain: course/lab/fixture-finance</i>
+  <p class="step-lead"><b style="color:var(--ink);font-family:var(--mono);">First, the domain</b> — this
+    already exists as a fixture, so there's nothing to invent: a taxonomy, a protected
+    statement, a ledger, and the checks that will judge every unit's work, sitting
+    outside every write grant.</p>
+  <pre class="code"><b>household-ledger/</b>                <i>the domain: course/lab/fixture-finance</i>
   categories.json               the taxonomy (the person's)
   statements/                   the bank's exports — <u>protected</u>
     2026-08-checking.csv/.json
@@ -208,7 +275,12 @@
   lib/ledger.js  test/          the ledger's own checks —
                                 outside every write grant
   package.json                  scripts.test = node --test</pre>
-      <pre class="code" style="margin-top:12px;"><b>profiles/bookkeeper.json</b>
+
+  <p class="step-lead"><b style="color:var(--ink);font-family:var(--mono);">Next, the capability profile</b> —
+    a grant over declared tool effects, not a persona. The bookkeeper gets no shell, so
+    the grant is complete at the tool boundary; the advice is guidance for judgment
+    calls, not a substitute for the two decisions above it.</p>
+  <pre class="code"><b>profiles/bookkeeper.json</b>
 {
   "tools": ["read", "write", "edit", "grep", "find", "ls",
             "read_conventions", "run_tests", "run_checks",
@@ -222,9 +294,12 @@
      with kind=consent … write nothing without a yes."
   ]
 }</pre>
-    </div>
-    <div>
-      <pre class="code"><b>workload/personal-finance.json</b>
+
+  <p class="step-lead"><b style="color:var(--ink);font-family:var(--mono);">Then, the workload</b> —
+    six unit types, naming the profile each runs under and the checks the host will run
+    at closeout. This is the one thing the orchestrator didn't already know how to do:
+    load a workload other than the software one.</p>
+  <pre class="code"><b>workload/personal-finance.json</b>
 {
   "name": "personal-finance", "version": 1,
   "unitTypes": [
@@ -239,7 +314,12 @@
     { "name": "close",      "profile": "auditor", "checks": [] }
   ]
 }</pre>
-      <pre class="code" style="margin-top:12px;"><b>contracts/finance/f5-prepare-payment.json</b>
+
+  <p class="step-lead"><b style="color:var(--ink);font-family:var(--mono);">Finally, a contract</b> —
+    one per unit; here's the one that touches money. The fixed decision below is the
+    whole of INV-006 in miniature, cited to a person instead of an invariant file because
+    this fixture has no identity fork of its own yet.</p>
+  <pre class="code"><b>contracts/finance/f5-prepare-payment.json</b>
 {
   "unitType": "prepare-payment",
   "objective": "Prepare September's rent … after a person consents.",
@@ -258,17 +338,32 @@
       "description": "run_checks: protected prefixes untouched" }
   ]
 }</pre>
-    </div>
+  <p style="font-size:13.5px;color:var(--ink-dim);margin-top:16px;">Three more files exist
+    in the real fixture, not shown above:</p>
+  <ul style="font-size:13.5px;color:var(--ink-dim);margin:8px 0 0;padding-left:20px;">
+    <li><code>profiles/auditor.json</code> — the read-only profile: <code>read</code>, <code>grep</code>, <code>find</code>, <code>ls</code>, <code>read_conventions</code>, <code>run_checks</code>. Nothing that writes.</li>
+    <li><code>policies/finance.json</code> — budgets and model routes per unit type: the read-only unit types get one attempt each, and categorizing runs on the cheaper model.</li>
+    <li><code>contracts/finance/</code> — four more contracts, one per remaining unit type, in the same fixed / delegated / unresolved shape as the one above.</li>
+  </ul>
+
+  <div class="checkpoint" style="margin-top:18px;">
+    <b>A shortcut this example takes</b>
+    This fixture borrows the software project's identity, so its fixed decisions cite a
+    person (<code>human:alice</code>) instead of a written rule. If you built a
+    standalone finance harness of your own, you'd instead write three permanent
+    invariants into <code>identity/INVARIANTS.md</code> — <code>INV-005</code> (the bank statement is never edited), <code>INV-006</code> (nothing
+    is committed to without consent), <code>INV-007</code> (what was actually paid is the person's record, not a
+    unit's) — and every contract would cite the invariant instead of naming Alice. The
+    mechanism enforcing the rule is identical either way; only the paperwork changes.
   </div>
-  <p style="font-size:13.5px;color:var(--ink-dim);margin-top:16px;">Plus <code>profiles/auditor.json</code> (read, grep, find, ls, read_conventions, run_checks — nothing else),
-    <code>policies/finance.json</code> (budgets and routes per unit type; the read-only types get one attempt, categorization runs on the cheaper route)
-    and four more contracts. In your own definition, <code>identity/INVARIANTS.md</code> gains INV-005 (the statement is the bank's), INV-006 (nothing is committed to without consent)
-    and INV-007 (what was paid is the person's), each naming the mechanism that checks it, and the glossary names the words the instance does not use.</p>
 </section>
 
 <section id="run" class="wrap">
-  <div class="kicker">3 · Running it<span class="tick"></span></div>
+  <div class="kicker">Step 3 of 5 · Running it<span class="tick"></span></div>
   <h2 class="title">Init, doctor, five units, one question</h2>
+  <p class="lede">With the declaration from step 2 in place, this is every command from a
+    bare fixture to a closed month — copy-paste order. Run it against the real fixture,
+    or just read it: each line is annotated with what it does and why.</p>
   <pre class="code">regulator fixture ~/ledger --finance
 cd ~/ledger
 regulator init --writable ledger/,reports/,payments/pending/ \
@@ -286,53 +381,105 @@ regulator answer &lt;obligation&gt; --by alice --answer yes
 regulator unit drive $L/f5-prepare-payment.json --policy $P   <span class="c"># the next attempt carries the answer</span>
 node packages/control-room/dist/cli.js --definition course/lab --instance ~/ledger</pre>
   <ol class="steps">
-    <li><span class="who">f1–f4</span><b>Four units close on evidence the host produced</b> — <code>run_checks</code>, <code>run_tests</code> (the ledger's suite, discovered from <code>package.json</code>), <code>identity-untouched</code>, <code>glossary-lint</code>, each bound to the unit's committed revision — and after each merge <code>post-merge:run_tests</code> on the base.</li>
-    <li><span class="who">Open item</span><b>The unknown merchant stays <code>uncategorized</code></b> in the merged ledger; the report carries it under <em>Open items</em>; the categorize unit's report records it as <em>surfaced</em>, with residual uncertainty. The statement on the base is byte for byte what the bank sent.</li>
-    <li><span class="who">f5</span><b>The payment unit pauses.</b> The consent question is an obligation owed to a person, blocking; the attempt is recorded as <code>paused</code>; it is delivered to the outbox; the recovery policy is not consulted — a paused unit is waiting, not failing. Nothing exists under <code>payments/pending/</code>. After <code>alice</code> answers yes, the next attempt is told so in its hint, writes the file, and closes.</li>
-    <li><span class="who">Careless</span><b>Run with the careless bookkeeper</b>, the first attempt of each unit is refused — the edited statement by <code>identity-untouched</code> <em>and</em> by the ledger's checks, the invented category by the ledger's checks — routed to <code>repair</code>, and closed on the second attempt. The base never received the edited statement.</li>
-    <li><span class="who">Memory</span><b>A fact the categorize unit recorded</b> ("GREENGROCER 114 is the weekly groceries shop", review in 60 days) is scoped to <code>categorize</code> and <code>reconcile</code> and rendered to no other unit type.</li>
+    <li><span class="who">f1–f4</span><b>The first four units succeed — but not on their own word.</b> For each one, the host itself re-runs the ledger's real test suite, re-checks that no protected file (like the bank statement) changed, and scans for words the project has banned — all against the exact code the unit committed, not a summary of it. After each unit's work is merged in, the host runs the tests one more time on the combined result, just to catch anything the merge itself might have broken.</li>
+    <li><span class="who">Open item</span><b>One transaction is left alone, on purpose.</b> A $120 debit from a merchant nobody recognizes doesn't get a guessed category — the categorize unit marks it <code>uncategorized</code> and flags it in its report as unresolved. The ledger still balances to the bank statement byte for byte; that one row is just visibly unresolved instead of silently wrong.</li>
+    <li><span class="who">f5</span><b>The fifth unit — the one that would pay rent — stops and asks first.</b> Before it can write anything, it has to get a yes or no from a person ("pay the landlord $1,800 by the 5th?"). Nobody's answered yet, so it doesn't fail — it pauses, and the question sits in an outbox where a person will eventually see it. Nothing gets written until someone says yes. Once <code>alice</code> answers, re-running the same unit finishes the job and writes the payment file.</li>
+    <li><span class="who">Careless</span><b>Now try it with a version that cuts corners.</b> This "careless" stand-in edits the bank statement directly and invents a category instead of using the real list. Its first attempt at every unit gets rejected — the tests fail, and a separate check independently notices the statement changed at all. The system automatically retries with a corrected attempt, which succeeds. The point: the bad edit never makes it into the real, merged result — it gets caught and discarded, not covered up.</li>
+    <li><span class="who">Memory</span><b>Something worth remembering gets remembered — narrowly.</b> Along the way, the categorize unit learns "GREENGROCER 114 is the weekly grocery run" and saves it. But that fact is only ever shown back to the two unit types that need it (<code>categorize</code> and <code>reconcile</code>) — a unit doing something else, like preparing a payment, never sees it.</li>
   </ol>
+
+  <div class="checkpoint">
+    <b>Checkpoint</b> If you ran the commands above, you now have: a household ledger
+    instance with five closed units and a sixth question answered; a merged ledger the
+    bank's statement agrees with, byte for byte; one open item nobody guessed at; and a
+    <code>payments/pending/</code> file that only exists because a named person said yes.
+    Nothing above required touching the orchestrator's code.
+  </div>
+
   <p style="font-size:13.5px;color:var(--ink-dim);margin-top:14px;">Without a model, <code>course/lab/src/finance.test.ts</code> drives exactly this with the scripted <code>bookkeeper</code> and <code>careless</code> units under <code>pnpm check</code>; the screenshots below are the control room over that instance.</p>
 </section>
 
 <section id="room" class="wrap">
-  <div class="kicker">4 · The control room<span class="tick"></span></div>
+  <div class="kicker">Step 4 of 5 · The control room<span class="tick"></span></div>
   <h2 class="title">The same records, read back</h2>
-  <p class="lede">A projection of the registry, the execution store and the regulatory state; it owns
-    nothing. Every screenshot is the real page — <code>packages/control-room</code> — over the ledger
-    instance after the scripted close, with <code>f1-ingest</code> run careless and
-    <code>f5-prepare-payment</code> left waiting on consent.</p>
+  <p class="lede">The control room is a read-only dashboard: a web page that shows you
+    everything the system recorded about the run in step 3, without being able to change
+    any of it. Below are three real screenshots of it, each with the picture on the left
+    and a plain-language breakdown of what's on screen to the right.</p>
 
-  <figure class="shot"><img src="img/control-room/instances-ledger.webp" alt="The control room's instances view for the household ledger: the manifest line, five units with status, attempts, routing and audit revision, the live lease, the open consent obligation marked veto, the interaction row and the scoped memory entry." loading="lazy">
-    <figcaption><b>Instances.</b> The manifest line (definition, revision, Pi pin, who initialized it, the declared prefixes); five units — four closed, <code>f1-ingest</code> after a <code>check-failure → repair</code>, <code>f5-prepare-payment</code> paused; the live lease; the consent obligation, open, owed to a human, blocking, <em>veto</em>; the interaction with <code>S1</code> as the outcome's author because nobody was there; the memory entry with its review date.</figcaption></figure>
-
-  <figure class="shot"><img src="img/control-room/inspector-unit-f5.webp" alt="The unit inspector for f5-prepare-payment: the paused attempt, the consent obligation, the replay from contract to delivery, an empty audit, the contract with its fixed decisions, and the result report with its residual uncertainty." loading="lazy">
-    <figcaption><b>Inspector — the paused unit.</b> The attempt recorded as paused with the question; the obligation delivered once to the outbox; the replay in time order — <code>invoke_agent</code>, obligation opened, interaction requested and answered <em>unavailable</em>, the delivery journaled as intended then committed; no audit, because nothing was verified; the contract with consent fixed by a named person; the report saying nothing was written.</figcaption></figure>
-
-  <figure class="shot"><img src="img/control-room/inspector-unit-f1.webp" alt="The unit inspector for f1-ingest run careless: attempt 1 refused with the failing checks named, the repair decision and its hint, the replay with each host check and its observation, and attempt 2 closed with the post-merge checks." loading="lazy">
-    <figcaption><b>Inspector — the careless unit.</b> Attempt 1: <code>run_tests</code> 3 passed 1 failed, <code>identity-untouched</code> naming <code>statements/2026-08-checking.csv</code>, the report's claims contradicted by the host; the verdict, the audit finding, the router's <code>repair</code> with its hint. Attempt 2: four passing checks, the verdict, the merge, and <code>post-merge:run_tests</code> on the base.</figcaption></figure>
-
-  <div class="grid2">
-    <figure class="shot"><img src="img/control-room/workloads.webp" alt="The definition's workloads: personal-finance and software-development, each unit type with its profile and checks." loading="lazy"><figcaption><b>Definition — two workloads.</b> The loop is generic over them; each unit type names its profile and the checks the host runs.</figcaption></figure>
-    <figure class="shot"><img src="img/control-room/profiles.webp" alt="The definition's five profiles with their tools, writable prefixes and thinking level." loading="lazy"><figcaption><b>Definition — five profiles.</b> Positive grants over declared effects; the bookkeeper's prefixes and the auditor's empty ones.</figcaption></figure>
+  <div class="shot-row">
+    <div class="shot-img"><img src="img/control-room/instances-ledger.webp" alt="The control room's instances view for the household ledger: the manifest line, five units with status, attempts, routing and audit revision, the live lease, the open consent obligation marked veto, the interaction row and the scoped memory entry." loading="lazy"></div>
+    <div class="shot-notes">
+      <div class="shot-title">The overview: everything about this run, at a glance</div>
+      <ul>
+        <li>Top: which ledger this is, which code revision ran it, and who set it up.</li>
+        <li>A row per unit: four say <b>closed</b> — done and independently verified — one says <b>paused</b>, waiting on a person.</li>
+        <li>One open question, front and center: "can we pay the rent?" — flagged as blocking until someone answers it.</li>
+        <li>One remembered fact (the grocery-store categorization from earlier), tagged with a date to double-check it's still true.</li>
+      </ul>
+    </div>
   </div>
-  <p style="font-size:13.5px;color:var(--ink-dim);margin-top:14px;">More of the page — the topology, the assurance and lifecycle views, the drift instance — on the <a href="index.html#control-room">overview</a>.</p>
+
+  <p style="font-size:13.5px;color:var(--ink-dim);margin-top:20px;">The next two
+    screenshots both drill into a single unit's full history — the same view, applied to
+    two different outcomes, so you can see both paths through it: one unit that's
+    waiting on a person, and one that made a mistake and got corrected automatically.</p>
+
+  <div class="shot-row">
+    <div class="shot-img"><img src="img/control-room/inspector-unit-f5.webp" alt="The unit inspector for f5-prepare-payment: the paused attempt, the consent obligation, the replay from contract to delivery, an empty audit, the contract with its fixed decisions, and the result report with its residual uncertainty." loading="lazy"></div>
+    <div class="shot-notes">
+      <div class="shot-title">Drill-down #1: the unit that's waiting on a person</div>
+      <ul>
+        <li>This is the payment unit from step 3 — the one that stopped to ask "pay the landlord?"</li>
+        <li>Its one and only attempt is marked <b>paused</b>, not failed — it's not stuck, it's waiting.</li>
+        <li>Below that: the exact question it asked, and who it's waiting on to answer.</li>
+        <li>Further down: a timestamped log of everything that's happened to this unit so far, in order.</li>
+        <li>There's no verification section here yet — nothing to check, because the unit hasn't done anything that needs checking.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="shot-row">
+    <div class="shot-img"><img src="img/control-room/inspector-unit-f1.webp" alt="The unit inspector for f1-ingest run careless: attempt 1 refused with the failing checks named, the repair decision and its hint, the replay with each host check and its observation, and attempt 2 closed with the post-merge checks." loading="lazy"></div>
+    <div class="shot-notes">
+      <div class="shot-title">Drill-down #2: the unit that made a mistake, then fixed it</div>
+      <ul>
+        <li>This is the "careless" run from step 3 — the one that edited the bank statement by mistake.</li>
+        <li>Its first attempt is marked <b>failed</b>, with the specific tests and checks that caught it named outright.</li>
+        <li>Next: the system's decision to try again, plus a hint telling the retry exactly what went wrong.</li>
+        <li>Its second attempt is marked <b>closed</b> — this time everything passed, including one final check run after merging.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="step-lead" style="margin-top:26px;">Two more views exist in the same dashboard,
+    shown smaller here since they're less central to this walkthrough:</p>
+  <div class="grid2">
+    <figure class="shot"><img src="img/control-room/workloads.webp" alt="The definition's workloads: personal-finance and software-development, each unit type with its profile and checks." loading="lazy"><figcaption><b>Every kind of job the system knows how to run.</b> This household ledger and the software-development one from the rest of the course, side by side — proof the same engine runs both.</figcaption></figure>
+    <figure class="shot"><img src="img/control-room/profiles.webp" alt="The definition's five profiles with their tools, writable prefixes and thinking level." loading="lazy"><figcaption><b>Every permission grant the system knows about.</b> What each role (bookkeeper, auditor, and the software roles) is actually allowed to touch.</figcaption></figure>
+  </div>
+  <p style="font-size:13.5px;color:var(--ink-dim);margin-top:14px;">More of this same dashboard — the full topology, the assurance and lifecycle views, a live instance under drift — is shown on <a href="product.html#control-room">the product page</a>.</p>
 </section>
 
 <section id="honest" class="wrap">
-  <div class="kicker">5 · What it does not do<span class="tick"></span></div>
-  <h2 class="title">Said plainly, in the registry's spirit</h2>
+  <div class="kicker">Step 5 of 5 · What it does not do<span class="tick"></span></div>
+  <h2 class="title">The honest limits of this example</h2>
+  <p class="lede">Four ways this walkthrough is simpler than a real deployment would be —
+    stated outright, not buried in a footnote.</p>
   <div class="notes">
-    <div class="note"><b>Scripted units run no session</b>The gates <em>inside</em> one — the profile grant, the identity write gate, the pause gate — are exercised by their own tests, not by this close. A live run with a model is the drill.</div>
-    <div class="note"><b>Consent is the model's to notice</b>DEBT row 29. A <code>pay</code> tool whose declared effect is irreversible with a credential would let a gate derive it; the example has no such tool on purpose — the harness holds nothing that moves money.</div>
-    <div class="note"><b>The invariants are a person's here</b>Fixed decisions citing <code>human:alice</code>, not identity. The fork in §2 is where they belong; the lab's identity stays the software harness's.</div>
-    <div class="note"><b>No S4, no resolution</b>The statement arrives by hand. The unknown merchant is carried, not resolved: resolving it is a <code>clarification</code> question this close does not ask.</div>
+    <div class="note"><b>It's a script pretending to be an assistant, not a live AI</b>Every unit above was completed by a small stand-in program — a "bookkeeper" and a "careless" one — not a real language model making judgment calls. That's on purpose: it means this exact scenario replays identically every time in the project's automated tests. The safety mechanisms that matter for a real AI session (limiting what it can touch, gating writes, pausing on a question) exist and are tested elsewhere; a live run with an actual model is the next drill, not this page.</div>
+    <div class="note"><b>Nothing automatically knows a payment is risky</b>The system has no built-in sense that "write a payment file" is dangerous — the profile's written guidance just tells the assistant to treat it that way, and the assistant follows it. A stricter version would tag the "pay" action itself as irreversible, so a gate could enforce the pause automatically instead of relying on the assistant noticing. This example skips that on purpose: it has no tool that can actually move money, so there's nothing real at stake if it got this wrong.</div>
+    <div class="note"><b>The safety rules are tied to a person's name, not a permanent policy</b>A standalone system would write its rules into a permanent policy file and have every rule cite that file. This example borrows the software project's setup instead, so its rules just say "because Alice said so." The mechanism enforcing the rule is identical either way — see the callout in step 2 — only the paperwork differs.</div>
+    <div class="note"><b>Nobody's watching for new statements, and open questions stay open</b>A person still has to manually drop the bank statement in and kick off the process — nothing watches for a new file to arrive on its own. And that unrecognized $120 charge from step 3? It stays flagged forever in this example; nothing here ever resolves it. A fuller build could add a step that automatically asks a person to identify it.</div>
   </div>
 </section>
 
 <section id="recipe" class="wrap">
-  <div class="kicker">6 · Your domain<span class="tick"></span></div>
+  <div class="kicker">Next · Your domain<span class="tick"></span></div>
   <h2 class="title">The recipe</h2>
+  <p class="lede">You've now followed a household ledger end to end — designed, declared,
+    run, and read back. Here are the same eight moves, generalized, for whatever you're
+    actually building.</p>
   <ol class="steps">
     <li><b>Name the domain output and the source of truth.</b> Decide what is protected.</li>
     <li><b>List the unit types.</b> For each: what it may write, which tools by effect, which host-run checks judge it. Put the domain's own checks outside every write grant.</li>
@@ -343,18 +490,24 @@ node packages/control-room/dist/cli.js --definition course/lab --instance ~/ledg
     <li><b><code>regulator init</code></b> with the declared prefixes; <code>doctor</code>; drive the first unit; read the evidence, not the summary.</li>
     <li><b>Script the close</b> — a bookkeeper and a careless one — so it runs under CI, then run it live and compare. That is the eval harness pointed at your domain.</li>
   </ol>
+  <p style="font-size:13.5px;color:var(--ink-dim);margin-top:16px;">Nothing on this page
+    was hypothetical, and neither is your domain's version of it. The fixture and every
+    file in step 2 are real, checked-in code — start by reading them, not by starting
+    from a blank file.</p>
 </section>
 
 <footer class="wrap">
   <div class="foot-row">
     <div class="foot-note">VSM-Pi · a household ledger under regulator.</div>
     <div class="foot-links">
-      <a href="index.html">Overview</a>
+      <a href="product.html">The product</a>
+      <a href="index.html">The course</a>
       <a href="how-it-works.html">How it works</a>
       <a href="https://github.com/metacoding-io/vsm-pi/blob/main/course/examples/personal-finance.md">the example in the repo ↗</a>
       <a href="https://github.com/metacoding-io/vsm-pi/tree/main/course/lab/fixture-finance">fixture-finance ↗</a>
     </div>
   </div>
 </footer>
+<script src="glossary.js" defer></script>
 </body>
 </html>
