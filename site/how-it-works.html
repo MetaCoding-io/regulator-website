@@ -92,6 +92,31 @@
   .note.alarm{border-left-color:var(--alarm);}
   .note b{color:var(--ink);font-family:var(--mono);font-size:12.5px;display:block;margin-bottom:3px;}
   table{width:100%;border-collapse:collapse;font-size:13.4px;}
+  .flow-scroll{overflow-x:auto;padding-bottom:6px;}
+  .flow-track{display:flex;align-items:flex-start;gap:0;min-width:max-content;padding:26px 4px 4px;}
+  .flow-arrow{color:var(--ink-faint);font-family:var(--mono);font-size:15px;padding:0 2px;align-self:center;margin-top:20px;}
+  .ev{display:flex;flex-direction:column;align-items:center;gap:6px;width:104px;background:none;border:none;padding:4px;cursor:help;font:inherit;flex-shrink:0;}
+  .ev-dot{width:15px;height:15px;border-radius:50%;border:2px solid var(--ink-dim);background:var(--surface);}
+  .ev.gate .ev-dot{border-color:var(--alarm);background:var(--alarm-soft);}
+  .ev-label{font-family:var(--mono);font-size:10.8px;color:var(--ink);text-align:center;line-height:1.25;}
+  .ev:hover .ev-dot,.ev:focus-visible .ev-dot,.ev[aria-expanded="true"] .ev-dot{border-color:var(--signal);background:var(--signal-soft);}
+  .ev:hover .ev-label,.ev:focus-visible .ev-label,.ev[aria-expanded="true"] .ev-label{color:var(--signal-ink);}
+  .ev:focus-visible{outline:2px solid var(--signal);outline-offset:2px;border-radius:6px;}
+  .flow-loop{display:flex;align-items:flex-start;border:1px dashed var(--line-strong);border-radius:10px;padding:14px 6px 4px;position:relative;margin:0 4px;}
+  .flow-loop-label{position:absolute;top:-11px;left:12px;background:var(--bg);padding:0 6px;font-family:var(--mono);font-size:10px;letter-spacing:.03em;color:var(--ink-faint);white-space:nowrap;}
+  .flow-branch{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:8px;}
+  .flow-branch-line{width:1px;height:14px;background:var(--line-strong);border-left:1px dashed var(--line-strong);}
+  .flow-branch-note{font-family:var(--mono);font-size:9.5px;color:var(--ink-faint);white-space:nowrap;}
+  .ev-legend{display:flex;gap:20px;margin-top:16px;font-family:var(--mono);font-size:11px;color:var(--ink-faint);flex-wrap:wrap;}
+  .ev-legend span{display:inline-flex;align-items:center;gap:6px;}
+  .ev-legend .ev-dot{width:11px;height:11px;}
+  .ev-pop-kind{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;padding:1px 6px;border-radius:3px;margin-bottom:8px;}
+  .ev-pop-kind.gate{color:var(--alarm);background:var(--alarm-soft);}
+  .ev-pop-kind.hook{color:var(--ink-faint);background:var(--surface-2);}
+  .ev-pop-when{font-size:12px;color:var(--ink-faint);margin-bottom:8px;}
+  .ev-pop ul{margin:0;padding-left:16px;}
+  .ev-pop li{margin-bottom:4px;}
+  .ev-pop li:last-child{margin-bottom:0;}
   .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface);margin-top:18px;}
   th{text-align:left;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);padding:10px 12px;border-bottom:1px solid var(--line-strong);white-space:nowrap;}
   td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-dim);}
@@ -804,27 +829,50 @@
 
 <section id="session" class="wrap">
   <div class="kicker">Inside a session<span class="tick"></span></div>
-  <h2 class="title">Which extension answers which event</h2>
-  <p class="lede">A unit's session is plain Pi with eleven extensions loaded in order — tools, profiles, coordination, contract, budget, recovery, evidence, authority, intelligence, identity, algedonic — each one concern. Each
-    hooks a few lifecycle events; a rule is a sentence here because a table says it faster
-    than a picture would.</p>
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>Event</th><th>Extension</th><th>What it does</th></tr></thead>
-      <tbody>
-        <tr><td>project_trust</td><td>authority</td><td>Answers <em>no</em>: the project never loads its own extensions or skills. (The dispatcher's loader enforces the same rule for SDK sessions, where this event never fires.)</td></tr>
-        <tr><td>session_start</td><td>coordination · contract · budget · recovery · evidence · authority · algedonic</td><td>Find the unit from the lease on this worktree; load the contract from the store and append it as a typed entry; open the budget ledger; reconcile pending effects against the world; discover the protected paths; load the canaries; load the interaction policy and say whether a person is present.</td></tr>
-        <tr><td>before_agent_start</td><td>profiles · contract · identity</td><td>Add the profile's advice, the contract, the identity set and the current memory as system-prompt sections. Advice — the gates below are what bind.</td></tr>
-        <tr><td>tool_call</td><td>profiles · coordination · budget · evidence · authority · algedonic</td><td>In load order: profile grant, live lease for any non-read-only effect, budget crossed → refuse effects, <code>report_result</code> preflight (the cited runs happened here, at HEAD, and passed), protected-path preflight with the filesystem walk, and the pause gate — nothing with an effect runs while a question to a person waits. The path a tool executes is the one that was checked. A bash call is snapshotted.</td></tr>
-        <tr><td>tool_result</td><td>evidence · authority</td><td>Stamp <code>run_tests</code> / <code>run_checks</code> with the revision; after bash, restore any protected file that changed and say so; redact canaries.</td></tr>
-        <tr><td>tool_execution_end</td><td>coordination · budget · recovery</td><td>Count edits per file for the thrash detector; record evidence pointers for compaction; normalize tool errors into observations for the router.</td></tr>
-        <tr><td>message_end · turn_end</td><td>budget · authority · coordination</td><td>Meter tokens and turns against the ceiling and halt at a crossing; record a canary the model wrote; heartbeat the lease.</td></tr>
-        <tr><td>session_before_compact</td><td>budget</td><td>Begin every summary with the contract allocation, evidence pointers and touched files — deterministically — then the model's summary, if any.</td></tr>
-        <tr><td>agent_end</td><td>contract · recovery</td><td>Warn if no report was made; record a provider error as an observation.</td></tr>
-        <tr><td>tools registered</td><td>tools · contract · recovery · authority · intelligence · identity · algedonic</td><td><code>read_conventions</code>, <code>run_tests</code>, <code>run_checks</code>; <code>report_result</code>; <code>notify_owner</code> (journaled); <code>propose_policy_change</code> (records, changes nothing); <code>report_intelligence</code>; <code>remember</code>; <code>ask_human</code>. A profile grants a subset; the session sees only what it grants.</td></tr>
-      </tbody>
-    </table>
-  </div>
+  <h2 class="title">Where the gates sit in a session</h2>
+  <p class="lede">A unit's session is plain Pi with eleven extensions loaded in order — tools, profiles,
+    coordination, contract, budget, recovery, evidence, authority, intelligence, identity,
+    algedonic — each hooking
+    a handful of lifecycle events. Hover or tap a point on the line for what runs there.
+    A solid red marker can refuse a tool call or halt the session; a hollow marker only
+    records what happened.</p>
+
+  <figure class="flow">
+    <div class="flow-scroll">
+      <div class="flow-track" role="img" aria-label="A unit's session, left to right: tools registered at boot, project_trust, session_start, before_agent_start, then a loop of tool_call, tool_result, tool_execution_end and message_end/turn_end that repeats every turn, an occasional branch to session_before_compact near the context limit, and agent_end when the session's turn is over. Gates are marked; hover each point for detail.">
+        <button type="button" class="ev" data-ev="tools_registered"><span class="ev-dot"></span><span class="ev-label">tools<br>registered</span></button>
+        <span class="flow-arrow">→</span>
+        <button type="button" class="ev gate" data-ev="project_trust"><span class="ev-dot"></span><span class="ev-label">project_<br>trust</span></button>
+        <span class="flow-arrow">→</span>
+        <button type="button" class="ev" data-ev="session_start"><span class="ev-dot"></span><span class="ev-label">session_<br>start</span></button>
+        <span class="flow-arrow">→</span>
+        <button type="button" class="ev" data-ev="before_agent_start"><span class="ev-dot"></span><span class="ev-label">before_<br>agent_start</span></button>
+        <span class="flow-arrow">→</span>
+        <div class="flow-loop">
+          <span class="flow-loop-label">↻ every turn</span>
+          <button type="button" class="ev gate" data-ev="tool_call"><span class="ev-dot"></span><span class="ev-label">tool_<br>call</span></button>
+          <span class="flow-arrow">→</span>
+          <button type="button" class="ev gate" data-ev="tool_result"><span class="ev-dot"></span><span class="ev-label">tool_<br>result</span></button>
+          <span class="flow-arrow">→</span>
+          <button type="button" class="ev" data-ev="tool_execution_end"><span class="ev-dot"></span><span class="ev-label">tool_execution_<br>end</span></button>
+          <span class="flow-arrow">→</span>
+          <button type="button" class="ev gate" data-ev="message_turn_end"><span class="ev-dot"></span><span class="ev-label">message_end ·<br>turn_end</span></button>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-branch">
+          <button type="button" class="ev" data-ev="session_before_compact"><span class="ev-dot"></span><span class="ev-label">session_before_<br>compact</span></button>
+          <span class="flow-branch-note">only near the context limit</span>
+        </div>
+        <span class="flow-arrow">→</span>
+        <button type="button" class="ev" data-ev="agent_end"><span class="ev-dot"></span><span class="ev-label">agent_<br>end</span></button>
+      </div>
+    </div>
+    <div class="ev-legend">
+      <span><span class="ev-dot" style="border-color:var(--alarm);background:var(--alarm-soft)"></span> gate — can refuse or halt</span>
+      <span><span class="ev-dot" style="border-color:var(--ink-dim);background:var(--surface)"></span> hook — records only</span>
+    </div>
+    <figcaption>The loop repeats once per model turn until the unit reports or a gate stops it; <code>session_before_compact</code> only fires when the context nears its limit.</figcaption>
+  </figure>
 
   <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/tools">Session tools</a> · <a href="https://metacoding-io.github.io/regulator/reference/boundary">Enforcement boundary</a></p>
 </section>
@@ -892,5 +940,6 @@
 </footer>
 <script src="theme.js" defer></script>
 <script src="glossary.js" defer></script>
+<script src="session-flow.js" defer></script>
 </body>
 </html>
