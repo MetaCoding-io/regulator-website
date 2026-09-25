@@ -18,7 +18,9 @@
         "Registers <code>read_conventions</code>, <code>run_tests</code>, <code>run_checks</code>",
         "Registers <code>report_result</code>",
         "Registers <code>notify_owner</code> (journaled)",
-        "Registers <code>propose_policy_change</code> (records only — changes nothing)"
+        "Registers <code>propose_policy_change</code> (records only — changes nothing)",
+        "Registers <code>report_intelligence</code>, <code>remember</code> and <code>ask_human</code>",
+        "A profile grants a subset; the session sees only what it grants, plus <code>report_result</code> whenever a contract is loaded"
       ]
     },
     project_trust: {
@@ -38,14 +40,15 @@
         "Opens the budget ledger",
         "Reconciles pending effects against the world",
         "Discovers the protected paths",
-        "Loads the canaries"
+        "Loads the canaries",
+        "Loads the interaction policy and says whether a person is present"
       ]
     },
     before_agent_start: {
       label: "before_agent_start", kind: "hook",
       when: "Before the model's first turn.",
       bullets: [
-        "Adds the profile's advice and the contract as system-prompt sections",
+        "Adds the profile's advice, the contract, the identity set and the current memory as system-prompt sections",
         "Advice only — the gates further down this line are what actually bind"
       ]
     },
@@ -53,12 +56,12 @@
       label: "tool_call", kind: "gate",
       when: "Every tool call, in load order, before it runs.",
       bullets: [
-        "Vendor path check (lexical)",
         "Profile grant check",
         "A live lease is required for any non-read-only effect",
         "A crossed budget refuses the effect",
         "<code>report_result</code> preflight: the cited runs happened in this session, at HEAD, and passed",
         "Protected-path preflight with a filesystem walk — the path a tool executes is the one that was checked",
+        "The pause gate: while a question to a person waits, nothing with an effect runs",
         "A bash call is snapshotted first"
       ]
     },

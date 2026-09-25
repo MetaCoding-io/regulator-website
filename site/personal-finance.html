@@ -142,7 +142,7 @@
 
 <nav>
   <div class="wrap navrow">
-    <a class="navmark" href="index.html"><span class="dot"></span>VSM&#8202;·&#8202;PI</a>
+    <a class="navmark" href="index.html"><span class="dot"></span>regulator</a>
     <div class="navlinks">
       <a href="#goal">The goal</a>
       <a href="#design">Design first</a>
@@ -152,7 +152,8 @@
       <a href="#honest">What it does not do</a>
       <a href="#recipe">Your domain</a>
       <a href="product.html">← The product</a>
-      <a href="index.html">The course ↗</a>
+      <a href="how-it-works.html">How it works ↗</a>
+      <a href="https://metacoding-io.github.io/regulator/examples/personal-finance">Docs ↗</a>
     </div>
   </div>
   <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme">☾</button>
@@ -172,7 +173,7 @@
   <div class="vocab">
     <div class="vocab-head">
       <span class="vocab-title">Vocabulary — for this page specifically</span>
-      <a class="vocab-more" href="https://github.com/MetaCoding-io/regulator/blob/main/course/GLOSSARY.md" target="_blank" rel="noopener">Full glossary ↗</a>
+      <a class="vocab-more" href="https://metacoding-io.github.io/regulator/GLOSSARY" target="_blank" rel="noopener">Full glossary ↗</a>
     </div>
     <dl class="vocab-grid">
       <dt>workload</dt><dd>A declared set of unit types for one kind of job. This page's job is a household ledger, not code.</dd>
@@ -260,6 +261,8 @@
       </tbody>
     </table>
   </div>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/examples/personal-finance">The worked example, in full</a></p>
 </section>
 
 <section id="declaration" class="wrap">
@@ -379,7 +382,7 @@ regulator init --writable ledger/,reports/,payments/pending/ \
                --protected statements/,payments/executed/ --by alice
 regulator doctor                                        <span class="c"># exit 1 on any problem</span>
 
-L=packages/regulator/contracts/finance; P=packages/regulator/policies/finance.json
+R=node_modules/@metacoding.io/regulator; L=$R/contracts/finance; P=$R/policies/finance.json   <span class="c"># the installed package's definition</span>
 regulator unit drive $L/f1-ingest.json --policy $P
 regulator unit drive $L/f2-categorize.json --policy $P
 regulator unit drive $L/f3-reconcile.json --policy $P
@@ -388,7 +391,7 @@ regulator unit drive $L/f5-prepare-payment.json --policy $P   <span class="c"># 
 regulator obligations                                   <span class="c"># consent: September rent — owed to a person, veto</span>
 regulator answer &lt;obligation&gt; --by alice --answer yes
 regulator unit drive $L/f5-prepare-payment.json --policy $P   <span class="c"># the next attempt carries the answer</span>
-node packages/control-room/dist/cli.js --definition packages/regulator --instance ~/ledger</pre>
+regulator-control-room --definition $R --instance ~/ledger   <span class="c"># @metacoding.io/regulator-control-room</span></pre>
   <ol class="steps">
     <li><span class="who">f1–f4</span><b>The first four units succeed — but not on their own word.</b> For each one, the host itself re-runs the ledger's real test suite — and the suite as it stood before the unit started, so a test the unit deleted or weakened counts against it — re-checks that no protected file (like the bank statement) changed, and scans for words the project has banned — all against the exact code the unit committed, not a summary of it. After each unit's work is merged in, the host runs the tests one more time on the combined result, just to catch anything the merge itself might have broken.</li>
     <li><span class="who">Open item</span><b>One transaction is left alone, on purpose.</b> A $120 debit from a merchant nobody recognizes doesn't get a guessed category — the categorize unit marks it <code>uncategorized</code> and flags it in its report as unresolved. The ledger still balances to the bank statement byte for byte; that one row is just visibly unresolved instead of silently wrong.</li>
@@ -406,6 +409,8 @@ node packages/control-room/dist/cli.js --definition packages/regulator --instanc
   </div>
 
   <p style="font-size:13.5px;color:var(--ink-dim);margin-top:14px;">Without a model, <code>packages/regulator/src/finance.test.ts</code> drives exactly this with the scripted <code>bookkeeper</code> and <code>careless</code> units under <code>pnpm check</code>; the screenshots below are the control room over that instance.</p>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/guide/getting-started">Getting started</a> · <a href="https://metacoding-io.github.io/regulator/guide/operating">Operating</a></p>
 </section>
 
 <section id="room" class="wrap">
@@ -468,6 +473,8 @@ node packages/control-room/dist/cli.js --definition packages/regulator --instanc
     <figure class="shot"><img src="img/control-room/profiles.webp" alt="The definition's five profiles with their tools, writable prefixes and thinking level." loading="lazy"><figcaption><b>Every permission grant the system knows about.</b> What each role (bookkeeper, auditor, and the software roles) is actually allowed to touch.</figcaption></figure>
   </div>
   <p style="font-size:13.5px;color:var(--ink-dim);margin-top:14px;">More of this same dashboard — the full topology, the assurance and lifecycle views, a live instance under drift — is shown on <a href="product.html#control-room">the product page</a>.</p>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/guide/control-room">The control room</a></p>
 </section>
 
 <section id="honest" class="wrap">
@@ -503,16 +510,19 @@ node packages/control-room/dist/cli.js --definition packages/regulator --instanc
     was hypothetical, and neither is your domain's version of it. The fixture and every
     file in step 2 are real, checked-in code — start by reading them, not by starting
     from a blank file.</p>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/examples/personal-finance">The worked example, in full</a> · <a href="https://metacoding-io.github.io/regulator/reference/definition">Definition files</a></p>
 </section>
 
 <footer class="wrap">
   <div class="foot-row">
     <div class="foot-note">regulator · a household ledger under the same control plane.</div>
     <div class="foot-links">
+      <a href="https://metacoding-io.github.io/regulator/examples/personal-finance">Docs ↗</a>
       <a href="product.html">The product</a>
       <a href="index.html">The course</a>
       <a href="how-it-works.html">How it works</a>
-      <a href="https://github.com/MetaCoding-io/regulator/blob/main/course/examples/personal-finance.md">the example in the repo ↗</a>
+      <a href="https://metacoding-io.github.io/regulator/examples/personal-finance">the example in the docs ↗</a>
       <a href="https://github.com/MetaCoding-io/regulator/tree/main/packages/regulator/fixture-finance">fixture-finance ↗</a>
     </div>
   </div>

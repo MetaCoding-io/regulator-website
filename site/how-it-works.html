@@ -135,7 +135,7 @@
 
 <nav>
   <div class="wrap navrow">
-    <a class="navmark" href="index.html"><span class="dot"></span>VSM&#8202;·&#8202;PI</a>
+    <a class="navmark" href="index.html"><span class="dot"></span>regulator</a>
     <div class="navlinks">
       <a href="#loop">The loop</a>
       <a href="#lifecycle">Unit states</a>
@@ -147,14 +147,15 @@
       <a href="#session">Inside a session</a>
       <a href="#disk">On disk</a>
       <a href="product.html">← The product</a>
-      <a href="index.html">The course ↗</a>
+      <a href="personal-finance.html">Worked example ↗</a>
+      <a href="https://metacoding-io.github.io/regulator/">Docs ↗</a>
     </div>
   </div>
   <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme">☾</button>
 </nav>
 
 <header class="hero wrap">
-  <div class="hero-eyebrow">How it works · drawn from the reference build at checkpoint 9</div>
+  <div class="hero-eyebrow">How it works · drawn from the reference build at 0.1.1</div>
   <h1>One unit, <span class="accent">end to end</span>.</h1>
   <p class="tag">The <button type="button" class="gl" data-term="orchestrator">orchestrator</button> never touches the code. It writes a contract, hands a
     session a worktree, reads the report the session wrote, re-runs the checks itself
@@ -171,7 +172,7 @@
   <div class="vocab">
     <div class="vocab-head">
       <span class="vocab-title">Vocabulary — for this page specifically</span>
-      <a class="vocab-more" href="https://github.com/MetaCoding-io/regulator/blob/main/course/GLOSSARY.md" target="_blank" rel="noopener">Full glossary ↗</a>
+      <a class="vocab-more" href="https://metacoding-io.github.io/regulator/GLOSSARY" target="_blank" rel="noopener">Full glossary ↗</a>
     </div>
     <dl class="vocab-grid">
       <dt>unit</dt><dd>The smallest piece of dispatched work — one contract, one session, one verdict.</dd>
@@ -265,7 +266,7 @@
         <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="122" y="210" text-anchor="start" font-size="10" fill="var(--ink-faint)">only the definition's extensions load · flags: unit, profile, contract, policy · the router's hint, if any</text>
         <line x1="543" y1="236" x2="337" y2="236" stroke="currentColor" marker-end="url(#ah)"/>
         <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="440" y="231" text-anchor="middle">session_start: lease → unit → contract from the store; budget ledger opened</text>
-        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="440" y="250" text-anchor="middle" font-size="10" fill="var(--ink-faint)">cp4 lease gate · cp5 contract section · cp6 meter · cp7 reconcile effects · cp9 protected paths</text>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="440" y="250" text-anchor="middle" font-size="10" fill="var(--ink-faint)">coordination: lease gate · contract: contract section · budget: meter · recovery: reconcile effects · authority: protected paths</text>
         <!-- the unit works -->
         <line x1="555" y1="310" x2="763" y2="310" stroke="var(--signal)" marker-end="url(#ah)"/>
         <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="659" y="305" text-anchor="middle">read · write · edit · bash</text>
@@ -278,10 +279,10 @@
         <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="659" y="404" text-anchor="middle" font-size="10" fill="var(--ink-faint)">evidence binds to a commit; a dirty tree cannot close</text>
         <line x1="555" y1="436" x2="983" y2="436" stroke="var(--ink-faint)" marker-end="url(#ah-ret)"/>
         <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="769" y="431" text-anchor="middle" fill="var(--ink-dim)">observations · signals, as they happen</text>
-        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="769" y="450" text-anchor="middle" font-size="10" fill="var(--ink-faint)">tool errors (cp7) · thrash signal (cp4) · protected file touched by bash → restored, finding (cp9)</text>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="769" y="450" text-anchor="middle" font-size="10" fill="var(--ink-faint)">tool errors (recovery) · thrash signal (coordination) · protected file touched by bash → restored, finding (authority)</text>
         <line x1="543" y1="486" x2="337" y2="486" stroke="var(--signal)" marker-end="url(#ah)"/>
         <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="440" y="481" text-anchor="middle">report_result → report.v1.a1.json</text>
-        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="122" y="500" text-anchor="start" font-size="10" fill="var(--ink-faint)">refused unless the cited runs happened here at HEAD (cp8), every delegated choice is reported, unresolved are preserved or surfaced, evidence classes present (cp5)</text>
+        <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="122" y="500" text-anchor="start" font-size="10" fill="var(--ink-faint)">refused unless the cited runs happened here at HEAD (evidence), every delegated choice is reported, unresolved are preserved or surfaced, evidence classes present (contract)</text>
         <line x1="543" y1="536" x2="117" y2="536" stroke="var(--signal)" marker-end="url(#ah)"/>
         <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="330" y="531" text-anchor="middle">session ends (agent_end); dispatcher returns the session id</text>
         <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="330" y="550" text-anchor="middle" font-size="10" fill="var(--ink-faint)">the transcript is Pi's; the orchestrator never reads it</text>
@@ -308,7 +309,7 @@
         <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="150" y="966" text-anchor="start" font-size="10.5" fill="var(--ink-dim)">retry / repair: back to dispatch, while attempts remain</text>
       </g>
     </svg>
-    <figcaption><b>One unit through the loop.</b> Solid arrows are calls; the teal ones are the session acting inside its worktree, the orange ones are S3* verifying independently of what the session reported. The orchestrator writes to the execution store and reads the report from it; it never reads the transcript and never reads the diff to learn how the unit is doing. Every step is in <code>controller.ts</code> (<code>runUnit</code>, <code>auditUnit</code>, <code>routeUnit</code>, <code>driveUnit</code>) and the checkpoint extensions.</figcaption>
+    <figcaption><b>One unit through the loop.</b> Solid arrows are calls; the teal ones are the session acting inside its worktree, the orange ones are S3* verifying independently of what the session reported. The orchestrator writes to the execution store and reads the report from it; it never reads the transcript and never reads the diff to learn how the unit is doing. Every step is in <code>controller.ts</code> (<code>runUnit</code>, <code>auditUnit</code>, <code>routeUnit</code>, <code>driveUnit</code>) and the host's extensions.</figcaption>
   </figure>
 
   <ol class="steps">
@@ -321,6 +322,8 @@
     <li><span class="who">Close</span><b>On pass, the branch is merged</b> into the base, the worktree removed, the lease released. On anything else the <button type="button" class="gl" data-term="attempt">attempt</button> is recorded as it ended and the unit is blocked.</li>
     <li><span class="who">Route</span><b>A blocked unit is routed</b> under the versioned recovery policy: the cause is classified from the orchestrator's records first, then S2's signals (an <button type="button" class="gl" data-term="oscillation">oscillation</button>, say), then the session's observations; the Nth occurrence takes the Nth action; retry and repair spend attempts and become escalate at the ceiling.</li>
   </ol>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/guide/running-units">Running units</a> · <a href="https://metacoding-io.github.io/regulator/reference/host-checks">Host checks</a></p>
 </section>
 
 <section id="lifecycle" class="wrap">
@@ -428,6 +431,8 @@
     <div class="note alarm"><b>Paused is a special case of blocked</b>When a unit asks a person a blocking question and nobody answers before the session ends, the attempt's outcome is recorded as <code>paused</code> and the unit's status is <code>blocked</code> — with the reason spelled out in plain language, not a code. <code>regulator answer</code> is what turns the obligation from open to resolved and lets the next dispatch through.</div>
     <div class="note"><b>The full decision logic is next</b>This diagram shows <em>where</em> a blocked unit can go. The <a href="#recovery">recovery section below</a> shows <em>how</em> the choice between retry, repair, remediate, replan, clarify, pause, escalate and abort actually gets made.</div>
   </div>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/guide/running-units">Running units</a> · <a href="https://metacoding-io.github.io/regulator/concepts/obligations">Obligations</a></p>
 </section>
 
 <section id="workload" class="wrap">
@@ -529,6 +534,8 @@
     <code>packages/regulator/workload/software-development.json</code>. Note that <code>plan</code>
     is the one unit type that runs with no contract at all — it's the thing that
     <em>produces</em> contracts, so there's nothing yet for one to check it against.</p>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/definition#workload">Workload</a> · <a href="https://metacoding-io.github.io/regulator/reference/definition#capability-profiles">Capability profiles</a> · <a href="https://metacoding-io.github.io/regulator/reference/tools">Session tools</a></p>
 </section>
 
 <section id="contract" class="wrap">
@@ -591,6 +598,8 @@
       <div class="note"><b>expectedEvidence</b>The criteria the <button type="button" class="gl" data-term="closeout">closeout gate</button> binds host-run evidence to, by class. The unit's own <code>run_tests</code> call satisfies the report's shape; only the orchestrator's re-run at the committed revision satisfies the criterion.</div>
     </div>
   </div>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/definition#work-contracts">Work contracts</a></p>
 </section>
 
 <section id="report" class="wrap">
@@ -638,7 +647,7 @@
       <thead><tr><th>Field</th><th>Who checks it</th><th>When</th><th>What happens if it fails</th></tr></thead>
       <tbody>
         <tr><td>evidence (classes)</td><td>report_result tool, then runUnit</td><td>at the call · at close</td><td>refused with reasons · attempt "invalid-report"</td></tr>
-        <tr><td>evidence (provenance)</td><td>cp8 preflight</td><td>before the tool runs</td><td>blocked: "run_tests has not run in this session / ran at another revision / did not pass"</td></tr>
+        <tr><td>evidence (provenance)</td><td>evidence preflight</td><td>before the tool runs</td><td>blocked: "run_tests has not run in this session / ran at another revision / did not pass"</td></tr>
         <tr><td>evidence (truth)</td><td>auditUnit — the orchestrator's own run</td><td>at close, against HEAD</td><td>verdict fail with the claim listed as contradicted; attempt "check-failure"; routed to repair</td></tr>
         <tr><td>delegatedResults</td><td>report_result tool, then runUnit</td><td>at the call · at close</td><td>refused: "delegated decision d-helpers has no reported choice"</td></tr>
         <tr><td>unresolvedOutcomes</td><td>report_result tool, then runUnit</td><td>at the call · at close</td><td>refused: "u-unicode … settled silently or forgotten"</td></tr>
@@ -646,6 +655,8 @@
       </tbody>
     </table>
   </div>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/definition#work-contracts">Work contracts</a> · <a href="https://metacoding-io.github.io/regulator/reference/tools#report_result">report_result</a></p>
 </section>
 
 <section id="stores" class="wrap">
@@ -729,6 +740,8 @@
     </svg>
     <figcaption><b>Who writes where.</b> The orchestrator owns the execution store and is the only thing that merges into the base. The session writes the domain through gated tools and writes its report and ledger into the store. S3* and S2 write regulatory state; the router and the read model consume it. The one thing missing on purpose is an arrow from the repository back into either store.</figcaption>
   </figure>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/concepts/definition-and-instance">Definition, instance, domain</a> · <a href="https://metacoding-io.github.io/regulator/reference/instance">Instance layout</a></p>
 </section>
 
 <section id="recovery" class="wrap">
@@ -810,12 +823,16 @@
     </svg>
     <figcaption><b>The recovery lattice.</b> Classification is a fixed precedence over recorded facts: the orchestrator's own record wins, then what <button type="button" class="gl" data-term="s2">S2</button> signalled, then what the session observed. Every decision is appended with the policy name and version that produced it, so attempt three can be explained after the policy changes. Only <code>retry</code> and <code>repair</code> re-enter the loop; everything else either waits — as an <button type="button" class="gl" data-term="obligation">obligation</button> owed to <button type="button" class="gl" data-term="s3">S3</button> or a person, which vetoes the unit's dispatch until it is dispositioned — or ends the unit. <code>escalate</code> is this loop's only path to an <button type="button" class="gl" data-term="algedonic">algedonic signal</button>: it skips the queue entirely and puts the problem in front of <button type="button" class="gl" data-term="s5">S5</button> directly. A unit that asked a person and got no answer never reaches this lattice: its attempt is recorded as <code>paused</code>, the obligation is delivered to the outbox, and <code>regulator answer</code> releases it with the answer as the next hint.</figcaption>
   </figure>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/definition#recovery-policy">Recovery policy</a> · <a href="https://metacoding-io.github.io/regulator/reference/definition#routing-policy">Routing policy</a> · <a href="https://metacoding-io.github.io/regulator/concepts/obligations">Obligations</a></p>
 </section>
 
 <section id="session" class="wrap">
   <div class="kicker">Inside a session<span class="tick"></span></div>
   <h2 class="title">Where the gates sit in a session</h2>
-  <p class="lede">A unit's session is plain Pi with eight extensions loaded in order, each hooking
+  <p class="lede">A unit's session is plain Pi with eleven extensions loaded in order — tools, profiles,
+    coordination, contract, budget, recovery, evidence, authority, intelligence, identity,
+    algedonic — each hooking
     a handful of lifecycle events. Hover or tap a point on the line for what runs there.
     A solid red marker can refuse a tool call or halt the session; a hollow marker only
     records what happened.</p>
@@ -856,6 +873,8 @@
     </div>
     <figcaption>The loop repeats once per model turn until the unit reports or a gate stops it; <code>session_before_compact</code> only fires when the context nears its limit.</figcaption>
   </figure>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/tools">Session tools</a> · <a href="https://metacoding-io.github.io/regulator/reference/boundary">Enforcement boundary</a></p>
 </section>
 
 <section id="disk" class="wrap">
@@ -888,11 +907,11 @@
     effects.ndjson              notify_owner: intended, committed
     memory.ndjson               remember: "tests need FOO=1", review by +30d
     outbox                      deliver:&lt;obligation&gt;:0 — owed to a person; +1 after the reminder interval
-    trace.ndjson                one record per turn (cp1)
-    events.db                   the regulatory event store: proposals, findings, signals (SQLite)
+    trace.ndjson                one record per turn (tools)
+    events.db                   the generic vsm_* reporting tools' store (SQLite); a unit's session never loads them
     instance.json               the manifest: definition, harness revision, pi pin, who initialized it,
                                 the writable and protected prefixes the profile grant and the closeout read
-    <i>every store above reads as OpenTelemetry GenAI spans: \`regulator spans --json\`, redacted</i>
+    <i>every store above reads as OpenTelemetry GenAI spans: regulator spans --json, redacted</i>
     canaries                    values that must never leak</pre>
     <div class="notes">
       <div class="note"><b>Two immutable files per attempt, one mutable</b>The contract and each report are written once with <code>wx</code> and never overwritten; <code>unit.json</code> is the one thing that changes, and it holds only status and the attempt count.</div>
@@ -901,13 +920,17 @@
       <div class="note alarm"><b>What is not here</b>The transcript: Pi's session file is authoritative for the conversation and the orchestrator never reads it. And any notion of progress derived from the diff.</div>
     </div>
   </div>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/instance">Instance layout</a> · <a href="https://metacoding-io.github.io/regulator/guide/control-room">The control room</a></p>
 </section>
 
 <footer class="wrap">
   <div class="foot-row">
     <div class="foot-note">regulator · how a unit runs.</div>
     <div class="foot-links">
+      <a href="https://metacoding-io.github.io/regulator/guide/getting-started">Docs ↗</a>
       <a href="product.html">The product</a>
+      <a href="personal-finance.html">Worked example</a>
       <a href="index.html">The course</a>
       <a href="https://github.com/MetaCoding-io/regulator/blob/main/packages/regulator/src/controller.ts">controller.ts ↗</a>
       <a href="https://github.com/MetaCoding-io/regulator/blob/main/packages/regulator/BOUNDARY.md">BOUNDARY.md ↗</a>
