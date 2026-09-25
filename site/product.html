@@ -122,7 +122,7 @@
     color:var(--ink);
   }
   .navmark .dot{width:7px;height:7px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 3px var(--signal-soft);}
-  .navlinks{display:flex;gap:18px;font-family:var(--mono);font-size:12.5px;white-space:nowrap;}
+  .navlinks{display:flex;gap:18px;font-family:var(--mono);font-size:12.5px;white-space:nowrap;flex-wrap:wrap;row-gap:4px;}
   .navlinks a{color:var(--ink-dim);text-decoration:none;}
   .navlinks a:hover{color:var(--signal-ink);}
 
@@ -274,10 +274,13 @@
       <a href="#mechanism">Mechanism hierarchy</a>
       <a href="#orchestrator">Orchestrator</a>
       <a href="#control-room">Control room</a>
+      <a href="#get-started">Get started</a>
+      <a href="#operating">Operating</a>
       <a href="#status">Status</a>
-      <a href="index.html">The course ↗</a>
       <a href="how-it-works.html">How it works ↗</a>
       <a href="personal-finance.html">Worked example ↗</a>
+      <a href="index.html">The course ↗</a>
+      <a href="https://metacoding-io.github.io/regulator/">Docs ↗</a>
     </div>
   </div>
   <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme">☾</button>
@@ -296,8 +299,10 @@
     <span>The premise the whole project starts from</span>
   </div>
   <div class="hero-links">
-    <a class="btn primary" href="#architecture">See the architecture</a>
+    <a class="btn primary" href="#get-started">Get started</a>
+    <a class="btn" href="#architecture">See the architecture</a>
     <a class="btn" href="how-it-works.html">How a unit runs (diagrams)</a>
+    <a class="btn" href="https://metacoding-io.github.io/regulator/guide/getting-started">Documentation ↗</a>
     <a class="btn" href="index.html">Read the course syllabus</a>
     <a class="btn" href="https://pi.dev/">Pi, the substrate ↗</a>
   </div>
@@ -485,6 +490,8 @@
 <b>vsm/</b>               committed S5 artifacts for this repo itself</pre>
     </div>
   </div>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/concepts/control-plane">The control plane</a> · <a href="https://metacoding-io.github.io/regulator/concepts/definition-and-instance">Definition, instance, domain</a> · <a href="https://metacoding-io.github.io/regulator/ARCHITECTURE">Architecture</a> · <a href="https://metacoding-io.github.io/regulator/project/packages">Packages</a></p>
 </section>
 
 <section id="mechanism" class="wrap">
@@ -500,6 +507,8 @@
     <div class="rung judgment"><div class="n">4</div><div><div class="t">Model judgment</div><div class="d">Still a real decision point — the model is handed a specific question because nothing above can resolve it mechanically, like which category a merchant belongs to — and its answer still gets checked afterward, not simply trusted.</div></div></div>
     <div class="rung judgment"><div class="n">5</div><div><div class="t">Prompt / context engineering</div><div class="d">Not a decision point at all — ambient advice sitting in context that the model may or may not act on: house style, tone, a convention. Used only where being ignored costs little, since nothing here checks whether it was.</div></div></div>
   </div>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/concepts/control-plane">The control plane</a> · <a href="https://metacoding-io.github.io/regulator/reference/regulators">Regulators</a> · <a href="https://metacoding-io.github.io/regulator/reference/boundary">Enforcement boundary</a></p>
 </section>
 
 <section id="orchestrator" class="wrap">
@@ -564,6 +573,8 @@
       </div>
     </div>
   </div>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/guide/running-units">Running units</a> · <a href="https://metacoding-io.github.io/regulator/reference/host-checks">Host checks</a> · <a href="https://metacoding-io.github.io/regulator/reference/definition#recovery-policy">Recovery policy</a></p>
 </section>
 
 <section id="control-room" class="wrap">
@@ -588,6 +599,43 @@
     leases and obligations for a live instance; the assurance and lifecycle views; a unit's
     full replay — is on the <a href="personal-finance.html#room">worked example</a> and
     <a href="how-it-works.html">how it works</a>.</p>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/guide/control-room">The control room</a> · <a href="https://metacoding-io.github.io/regulator/concepts/evidence-about-the-regulators">Evidence about the regulators</a></p>
+</section>
+
+<section id="get-started" class="wrap">
+  <div class="kicker">Get started<span class="tick"></span></div>
+  <h2 class="title">Install into a repository you already have</h2>
+  <p class="lede">Two packages, one command to declare the instance, one to check it, one to run a unit. Node 22.19 or later; <a href="https://pi.dev/">Pi</a> 0.87.0 with a model provider key in its environment.</p>
+<pre class="tree"><b>pnpm add -D @metacoding.io/regulator @metacoding.io/regulator-pi</b>
+cd /path/to/your/repo                         # clean tree, on the branch units should land on
+<b>regulator init</b> --writable src/,test/ --protected vendor/ --by alice
+<b>regulator doctor</b>                              # the CI entry point: exit 1 on any problem
+<b>regulator unit drive</b> contracts/my-first-unit.json
+regulator unit show u1 · unit evidence u1 · obligations</pre>
+  <p style="font-size:13.5px;color:var(--ink-dim);margin:14px 0 0;"><code>init</code> seeds the identity under <code>regulator/identity/</code>, writes the instance manifest, and commits; <code>drive</code> leases the unit, opens a session under the unit type's profile, runs the host checks at the unit's revision, and either closes and reintegrates or routes the failure under the recovery policy. What the policy cannot resolve becomes an obligation owed to you.</p>
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/guide/getting-started">Getting started</a> · <a href="https://metacoding-io.github.io/regulator/guide/getting-started#declare-who-may-answer">Declare who may answer</a> · <a href="https://metacoding-io.github.io/regulator/reference/cli">CLI reference</a> · <a href="https://www.npmjs.com/package/@metacoding.io/regulator">npm ↗</a></p>
+</section>
+
+<section id="operating" class="wrap">
+  <div class="kicker">Operating<span class="tick"></span></div>
+  <h2 class="title">What a person does day to day</h2>
+  <p class="lede">The loop runs units; a person answers what the loop cannot decide. Everything below reads or dispositions a record, and every <code>--by</code> is checked against the interaction policy's people before anything is written.</p>
+  <div class="tbl-wrap"><table>
+    <tr><th>When</th><th>Command</th><th>What it does</th></tr>
+    <tr><td>before the first unit, and in CI</td><td><code>regulator doctor</code></td><td>runtime, git, the Pi pin, the definition, review dates, the manifest, a clean base, what is owed and undelivered; exit 1 on any problem</td></tr>
+    <tr><td>a unit needs work</td><td><code>regulator unit drive &lt;contract&gt;</code></td><td>the autoloop: run, verify, route, run again while the budget and the policy allow</td></tr>
+    <tr><td>something is owed</td><td><code>regulator obligations</code></td><td>what is open, to whom (<code>S3</code>, <code>S5</code> or a person), at which severity, and which currently veto a unit</td></tr>
+    <tr><td>a unit asked a question</td><td><code>regulator answer &lt;id&gt; --by &lt;who&gt; --answer …</code></td><td>the answer is recorded as the person's disposition; the next attempt carries it. Silence is never consent</td></tr>
+    <tr><td>a finding or an escalation waits on you</td><td><code>regulator obligation resolve &lt;id&gt; --by &lt;who&gt; --disposition &lt;d&gt; --rationale …</code></td><td>closes it with one of the eleven dispositions; <code>ack</code> marks it seen, <code>escalate</code> hands it to another consumer with the veto</td></tr>
+    <tr><td>a unit proposed a change to the identity</td><td><code>regulator identity accept|reject &lt;id&gt; --by &lt;who&gt; …</code></td><td>the S5 decision, by a person with <code>actAsS5</code>; the only writer of an identity file</td></tr>
+    <tr><td>a criterion no check can observe</td><td><code>regulator unit accept &lt;id&gt; &lt;criterion&gt; --by &lt;who&gt;</code></td><td>a human acceptance, recorded beside the technical verdict, never folded into it</td></tr>
+    <tr><td>a quiet instance</td><td><code>regulator watch --exec &lt;cmd&gt;</code></td><td>delivers what is owed to a person, reminds after the policy's interval, forwards each new outbox line to your channel</td></tr>
+    <tr><td>once a month</td><td><code>regulator review --due</code></td><td>which regulator records are past their review date; <code>doctor</code> fails on an overdue one</td></tr>
+    <tr><td>an accepted decision should outlive this instance</td><td><code>regulator identity promote &lt;file&gt;.md --by &lt;who&gt; …</code></td><td>carries the instance's accepted identity file back into the definition's seed</td></tr>
+    <tr><td>you want to see it</td><td><code>regulator status</code> · <code>regulator-control-room</code></td><td>the read model, and the read-only page over it</td></tr>
+  </table></div>
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/guide/running-units">Running units</a> · <a href="https://metacoding-io.github.io/regulator/concepts/obligations">Obligations</a> · <a href="https://metacoding-io.github.io/regulator/guide/operating">Operating</a> · <a href="https://metacoding-io.github.io/regulator/guide/control-room">The control room</a> · <a href="https://metacoding-io.github.io/regulator/reference/tools">Session tools</a></p>
 </section>
 
 <section id="status" class="wrap">
@@ -616,15 +664,20 @@
     <div class="card"><div class="k">43</div><div class="l">Regulators in the <button type="button" class="gl" data-term="registryterm">registry</button>, each with a stated limitation, an ablation switch and a retirement condition; <code>REGULATORS.md</code> and <code>BOUNDARY.md</code> generated from the records</div></div>
     <div class="card"><div class="k">15 / 15</div><div class="l">Lessons written end to end; the capstone viability case is specified and its rubric awaits calibration</div></div>
   </div>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/DEBT">Build debt</a> · <a href="https://metacoding-io.github.io/regulator/project/roadmap">Roadmap</a> · <a href="https://metacoding-io.github.io/regulator/project/changelog">Changelog</a></p>
 </section>
 
 <footer class="wrap">
   <div class="foot-row">
     <div class="foot-note">regulator · the control plane behind the course. Formerly VSM-Pi.</div>
     <div class="foot-links">
-      <a href="index.html">The course</a>
+      <a href="https://metacoding-io.github.io/regulator/guide/getting-started">Docs ↗</a>
       <a href="how-it-works.html">How it works</a>
+      <a href="personal-finance.html">Worked example</a>
+      <a href="index.html">The course</a>
       <a href="https://github.com/MetaCoding-io/regulator">Repository ↗</a>
+      <a href="https://www.npmjs.com/package/@metacoding.io/regulator">npm ↗</a>
       <a href="https://pi.dev/">Pi ↗</a>
     </div>
   </div>

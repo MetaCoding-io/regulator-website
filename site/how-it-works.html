@@ -122,7 +122,8 @@
       <a href="#session">Inside a session</a>
       <a href="#disk">On disk</a>
       <a href="product.html">← The product</a>
-      <a href="index.html">The course ↗</a>
+      <a href="personal-finance.html">Worked example ↗</a>
+      <a href="https://metacoding-io.github.io/regulator/">Docs ↗</a>
     </div>
   </div>
   <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme">☾</button>
@@ -296,6 +297,8 @@
     <li><span class="who">Close</span><b>On pass, the branch is merged</b> into the base, the worktree removed, the lease released. On anything else the <button type="button" class="gl" data-term="attempt">attempt</button> is recorded as it ended and the unit is blocked.</li>
     <li><span class="who">Route</span><b>A blocked unit is routed</b> under the versioned recovery policy: the cause is classified from the orchestrator's records first, then S2's signals (an <button type="button" class="gl" data-term="oscillation">oscillation</button>, say), then the session's observations; the Nth occurrence takes the Nth action; retry and repair spend attempts and become escalate at the ceiling.</li>
   </ol>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/guide/running-units">Running units</a> · <a href="https://metacoding-io.github.io/regulator/reference/host-checks">Host checks</a></p>
 </section>
 
 <section id="lifecycle" class="wrap">
@@ -403,6 +406,8 @@
     <div class="note alarm"><b>Paused is a special case of blocked</b>When a unit asks a person a blocking question and nobody answers before the session ends, the attempt's outcome is recorded as <code>paused</code> and the unit's status is <code>blocked</code> — with the reason spelled out in plain language, not a code. <code>regulator answer</code> is what turns the obligation from open to resolved and lets the next dispatch through.</div>
     <div class="note"><b>The full decision logic is next</b>This diagram shows <em>where</em> a blocked unit can go. The <a href="#recovery">recovery section below</a> shows <em>how</em> the choice between retry, repair, remediate, replan, clarify, pause, escalate and abort actually gets made.</div>
   </div>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/guide/running-units">Running units</a> · <a href="https://metacoding-io.github.io/regulator/concepts/obligations">Obligations</a></p>
 </section>
 
 <section id="workload" class="wrap">
@@ -504,6 +509,8 @@
     <code>packages/regulator/workload/software-development.json</code>. Note that <code>plan</code>
     is the one unit type that runs with no contract at all — it's the thing that
     <em>produces</em> contracts, so there's nothing yet for one to check it against.</p>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/definition#workload">Workload</a> · <a href="https://metacoding-io.github.io/regulator/reference/definition#capability-profiles">Capability profiles</a> · <a href="https://metacoding-io.github.io/regulator/reference/tools">Session tools</a></p>
 </section>
 
 <section id="contract" class="wrap">
@@ -566,6 +573,8 @@
       <div class="note"><b>expectedEvidence</b>The criteria the <button type="button" class="gl" data-term="closeout">closeout gate</button> binds host-run evidence to, by class. The unit's own <code>run_tests</code> call satisfies the report's shape; only the orchestrator's re-run at the committed revision satisfies the criterion.</div>
     </div>
   </div>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/definition#work-contracts">Work contracts</a></p>
 </section>
 
 <section id="report" class="wrap">
@@ -621,6 +630,8 @@
       </tbody>
     </table>
   </div>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/definition#work-contracts">Work contracts</a> · <a href="https://metacoding-io.github.io/regulator/reference/tools#report_result">report_result</a></p>
 </section>
 
 <section id="stores" class="wrap">
@@ -704,6 +715,8 @@
     </svg>
     <figcaption><b>Who writes where.</b> The orchestrator owns the execution store and is the only thing that merges into the base. The session writes the domain through gated tools and writes its report and ledger into the store. S3* and S2 write regulatory state; the router and the read model consume it. The one thing missing on purpose is an arrow from the repository back into either store.</figcaption>
   </figure>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/concepts/definition-and-instance">Definition, instance, domain</a> · <a href="https://metacoding-io.github.io/regulator/reference/instance">Instance layout</a></p>
 </section>
 
 <section id="recovery" class="wrap">
@@ -785,6 +798,8 @@
     </svg>
     <figcaption><b>The recovery lattice.</b> Classification is a fixed precedence over recorded facts: the orchestrator's own record wins, then what <button type="button" class="gl" data-term="s2">S2</button> signalled, then what the session observed. Every decision is appended with the policy name and version that produced it, so attempt three can be explained after the policy changes. Only <code>retry</code> and <code>repair</code> re-enter the loop; everything else either waits — as an <button type="button" class="gl" data-term="obligation">obligation</button> owed to <button type="button" class="gl" data-term="s3">S3</button> or a person, which vetoes the unit's dispatch until it is dispositioned — or ends the unit. <code>escalate</code> is this loop's only path to an <button type="button" class="gl" data-term="algedonic">algedonic signal</button>: it skips the queue entirely and puts the problem in front of <button type="button" class="gl" data-term="s5">S5</button> directly. A unit that asked a person and got no answer never reaches this lattice: its attempt is recorded as <code>paused</code>, the obligation is delivered to the outbox, and <code>regulator answer</code> releases it with the answer as the next hint.</figcaption>
   </figure>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/definition#recovery-policy">Recovery policy</a> · <a href="https://metacoding-io.github.io/regulator/reference/definition#routing-policy">Routing policy</a> · <a href="https://metacoding-io.github.io/regulator/concepts/obligations">Obligations</a></p>
 </section>
 
 <section id="session" class="wrap">
@@ -810,6 +825,8 @@
       </tbody>
     </table>
   </div>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/tools">Session tools</a> · <a href="https://metacoding-io.github.io/regulator/reference/boundary">Enforcement boundary</a></p>
 </section>
 
 <section id="disk" class="wrap">
@@ -855,13 +872,17 @@
       <div class="note alarm"><b>What is not here</b>The transcript: Pi's session file is authoritative for the conversation and the orchestrator never reads it. And any notion of progress derived from the diff.</div>
     </div>
   </div>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/instance">Instance layout</a> · <a href="https://metacoding-io.github.io/regulator/guide/control-room">The control room</a></p>
 </section>
 
 <footer class="wrap">
   <div class="foot-row">
     <div class="foot-note">regulator · how a unit runs.</div>
     <div class="foot-links">
+      <a href="https://metacoding-io.github.io/regulator/guide/getting-started">Docs ↗</a>
       <a href="product.html">The product</a>
+      <a href="personal-finance.html">Worked example</a>
       <a href="index.html">The course</a>
       <a href="https://github.com/MetaCoding-io/regulator/blob/main/packages/regulator/src/controller.ts">controller.ts ↗</a>
       <a href="https://github.com/MetaCoding-io/regulator/blob/main/packages/regulator/BOUNDARY.md">BOUNDARY.md ↗</a>
