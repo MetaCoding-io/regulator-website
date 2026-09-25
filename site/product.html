@@ -310,7 +310,7 @@
   <div class="vocab">
     <div class="vocab-head">
       <span class="vocab-title">Vocabulary — worth knowing before you scroll</span>
-      <a class="vocab-more" href="https://github.com/MetaCoding-io/regulator/blob/main/course/GLOSSARY.md" target="_blank" rel="noopener">Full glossary ↗</a>
+      <a class="vocab-more" href="https://metacoding-io.github.io/regulator/GLOSSARY" target="_blank" rel="noopener">Full glossary ↗</a>
     </div>
     <dl class="vocab-grid">
       <dt>orchestrator</dt><dd>The control loop that dispatches work and checks it — it never edits code itself.</dd>
@@ -436,7 +436,7 @@
     <table>
       <thead><tr><th>Name</th><th>Function</th><th>regulator's interpretation</th></tr></thead>
       <tbody>
-        <tr><td class="fn">S1 — Operations</td><td>The units that do the actual work, touching the world directly.</td><td>Coding, data, UI, infrastructure, migration, and integration capability profiles — any domain a workload declares, not only software.</td></tr>
+        <tr><td class="fn">S1 — Operations</td><td>The units that do the actual work, touching the world directly.</td><td>Capability profiles a workload declares — <code>implement</code>, <code>research</code>, <code>intelligence</code> for software, <code>bookkeeper</code> and <code>auditor</code> for the ledger — each a grant over tool effects, not a persona; any domain, not only software.</td></tr>
         <tr><td class="fn">S2 — Coordination</td><td>Keeps operations from colliding with or thrashing against each other.</td><td>Tool contracts, worktree isolation, leases with liveness, reintegration, anti-oscillation mechanisms</td></tr>
         <tr><td class="fn">S3 — Control</td><td>Decides what happens next — dispatch, budget, recovery — facing inside the system, now.</td><td>The orchestrator — work contracts, dispatch, budgets, the recovery lattice, execution-state authority</td></tr>
         <tr><td class="fn">S3&#42; — Audit</td><td>Verifies operations' work independently, never trusting their own report of it.</td><td>Harness-run verification plus architectural/domain checks and independent audit findings</td></tr>
@@ -479,15 +479,13 @@
   regulator-pi/   the Pi host: the eleven session extensions, the
                   dispatcher, the S5 write gate, typed proposal /
                   audit-finding / uncertainty tools; `pi install`
-  cli/            `regulator status`: the read model over a
-                  definition and an instance
-  control-room/   read-only page over the read model
+  control-room/   read-only page over the `regulator status` read
+                  model: definition, instances, the unit inspector
 
-<b>course/lab/</b>       the course's own two early checkpoints and the
-                  drill scripts; the lessons cite packages/regulator
-<b>course/modules/</b>   lessons 01–15, written
-<b>docs/</b>             architecture, roadmap, design notes, DEBT.md
-<b>vsm/</b>               committed S5 artifacts for this repo itself</pre>
+<b>docs/</b>             the documentation site (concepts, guides,
+                  reference), DEBT.md, decisions/, research/
+<b>vsm/</b>               committed S5 artifacts for this repo itself
+<i>the course, Viable Agents, lives in its own repository and cites these by link</i></pre>
     </div>
   </div>
 
@@ -568,7 +566,7 @@
           <div><b style="color:var(--ink);">A capability profile</b> the unit runs under — <code>implement</code> may write <code>src/</code> and <code>test/</code>; <code>research</code> is read-only by declared effect</div>
           <div><b style="color:var(--ink);">Checks</b> the orchestrator re-runs itself at closeout — <code>run_checks</code>, <code>run_tests</code>, and <code>inherited-tests</code>, the suite the unit inherited run against the unit's tree, so a test the unit deleted or weakened is a failing check — bound to the revision they ran against</div>
           <div><b style="color:var(--ink);">Intelligence</b> from a <code>research</code> unit is routed into an <button type="button" class="gl" data-term="obligation">obligation</button> that holds the units it names until a person or S3 dispositions it — never applied, never replanned</div>
-          <div><b style="color:var(--ink);">Still design:</b> S4 triggers that raise a research unit unasked, and consent before irreversible actions (lesson 13)</div>
+          <div><b style="color:var(--ink);">Still design:</b> S4 triggers that raise a research unit unasked; and <em>whether</em> an action needs consent is still the model's to notice — the consent question itself, and the pause until it is answered, ship</div>
         </div>
       </div>
     </div>
@@ -579,7 +577,7 @@
 
 <section id="control-room" class="wrap">
   <div class="kicker">The maintainer's interface<span class="tick"></span></div>
-  <span class="fake-tag">All five views ship today</span>
+  <span class="fake-tag">Every view ships today</span>
   <h2 class="title">The control room</h2>
   <p class="lede">A projection of <em>registry ∪ execution store ∪ regulatory state</em>. It
     owns no state of its own — every screen is read from records that already exist
@@ -660,8 +658,8 @@ regulator unit show u1 · unit evidence u1 · obligations</pre>
     <div><b style="color:var(--ink);"><code>--by</code> is asserted, not authenticated.</b> Disposition authority checks whether the named person may decide, not that the caller is that person; authentication is the deployment's to add.</div>
   </div>
   <div class="cards">
-    <div class="card"><div class="k">2</div><div class="l">Packages: <code>@metacoding.io/regulator</code>, the control plane, and <code>@metacoding.io/regulator-pi</code>, the Pi host — 0.1.0, Apache-2.0, tested without a model under CI on two Node versions</div></div>
-    <div class="card"><div class="k">43</div><div class="l">Regulators in the <button type="button" class="gl" data-term="registryterm">registry</button>, each with a stated limitation, an ablation switch and a retirement condition; <code>REGULATORS.md</code> and <code>BOUNDARY.md</code> generated from the records</div></div>
+    <div class="card"><div class="k">6</div><div class="l">Packages, released together at 0.1.1 under Apache-2.0: <code>@metacoding.io/regulator</code> (the control plane and CLI), <code>regulator-pi</code> (the Pi host), <code>regulator-protocol</code>, <code>regulator-core</code>, <code>regulator-checks</code> and <code>regulator-control-room</code>; tested without a model under CI on two Node versions</div></div>
+    <div class="card"><div class="k">43</div><div class="l">Records in the <button type="button" class="gl" data-term="registryterm">registry</button>, 42 active and one retired, each with a stated limitation, an ablation switch and a retirement condition; <code>REGULATORS.md</code> and <code>BOUNDARY.md</code> generated from the records</div></div>
     <div class="card"><div class="k">15 / 15</div><div class="l">Lessons written end to end; the capstone viability case is specified and its rubric awaits calibration</div></div>
   </div>
 

@@ -9,7 +9,7 @@
  */
 (function () {
   var GLOSSARY = "https://github.com/MetaCoding-io/regulator/blob/main/docs/GLOSSARY.md";
-  var REGISTRY_DOC = "https://github.com/MetaCoding-io/regulator/blob/main/docs/archive/2026-09/CONTROL-REGISTRY.md";
+  var REGISTRY_DOC = "https://metacoding-io.github.io/regulator/reference/regulators";
 
   // term id -> { label: shown in the popover title (defaults to the button's own text),
   //              def: one plain sentence, href: link for "Full glossary entry ->" }
@@ -62,9 +62,9 @@
       def: "One record per regulator (the mechanism): what it catches, its evidence, its known blind spots, and when it's next reviewed." },
     ablation: { label: "ablation", href: GLOSSARY + "#L49",
       def: "Running the system with one regulator switched off, to prove it's still earning its keep — or to retire it if it isn't." },
-    controlroom: { label: "control room", href: REGISTRY_DOC + "#L130",
+    controlroom: { label: "control room", href: REGISTRY_DOC,
       def: "A read-only page over everything already recorded — the registry, the execution store, the audit log. It can show you what happened; it can't change anything." },
-    readmodel: { label: "read model", href: REGISTRY_DOC + "#L130",
+    readmodel: { label: "read model", href: REGISTRY_DOC,
       def: "A view built by reading the same files a person could read — never a second database — so what you see is provably what's on disk." },
     reintegration: { label: "reintegration", href: GLOSSARY + "#L72",
       def: "Bringing an isolated unit's work back into the main line — the moment two units' assumptions about the same file can collide." },

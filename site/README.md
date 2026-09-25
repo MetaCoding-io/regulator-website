@@ -19,7 +19,7 @@ static files.
   directory contains.
 - `glossary.css` / `glossary.js` — the shared tap-to-toggle (with hover on desktop)
   vocabulary tooltip component all four pages use, sourced from
-  [`course/GLOSSARY.md`](https://github.com/MetaCoding-io/regulator/blob/main/course/GLOSSARY.md).
+  [`docs/GLOSSARY.md`](https://github.com/MetaCoding-io/regulator/blob/main/docs/GLOSSARY.md).
 - `img/control-room/` — screenshots of `packages/control-room` over three instances (the
   ledger after its scripted August close, the drift scenario run by the drifter, and the
   fixture-repo close on the how-it-works page); retake them when the page changes.
@@ -28,5 +28,5 @@ static files.
   updated going forward.
 
 Hand-maintained alongside the repo's actual status; update the four live pages when
-`README.md`, `AGENTS.md`, `course/README.md` or `docs/DEBT.md` change in a way a page
+`README.md`, `AGENTS.md`, the docs site or `docs/DEBT.md` change in a way a page
 states as fact (checkpoint status, package promotions, lessons written, registry count).
