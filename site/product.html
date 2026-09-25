@@ -238,6 +238,10 @@
   .outcomes li:last-child{border-bottom:none;}
 
   /* envelopes-style pill used for the autoloop/S3-loop diagrams */
+  .dtabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px;font-family:var(--mono);font-size:12px;}
+  .dtab{border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-dim);border-radius:999px;padding:5px 12px;cursor:pointer;font:inherit;line-height:1.2;}
+  .dtab:hover{border-color:var(--signal);color:var(--signal-ink);}
+  .dtab.is-on{background:var(--signal-soft);color:var(--signal-ink);border-color:var(--signal);}
   .pill{
     font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
     padding:4px 8px;border-radius:20px;white-space:nowrap;
@@ -351,84 +355,95 @@
   <h3 class="sub">Six functions, one loop</h3>
   <p class="lede" style="margin-bottom:14px;">Beer's Viable System Model, read as a harness
     architecture. Command flows down as attenuated instruction (grey); evidence flows back
-    up as amplified fact (teal) — S3&#42; audits S3 independently and verifies S1's units
-    directly, never through what S1 reports about itself, and S4 scans the environment on
-    its own channel, arguing with S3 about now vs. next on S5's terms.</p>
-  <div class="diagram-shell">
-    <svg viewBox="0 0 820 460" width="100%" role="img" aria-label="Diagram of the Viable System Model as a harness: command flows down and evidence flows up through S5 identity, S4 intelligence, S3 control, S2 coordination, and three S1 operational units, each acting directly on the environment. S3-star audits S3 independently and verifies S1's work directly rather than through S1's own report. S4 scans the environment on a separate channel.">
-      <defs>
-        <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-          <path d="M0,0 L6,3 L0,6 Z" fill="var(--ink-faint)"/>
-        </marker>
-        <marker id="arrow-signal" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-          <path d="M0,0 L6,3 L0,6 Z" fill="var(--signal)"/>
-        </marker>
-        <marker id="arrow-alarm" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-          <path d="M0,0 L6,3 L0,6 Z" fill="var(--alarm)"/>
-        </marker>
-      </defs>
+    up as amplified fact (teal). Units act on the domain; S3&#42; audits S3 independently and
+    verifies the domain itself at a revision, never through what S1 reports about it; S4
+    scans the environment on its own channel, arguing with S3 about now vs. next on S5's
+    terms.</p>
+  <div class="dtabs" role="tablist" aria-label="Show the diagram as">
+    <button type="button" class="dtab is-on" role="tab" aria-selected="true" data-tab="general">General</button>
+    <button type="button" class="dtab" role="tab" aria-selected="false" data-tab="software">Software dev</button>
+    <button type="button" class="dtab" role="tab" aria-selected="false" data-tab="finance">Finance agents</button>
+  </div>
+  <div class="diagram-shell" id="vsm-diagram">
+    <svg viewBox="0 0 820 560" width="100%" role="img" aria-label="Diagram of the Viable System Model as a harness. Down the left, a spine of S5 identity, S4 intelligence, S3 control and S2 coordination, with command flowing down as grey arrows and evidence flowing up as teal arrows between each pair. S3-star audit sits beside S3. Below S2, three S1 units. Below the units, a dotted box labelled domain: what the units change, one isolated workspace each; each unit writes into it and reads from it. S3-star's dashed line goes around the units straight to the domain, verifying it at a revision without passing through the units. On the right, a dotted box labelled environment, which S4 scans on its own channel; nothing writes to it. Three tabs above the diagram relabel the same boxes for the software-development and personal-finance workloads.">
+       <defs>
+         <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--ink-faint)"/></marker>
+         <marker id="arrow-signal" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--signal)"/></marker>
+         <marker id="arrow-alarm" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--alarm)"/></marker>
+       </defs>
 
-      <rect x="560" y="20" width="240" height="416" rx="8" fill="none" stroke="var(--line-strong)" stroke-width="1.4" stroke-dasharray="4 4"/>
-      <text x="680" y="44" text-anchor="middle" font-family="var(--mono)" font-size="11" letter-spacing="0.08em" fill="var(--ink-faint)">ENVIRONMENT</text>
+       <!-- environment: watched, never written -->
+       <rect x="560" y="20" width="240" height="520" rx="8" fill="none" stroke="var(--line-strong)" stroke-width="1.4" stroke-dasharray="4 4"/>
+       <text x="680" y="44" text-anchor="middle" font-family="var(--mono)" font-size="11" letter-spacing="0.08em" fill="var(--ink-faint)">ENVIRONMENT</text>
+       <text x="680" y="66" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-faint)" data-key="env1">what nobody in the system controls</text>
+       <text x="680" y="82" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-faint)" data-key="env2">watched by S4 · never written</text>
 
-      <rect x="90" y="20" width="220" height="50" rx="4" fill="var(--surface)" stroke="var(--signal)" stroke-width="1.6"/>
-      <text x="200" y="41" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="13" fill="var(--signal-ink)">S5 — IDENTITY</text>
-      <text x="200" y="58" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-faint)">policy · invariants</text>
+       <!-- S5 -->
+       <rect x="90" y="20" width="220" height="50" rx="4" fill="var(--surface)" stroke="var(--signal)" stroke-width="1.6"/>
+       <text x="200" y="41" text-anchor="middle" font-family="var(--mono)" font-size="13" fill="var(--signal-ink)" font-weight="700" data-key="s5">S5 — IDENTITY</text>
+       <text x="200" y="58" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-faint)" data-key="s5sub">policy · invariants</text>
+       <line x1="180" y1="70" x2="180" y2="110" stroke="var(--ink-faint)" stroke-width="1.3" marker-end="url(#arrow)"/>
+       <line x1="220" y1="110" x2="220" y2="70" stroke="var(--signal)" stroke-width="1.3" marker-end="url(#arrow-signal)"/>
 
-      <line x1="180" y1="70" x2="180" y2="110" stroke="var(--ink-faint)" stroke-width="1.3" marker-end="url(#arrow)"/>
-      <line x1="220" y1="110" x2="220" y2="70" stroke="var(--signal)" stroke-width="1.3" marker-end="url(#arrow-signal)"/>
+       <!-- S4 -->
+       <rect x="90" y="110" width="220" height="50" rx="4" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="1.4"/>
+       <text x="200" y="131" text-anchor="middle" font-family="var(--mono)" font-size="13" fill="var(--ink)" font-weight="700" data-key="s4">S4 — INTELLIGENCE</text>
+       <text x="200" y="148" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-faint)" data-key="s4sub">environment · future</text>
+       <line x1="310" y1="135" x2="555" y2="135" stroke="var(--line-strong)" stroke-width="1.3" stroke-dasharray="3 5" marker-end="url(#arrow)"/>
+       <text x="432" y="126" text-anchor="middle" font-family="var(--mono)" font-size="9.5" fill="var(--ink-faint)" data-key="scans">scans</text>
+       <line x1="180" y1="160" x2="180" y2="200" stroke="var(--ink-faint)" stroke-width="1.3" marker-end="url(#arrow)"/>
+       <line x1="220" y1="200" x2="220" y2="160" stroke="var(--signal)" stroke-width="1.3" marker-end="url(#arrow-signal)"/>
 
-      <rect x="90" y="110" width="220" height="50" rx="4" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="1.4"/>
-      <text x="200" y="131" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="13" fill="var(--ink)">S4 — INTELLIGENCE</text>
-      <text x="200" y="148" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-faint)">environment · future</text>
+       <!-- S3 -->
+       <rect x="90" y="200" width="220" height="50" rx="4" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="1.4"/>
+       <text x="200" y="221" text-anchor="middle" font-family="var(--mono)" font-size="13" fill="var(--ink)" font-weight="700" data-key="s3">S3 — CONTROL</text>
+       <text x="200" y="238" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-faint)" data-key="s3sub">contract · dispatch · budget</text>
+       <line x1="310" y1="225" x2="350" y2="225" stroke="var(--alarm)" stroke-width="1.3" stroke-dasharray="3 4" marker-start="url(#arrow-alarm)" marker-end="url(#arrow-alarm)"/>
+       <text x="330" y="213" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--alarm)" data-key="audit">audit</text>
 
-      <line x1="310" y1="135" x2="555" y2="135" stroke="var(--line-strong)" stroke-width="1.3" stroke-dasharray="3 5" marker-end="url(#arrow)"/>
-      <text x="432" y="126" text-anchor="middle" font-family="var(--mono)" font-size="9.5" fill="var(--ink-faint)">scans</text>
+       <!-- S3* -->
+       <rect x="350" y="200" width="130" height="50" rx="4" fill="var(--alarm-soft)" stroke="var(--alarm)" stroke-width="1.4"/>
+       <text x="415" y="221" text-anchor="middle" font-family="var(--mono)" font-size="12" fill="var(--alarm)" font-weight="700" data-key="s3s">S3&#42; AUDIT</text>
+       <text x="415" y="238" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-dim)" data-key="s3ssub">independent</text>
 
-      <line x1="180" y1="160" x2="180" y2="200" stroke="var(--ink-faint)" stroke-width="1.3" marker-end="url(#arrow)"/>
-      <line x1="220" y1="200" x2="220" y2="160" stroke="var(--signal)" stroke-width="1.3" marker-end="url(#arrow-signal)"/>
+       <!-- S3* verifies the domain directly: around the units, never through them -->
+       <path d="M480 225 H520 V505 H484" fill="none" stroke="var(--alarm)" stroke-width="1.2" stroke-dasharray="2 4" marker-end="url(#arrow-alarm)"/>
+       <text x="531" y="380" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--alarm)" transform="rotate(-90 531 380)" data-key="verifies">verifies at a revision</text>
+       <line x1="180" y1="250" x2="180" y2="300" stroke="var(--ink-faint)" stroke-width="1.3" marker-end="url(#arrow)"/>
+       <line x1="220" y1="300" x2="220" y2="250" stroke="var(--signal)" stroke-width="1.3" marker-end="url(#arrow-signal)"/>
 
-      <rect x="90" y="200" width="220" height="50" rx="4" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="1.4"/>
-      <text x="200" y="221" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="13" fill="var(--ink)">S3 — CONTROL</text>
-      <text x="200" y="238" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-faint)">contract · dispatch · budget</text>
+       <!-- S2 -->
+       <rect x="90" y="300" width="220" height="46" rx="4" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="1.4"/>
+       <text x="200" y="320" text-anchor="middle" font-family="var(--mono)" font-size="13" fill="var(--ink)" font-weight="700" data-key="s2">S2 — COORDINATION</text>
+       <text x="200" y="336" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-faint)" data-key="s2sub">leases · anti-oscillation</text>
+       <line x1="150" y1="346" x2="115" y2="390" stroke="var(--ink-faint)" stroke-width="1.2" marker-end="url(#arrow)"/>
+       <line x1="200" y1="346" x2="265" y2="390" stroke="var(--ink-faint)" stroke-width="1.2" marker-end="url(#arrow)"/>
+       <line x1="250" y1="346" x2="415" y2="390" stroke="var(--ink-faint)" stroke-width="1.2" marker-end="url(#arrow)"/>
 
-      <line x1="310" y1="225" x2="350" y2="225" stroke="var(--alarm)" stroke-width="1.3" stroke-dasharray="3 4" marker-start="url(#arrow-alarm)" marker-end="url(#arrow-alarm)"/>
-      <text x="330" y="213" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--alarm)">audit</text>
+       <!-- S1 units; each writes into the domain (grey) and reads it back (teal) -->
+       <rect x="50" y="390" width="130" height="46" rx="4" fill="var(--surface)" stroke="var(--signal)" stroke-width="1.4"/>
+       <text x="115" y="410" text-anchor="middle" font-family="var(--mono)" font-size="12" fill="var(--signal-ink)" font-weight="700" data-key="s1a">S1</text>
+       <text x="115" y="424" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)" data-key="s1asub">capability profile</text>
+       <line x1="107" y1="436" x2="107" y2="470" stroke="var(--ink-faint)" stroke-width="1.2" marker-end="url(#arrow)"/>
+       <line x1="123" y1="470" x2="123" y2="436" stroke="var(--signal)" stroke-width="1.2" marker-end="url(#arrow-signal)"/>
+       <rect x="200" y="390" width="130" height="46" rx="4" fill="var(--surface)" stroke="var(--signal)" stroke-width="1.4"/>
+       <text x="265" y="410" text-anchor="middle" font-family="var(--mono)" font-size="12" fill="var(--signal-ink)" font-weight="700" data-key="s1b">S1</text>
+       <text x="265" y="424" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)" data-key="s1bsub">capability profile</text>
+       <line x1="257" y1="436" x2="257" y2="470" stroke="var(--ink-faint)" stroke-width="1.2" marker-end="url(#arrow)"/>
+       <line x1="273" y1="470" x2="273" y2="436" stroke="var(--signal)" stroke-width="1.2" marker-end="url(#arrow-signal)"/>
+       <rect x="350" y="390" width="130" height="46" rx="4" fill="var(--surface)" stroke="var(--signal)" stroke-width="1.4"/>
+       <text x="415" y="410" text-anchor="middle" font-family="var(--mono)" font-size="12" fill="var(--signal-ink)" font-weight="700" data-key="s1c">S1</text>
+       <text x="415" y="424" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)" data-key="s1csub">capability profile</text>
+       <line x1="407" y1="436" x2="407" y2="470" stroke="var(--ink-faint)" stroke-width="1.2" marker-end="url(#arrow)"/>
+       <line x1="423" y1="470" x2="423" y2="436" stroke="var(--signal)" stroke-width="1.2" marker-end="url(#arrow-signal)"/>
 
-      <rect x="350" y="200" width="130" height="50" rx="4" fill="var(--alarm-soft)" stroke="var(--alarm)" stroke-width="1.4"/>
-      <text x="415" y="221" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--alarm)">S3&#42; AUDIT</text>
-      <text x="415" y="238" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-dim)">independent</text>
-
-      <line x1="180" y1="250" x2="180" y2="300" stroke="var(--ink-faint)" stroke-width="1.3" marker-end="url(#arrow)"/>
-      <line x1="220" y1="300" x2="220" y2="250" stroke="var(--signal)" stroke-width="1.3" marker-end="url(#arrow-signal)"/>
-
-      <rect x="90" y="300" width="220" height="46" rx="4" fill="var(--surface)" stroke="var(--line-strong)" stroke-width="1.4"/>
-      <text x="200" y="320" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="13" fill="var(--ink)">S2 — COORDINATION</text>
-      <text x="200" y="336" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-faint)">leases · anti-oscillation</text>
-
-      <line x1="150" y1="346" x2="115" y2="390" stroke="var(--ink-faint)" stroke-width="1.2" marker-end="url(#arrow)"/>
-      <line x1="200" y1="346" x2="265" y2="390" stroke="var(--ink-faint)" stroke-width="1.2" marker-end="url(#arrow)"/>
-      <line x1="250" y1="346" x2="415" y2="390" stroke="var(--ink-faint)" stroke-width="1.2" marker-end="url(#arrow)"/>
-
-      <line x1="415" y1="250" x2="415" y2="390" stroke="var(--alarm)" stroke-width="1.2" stroke-dasharray="2 4" marker-end="url(#arrow-alarm)"/>
-
-      <rect x="50" y="390" width="130" height="46" rx="4" fill="var(--surface)" stroke="var(--signal)" stroke-width="1.4"/>
-      <text x="115" y="410" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--signal-ink)">S1</text>
-      <text x="115" y="424" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">capability profile</text>
-
-      <rect x="200" y="390" width="130" height="46" rx="4" fill="var(--surface)" stroke="var(--signal)" stroke-width="1.4"/>
-      <text x="265" y="410" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--signal-ink)">S1</text>
-      <text x="265" y="424" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">capability profile</text>
-
-      <rect x="350" y="390" width="130" height="46" rx="4" fill="var(--surface)" stroke="var(--signal)" stroke-width="1.4"/>
-      <text x="415" y="410" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="12" fill="var(--signal-ink)">S1</text>
-      <text x="415" y="424" text-anchor="middle" font-family="var(--mono)" font-size="9" fill="var(--ink-faint)">capability profile</text>
-
-      <line x1="180" y1="405" x2="558" y2="380" stroke="var(--signal)" stroke-width="1.2" marker-end="url(#arrow-signal)"/>
-      <line x1="330" y1="410" x2="558" y2="408" stroke="var(--signal)" stroke-width="1.2" marker-end="url(#arrow-signal)"/>
-      <line x1="480" y1="415" x2="558" y2="430" stroke="var(--signal)" stroke-width="1.2" marker-end="url(#arrow-signal)"/>
+       <!-- domain: what the units change -->
+       <rect x="50" y="472" width="430" height="68" rx="8" fill="none" stroke="var(--line-strong)" stroke-width="1.4" stroke-dasharray="4 4"/>
+       <text x="265" y="494" text-anchor="middle" font-family="var(--mono)" font-size="11" letter-spacing="0.08em" fill="var(--ink-faint)">DOMAIN</text>
+       <text x="265" y="513" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-faint)" data-key="dom1">what the units change — the source of truth about the work</text>
+       <text x="265" y="529" text-anchor="middle" font-family="var(--mono)" font-size="10" fill="var(--ink-faint)" data-key="dom2">one isolated workspace per unit; the loop reintegrates what verified</text>
     </svg>
-    <div class="diagram-cap">Grey = attenuated instruction down the spine; teal = amplified evidence back up. S3&#42; (alarm color) audits S3 independently and verifies each S1 unit's work directly — the dashed line bypasses S1's own report entirely. S4 scans the environment on its own channel, separate from the command spine.</div>
+    <div class="diagram-cap" data-key="cap">Grey = attenuated instruction down the spine; teal = amplified evidence back up. Units act on the <b>domain</b> — each in its own workspace, reintegrated by the loop — and S3&#42; (alarm colour) verifies the domain at a revision, going around the units rather than through what they report. S4 scans the <b>environment</b> on its own channel; nothing in the system writes there. Pick a tab to see the same boxes filled in for a workload.</div>
   </div>
 
   <h3 class="sub">Where each function lives today</h3>
@@ -682,5 +697,6 @@ regulator unit show u1 · unit evidence u1 · obligations</pre>
 </footer>
 <script src="theme.js" defer></script>
 <script src="glossary.js" defer></script>
+<script src="vsm-tabs.js" defer></script>
 </body>
 </html>
