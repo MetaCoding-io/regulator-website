@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="glossary.css">
+<link rel="stylesheet" href="toc.css">
 <style>
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -144,13 +145,6 @@
   <div class="wrap navrow">
     <a class="navmark" href="index.html"><span class="dot"></span>regulator</a>
     <div class="navlinks">
-      <a href="#goal">The goal</a>
-      <a href="#design">Design first</a>
-      <a href="#declaration">The declaration</a>
-      <a href="#run">Running it</a>
-      <a href="#room">The control room</a>
-      <a href="#honest">What it does not do</a>
-      <a href="#recipe">Your domain</a>
       <a href="product.html">← The product</a>
       <a href="how-it-works.html">How it works ↗</a>
       <a href="https://metacoding-io.github.io/regulator/examples/personal-finance">Docs ↗</a>
@@ -158,6 +152,19 @@
   </div>
   <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme">☾</button>
 </nav>
+
+<aside class="page-toc" aria-label="On this page">
+  <div class="page-toc-title">On this page</div>
+  <nav>
+    <a href="#goal">The goal</a>
+    <a href="#design">Design first</a>
+    <a href="#declaration">The declaration</a>
+    <a href="#run">Running it</a>
+    <a href="#room">The control room</a>
+    <a href="#honest">What it does not do</a>
+    <a href="#recipe">Your domain</a>
+  </nav>
+</aside>
 
 <header class="hero wrap">
   <div class="hero-eyebrow">Worked example · a second workload, not software</div>
@@ -529,5 +536,6 @@ regulator-control-room --definition $R --instance ~/ledger   <span class="c"># @
 </footer>
 <script src="theme.js" defer></script>
 <script src="glossary.js" defer></script>
+<script src="toc.js" defer></script>
 </body>
 </html>

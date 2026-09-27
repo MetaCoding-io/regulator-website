@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="glossary.css">
+<link rel="stylesheet" href="toc.css">
 <style>
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -272,10 +273,6 @@
   <div class="wrap navrow">
     <div class="navmark"><span class="dot"></span>regulator</div>
     <div class="navlinks">
-      <a href="#why-vsm">Why cybernetics</a>
-      <a href="#who">Who it's for</a>
-      <a href="#syllabus">Syllabus</a>
-      <a href="#build">The reference build</a>
       <a href="product.html">The product ↗</a>
       <a href="how-it-works.html">How it works ↗</a>
       <a href="personal-finance.html">Worked example ↗</a>
@@ -284,6 +281,16 @@
   </div>
   <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme">☾</button>
 </nav>
+
+<aside class="page-toc" aria-label="On this page">
+  <div class="page-toc-title">On this page</div>
+  <nav>
+    <a href="#why-vsm">Why cybernetics</a>
+    <a href="#who">Who it's for</a>
+    <a href="#syllabus">Syllabus</a>
+    <a href="#build">The reference build</a>
+  </nav>
+</aside>
 
 <header class="hero wrap">
   <div class="hero-eyebrow">Viable Agents — a course, not a feature tour</div>
@@ -582,5 +589,6 @@
 </footer>
 <script src="theme.js" defer></script>
 <script src="glossary.js" defer></script>
+<script src="toc.js" defer></script>
 </body>
 </html>

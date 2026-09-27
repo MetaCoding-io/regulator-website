@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="glossary.css">
+<link rel="stylesheet" href="toc.css">
 <style>
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -274,13 +275,6 @@
   <div class="wrap navrow">
     <a class="navmark" href="index.html"><span class="dot"></span>regulator</a>
     <div class="navlinks">
-      <a href="#architecture">Architecture</a>
-      <a href="#mechanism">Mechanism hierarchy</a>
-      <a href="#orchestrator">Orchestrator</a>
-      <a href="#control-room">Control room</a>
-      <a href="#get-started">Get started</a>
-      <a href="#operating">Operating</a>
-      <a href="#status">Status</a>
       <a href="how-it-works.html">How it works ↗</a>
       <a href="personal-finance.html">Worked example ↗</a>
       <a href="index.html">The course ↗</a>
@@ -289,6 +283,19 @@
   </div>
   <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme">☾</button>
 </nav>
+
+<aside class="page-toc" aria-label="On this page">
+  <div class="page-toc-title">On this page</div>
+  <nav>
+    <a href="#architecture">Architecture</a>
+    <a href="#mechanism">Mechanism hierarchy</a>
+    <a href="#orchestrator">Orchestrator</a>
+    <a href="#control-room">Control room</a>
+    <a href="#get-started">Get started</a>
+    <a href="#operating">Operating</a>
+    <a href="#status">Status</a>
+  </nav>
+</aside>
 
 <header class="hero wrap">
   <div class="hero-eyebrow">The product behind the course</div>
@@ -365,7 +372,7 @@
     <button type="button" class="dtab" role="tab" aria-selected="false" data-tab="finance">Finance agents</button>
   </div>
   <div class="diagram-shell" id="vsm-diagram">
-    <svg viewBox="0 0 820 560" width="100%" role="img" aria-label="Diagram of the Viable System Model as a harness. Down the left, a spine of S5 identity, S4 intelligence, S3 control and S2 coordination, with command flowing down as grey arrows and evidence flowing up as teal arrows between each pair. S3-star audit sits beside S3. Below S2, three S1 units. Below the units, a dotted box labelled domain: what the units change, one isolated workspace each; each unit writes into it and reads from it. S3-star's dashed line goes around the units straight to the domain, verifying it at a revision without passing through the units. On the right, a dotted box labelled environment, which S4 scans on its own channel; nothing writes to it. Three tabs above the diagram relabel the same boxes for the software-development and personal-finance workloads.">
+    <svg fill="currentColor" viewBox="0 0 820 560" width="100%" role="img" aria-label="Diagram of the Viable System Model as a harness. Down the left, a spine of S5 identity, S4 intelligence, S3 control and S2 coordination, with command flowing down as grey arrows and evidence flowing up as teal arrows between each pair. S3-star audit sits beside S3. Below S2, three S1 units. Below the units, a dotted box labelled domain: what the units change, one isolated workspace each; each unit writes into it and reads from it. S3-star's dashed line goes around the units straight to the domain, verifying it at a revision without passing through the units. On the right, a dotted box labelled environment, which S4 scans on its own channel; nothing writes to it. Three tabs above the diagram relabel the same boxes for the software-development and personal-finance workloads.">
        <defs>
          <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--ink-faint)"/></marker>
          <marker id="arrow-signal" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="var(--signal)"/></marker>
@@ -697,6 +704,7 @@ regulator unit show u1 · unit evidence u1 · obligations</pre>
 </footer>
 <script src="theme.js" defer></script>
 <script src="glossary.js" defer></script>
+<script src="toc.js" defer></script>
 <script src="vsm-tabs.js" defer></script>
 </body>
 </html>

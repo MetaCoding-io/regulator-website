@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="glossary.css">
+<link rel="stylesheet" href="toc.css">
 <style>
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -137,15 +138,6 @@
   <div class="wrap navrow">
     <a class="navmark" href="index.html"><span class="dot"></span>regulator</a>
     <div class="navlinks">
-      <a href="#loop">The loop</a>
-      <a href="#lifecycle">Unit states</a>
-      <a href="#workload">The workload</a>
-      <a href="#contract">A contract</a>
-      <a href="#report">The report</a>
-      <a href="#stores">Three stores</a>
-      <a href="#recovery">Recovery</a>
-      <a href="#session">Inside a session</a>
-      <a href="#disk">On disk</a>
       <a href="product.html">← The product</a>
       <a href="personal-finance.html">Worked example ↗</a>
       <a href="https://metacoding-io.github.io/regulator/">Docs ↗</a>
@@ -153,6 +145,21 @@
   </div>
   <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle color theme">☾</button>
 </nav>
+
+<aside class="page-toc" aria-label="On this page">
+  <div class="page-toc-title">On this page</div>
+  <nav>
+    <a href="#loop">The loop</a>
+    <a href="#lifecycle">Unit states</a>
+    <a href="#workload">The workload</a>
+    <a href="#contract">A contract</a>
+    <a href="#report">The report</a>
+    <a href="#stores">Three stores</a>
+    <a href="#recovery">Recovery</a>
+    <a href="#session">Inside a session</a>
+    <a href="#disk">On disk</a>
+  </nav>
+</aside>
 
 <header class="hero wrap">
   <div class="hero-eyebrow">How it works · drawn from the reference build at 0.1.1</div>
@@ -200,7 +207,7 @@
     read as a domain: never as state.</p>
 
   <figure>
-    <svg viewBox="0 0 1100 1010" role="img" aria-label="Sequence diagram of one unit through the S3 loop: the orchestrator writes the contract to the execution store, takes a lease and creates a worktree, dispatches a Pi session; the session's gates load the contract and lease, the model edits and tests inside the worktree and calls report_result, which is checked and written to the store; the orchestrator reads the report, re-runs the checks itself against the worktree's commit, writes evidence and a verdict to the audit log, and on pass merges the branch and releases the lease; on any other verdict it records a check-failure attempt and routes under the recovery policy.">
+    <svg fill="currentColor" viewBox="0 0 1100 1010" role="img" aria-label="Sequence diagram of one unit through the S3 loop: the orchestrator writes the contract to the execution store, takes a lease and creates a worktree, dispatches a Pi session; the session's gates load the contract and lease, the model edits and tests inside the worktree and calls report_result, which is checked and written to the store; the orchestrator reads the report, re-runs the checks itself against the worktree's commit, writes evidence and a verdict to the audit log, and on pass merges the branch and releases the lease; on any other verdict it records a check-failure attempt and routes under the recovery policy.">
       <defs>
         <marker id="ah" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="currentColor"/></marker>
         <marker id="ah-ret" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="var(--ink-faint)"/></marker>
@@ -339,7 +346,7 @@
     it's a bug.</p>
 
   <figure>
-    <svg viewBox="0 0 1040 560" role="img" aria-label="State diagram of a unit's lifecycle. Contracted moves to dispatched once a lease and worktree exist. Dispatched moves to reported only when report_result is called and the host's own re-check of the checks passes; otherwise dispatched moves directly to blocked, for reasons including no report, invalid report, budget exhausted, an unanswered question (paused), or a check failure. Reported moves to closed when the merge into the base succeeds, or to blocked if reintegration conflicts. From blocked, retry or repair loop back to dispatched for another attempt. Remediate, replan, clarify, pause, and escalate move to a waiting state where an obligation is open and redispatch is refused until a person or S3 dispositions it; from waiting, the disposition either resumes back to dispatched with the decision as a hint, or ends the unit in aborted. Blocked can also go directly to aborted.">
+    <svg fill="currentColor" viewBox="0 0 1040 560" role="img" aria-label="State diagram of a unit's lifecycle. Contracted moves to dispatched once a lease and worktree exist. Dispatched moves to reported only when report_result is called and the host's own re-check of the checks passes; otherwise dispatched moves directly to blocked, for reasons including no report, invalid report, budget exhausted, an unanswered question (paused), or a check failure. Reported moves to closed when the merge into the base succeeds, or to blocked if reintegration conflicts. From blocked, retry or repair loop back to dispatched for another attempt. Remediate, replan, clarify, pause, and escalate move to a waiting state where an obligation is open and redispatch is refused until a person or S3 dispositions it; from waiting, the disposition either resumes back to dispatched with the decision as a hint, or ends the unit in aborted. Blocked can also go directly to aborted.">
       <defs>
         <marker id="ah4" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="currentColor"/></marker>
         <marker id="ah4-alarm" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="var(--alarm)"/></marker>
@@ -446,7 +453,7 @@
     in the next section, which is an <code>implement</code> unit.</p>
 
   <figure>
-    <svg viewBox="0 0 1040 400" role="img" aria-label="Flow diagram of the software-development workload's six unit types. Plan reads the repository and writes contracts, without changing anything. Implement changes source and tests under a contract in an isolated worktree. Verify independently and read-only examines a unit's output against its contract and the project's invariants. Integrate reintegrates a unit's branch into the base and resolves what the harness could not resolve on its own. Close confirms evidence is fresh and obligations are dispositioned. A separate research unit type, read-only, can be dispatched before planning or during implementation to answer one question about the environment; its result is routed into an obligation, not applied directly. If verify finds a problem, that becomes a new implement unit citing the finding, not an automatic retry of the same unit.">
+    <svg fill="currentColor" viewBox="0 0 1040 400" role="img" aria-label="Flow diagram of the software-development workload's six unit types. Plan reads the repository and writes contracts, without changing anything. Implement changes source and tests under a contract in an isolated worktree. Verify independently and read-only examines a unit's output against its contract and the project's invariants. Integrate reintegrates a unit's branch into the base and resolves what the harness could not resolve on its own. Close confirms evidence is fresh and obligations are dispositioned. A separate research unit type, read-only, can be dispatched before planning or during implementation to answer one question about the environment; its result is routed into an obligation, not applied directly. If verify finds a problem, that becomes a new implement unit citing the finding, not an automatic retry of the same unit.">
       <defs>
         <marker id="ah5" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="currentColor"/></marker>
         <marker id="ah5-alarm" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="var(--alarm)"/></marker>
@@ -668,7 +675,7 @@
     because it looked at the diff.</p>
 
   <figure>
-    <svg viewBox="0 0 1100 440" role="img" aria-label="Three stores. Left: the execution store, owned by the orchestrator, holding units, contracts, reports, attempts, budgets, observations, decisions and leases. Centre: the domain, the repository with a base checkout and one worktree per unit, written by the session's tools and merged by the orchestrator. Right: regulatory state, the audit log and the signal sink, written by S3-star and S2 and read by the router and the read model. Arrows show who writes and reads each; no arrow goes from the domain to either store.">
+    <svg fill="currentColor" viewBox="0 0 1100 440" role="img" aria-label="Three stores. Left: the execution store, owned by the orchestrator, holding units, contracts, reports, attempts, budgets, observations, decisions and leases. Centre: the domain, the repository with a base checkout and one worktree per unit, written by the session's tools and merged by the orchestrator. Right: regulatory state, the audit log and the signal sink, written by S3-star and S2 and read by the router and the read model. Arrows show who writes and reads each; no arrow goes from the domain to either store.">
       <defs><marker id="ah2" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="currentColor"/></marker></defs>
       <g font-size="12" font-weight="700" text-anchor="middle">
         <rect x="60" y="20" width="220" height="40" rx="4" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
@@ -752,7 +759,7 @@
     the attempt ceiling is the floor under the lattice.</p>
 
   <figure>
-    <svg viewBox="0 0 1100 480" role="img" aria-label="The recovery lattice. A blocked unit is classified in order: the orchestrator's record first (budget exhausted, invalid report, check failure, error, reintegration conflict), then S2's signals (oscillation), then the session's observations (environment, timeout, tool error), else no-report or unknown. The cause is looked up in the versioned recovery policy, which names an action by occurrence. Retry and repair dispatch again with a hint and spend an attempt; at the ceiling they become escalate. Remediate, replan, clarify and pause block the unit waiting for a decision from outside. Abort releases the lease and removes the worktree. Escalate sends an algedonic signal to S5.">
+    <svg fill="currentColor" viewBox="0 0 1100 480" role="img" aria-label="The recovery lattice. A blocked unit is classified in order: the orchestrator's record first (budget exhausted, invalid report, check failure, error, reintegration conflict), then S2's signals (oscillation), then the session's observations (environment, timeout, tool error), else no-report or unknown. The cause is looked up in the versioned recovery policy, which names an action by occurrence. Retry and repair dispatch again with a hint and spend an attempt; at the ceiling they become escalate. Remediate, replan, clarify and pause block the unit waiting for a decision from outside. Abort releases the lease and removes the worktree. Escalate sends an algedonic signal to S5.">
       <defs><marker id="ah3" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="currentColor"/></marker></defs>
       <g font-size="12" font-weight="700" text-anchor="middle">
         <rect x="12" y="190" width="146" height="46" rx="4" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
@@ -940,6 +947,7 @@
 </footer>
 <script src="theme.js" defer></script>
 <script src="glossary.js" defer></script>
+<script src="toc.js" defer></script>
 <script src="session-flow.js" defer></script>
 </body>
 </html>
