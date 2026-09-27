@@ -2,15 +2,22 @@
    Only shown once there's real room beside the centered .wrap content
    (see the min-width breakpoint below) — it never competes with the
    content for space, and the header nav's anchor links work identically
-   without it. */
+   without it.
+
+   Positioned from the content's own right edge (.wrap's max-width is
+   1120px, so half of that plus a 16px gap) rather than from the
+   viewport's right edge — that way it can never overlap the content
+   regardless of exactly how much room a given viewport has, and the
+   min-width below only has to be wide enough that the panel itself
+   doesn't clip off the right side of the screen. */
 
 .page-toc {
   display: none;
   position: fixed;
-  right: 24px;
+  left: calc(50% + 576px);
   top: 50%;
   transform: translateY(-50%);
-  width: 190px;
+  width: 120px;
   max-height: 70vh;
   overflow-y: auto;
   z-index: 15;
@@ -47,6 +54,6 @@
   font-weight: 600;
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 1440px) {
   .page-toc { display: block; }
 }
