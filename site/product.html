@@ -554,7 +554,14 @@
     identity file — and may then promote it into the definition, so every later instance
     starts from it. The right to ask and the right to change are different mechanisms.</p>
 
-  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/concepts/identity">Protecting identity</a> · <a href="https://metacoding-io.github.io/regulator/reference/boundary">Enforcement boundary</a></p>
+  <p style="font-size:13.5px;color:var(--ink-dim);margin:14px 0 0;"><b style="color:var(--ink);">Secrets are watched the same way.</b>
+    When <code>regulator init</code> installs an instance, it records the credential-looking values in the
+    repository's committed <code>.env</code> as <em>canaries</em>. Every tool result is scanned for them before
+    the model sees it: a canary is redacted and recorded as a critical finding. A canary the model
+    writes itself can't be unsaid, so that is recorded too. It measures whether an exposure path
+    exists — it only knows the values it was told about, and it doesn't watch the network.</p>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/concepts/identity">Protecting identity</a> · <a href="https://metacoding-io.github.io/regulator/concepts/identity#protected-values-the-canary-watch">The canary watch</a> · <a href="https://metacoding-io.github.io/regulator/reference/boundary">Enforcement boundary</a></p>
 </section>
 
 <section id="orchestrator" class="wrap">
