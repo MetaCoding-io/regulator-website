@@ -1,34 +1,57 @@
 /* Floating "on this page" table of contents for a page's own sections.
-   Only shown once there's real room beside the centered .wrap content
-   (see the min-width breakpoint below) — it never competes with the
-   content for space, and the header nav's anchor links work identically
-   without it.
-
-   Positioned from the content's own right edge (.wrap's max-width is
-   1120px, so half of that plus a 16px gap) rather than from the
-   viewport's right edge — that way it can never overlap the content
-   regardless of exactly how much room a given viewport has, and the
-   min-width below only has to be wide enough that the panel itself
-   doesn't clip off the right side of the screen. */
+   A self-contained card (its own background, border and shadow) fixed
+   near the top-right of the viewport, rather than a plain list of links
+   dropped into whatever margin happens to be free beside the centered
+   .wrap content. That margin isn't reliable — a browser's own UI (a
+   sidebar, a docked devtools panel, a narrower-than-fullscreen window)
+   eats into it independently of viewport width, which a width-only media
+   query can't account for. A solid card can sit on top of the page's own
+   text when there isn't room beside it, instead of interleaving with it,
+   so it can just always be shown on anything wider than a phone. */
 
 .page-toc {
-  display: none;
   position: fixed;
-  left: calc(50% + 576px);
-  top: 50%;
-  transform: translateY(-50%);
-  width: 120px;
-  max-height: 70vh;
+  top: 76px;
+  right: 16px;
+  width: 180px;
+  max-height: calc(100vh - 100px);
   overflow-y: auto;
   z-index: 15;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
 }
 .page-toc-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: .08em;
   text-transform: uppercase;
   color: var(--ink-faint);
-  margin: 0 0 8px 13px;
+  margin: 0 0 8px 1px;
+}
+.page-toc-toggle {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1;
+  color: var(--ink-faint);
+  background: none;
+  border: none;
+  padding: 0 2px;
+  cursor: pointer;
+  letter-spacing: normal;
+  text-transform: none;
+}
+.page-toc-toggle:hover {
+  color: var(--signal-ink);
+}
+.page-toc.is-collapsed nav {
+  display: none;
 }
 .page-toc nav {
   display: flex;
@@ -54,6 +77,8 @@
   font-weight: 600;
 }
 
-@media (min-width: 1440px) {
-  .page-toc { display: block; }
+/* A fixed card this size would crowd a phone screen more than it helps
+   on one — hide it there; the header nav's own links still work. */
+@media (max-width: 640px) {
+  .page-toc { display: none; }
 }
