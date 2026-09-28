@@ -289,6 +289,7 @@
   <nav>
     <a href="#architecture">Architecture</a>
     <a href="#mechanism">Mechanism hierarchy</a>
+    <a href="#identity">Identity</a>
     <a href="#orchestrator">Orchestrator</a>
     <a href="#control-room">Control room</a>
     <a href="#get-started">Get started</a>
@@ -528,7 +529,32 @@
     <div class="rung judgment"><div class="n">5</div><div><div class="t">Prompt / context engineering</div><div class="d">Not a decision point at all — ambient advice sitting in context that the model may or may not act on: house style, tone, a convention. Used only where being ignored costs little, since nothing here checks whether it was.</div></div></div>
   </div>
 
-  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/concepts/control-plane">The control plane</a> · <a href="https://metacoding-io.github.io/regulator/reference/regulators">Regulators</a> · <a href="https://metacoding-io.github.io/regulator/reference/boundary">Enforcement boundary</a></p>
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/concepts/control-plane">The control plane</a> · <a href="https://metacoding-io.github.io/regulator/concepts/contracts#where-each-part-is-enforced">Where each rule is enforced</a> · <a href="https://metacoding-io.github.io/regulator/reference/regulators">Regulators</a> · <a href="https://metacoding-io.github.io/regulator/reference/boundary">Enforcement boundary</a></p>
+</section>
+
+<section id="identity" class="wrap">
+  <div class="kicker">Identity<span class="tick"></span></div>
+  <h2 class="title">Identity you can't prompt away</h2>
+  <p class="lede">What the system is — its invariants, its boundaries, the words it uses —
+    lives in four committed files under <code>regulator/identity/</code>, not in a prompt.
+    Every unit sees them, rendered from the files on every run, so compaction can't drop
+    them and a new model can't reinterpret them from memory. Seeing them is only advice,
+    though, and a unit with a shell can reach the files. So identity is held the way the
+    mechanism hierarchy says to hold anything that matters: in layers, each catching what
+    gets past the one before.</p>
+  <div class="ladder">
+    <div class="rung"><div class="n">1</div><div><div class="t">Trust rule</div><div class="d">A unit's session loads only what the definition declares. The project's own extensions, skills and <code>AGENTS.md</code> never reach it — the domain doesn't configure its regulator.</div></div></div>
+    <div class="rung"><div class="n">2</div><div><div class="t">Write gate</div><div class="d">Every <code>write</code> and <code>edit</code> is checked against the protected paths — through any spelling, traversal or symlink — and refused before it happens.</div></div></div>
+    <div class="rung"><div class="n">3</div><div><div class="t">Bash watch</div><div class="d">No hook can sandbox a shell, so the protected files are snapshotted before every command and restored after it, and the change is recorded as a finding.</div></div></div>
+    <div class="rung"><div class="n">4</div><div><div class="t"><code>identity-untouched</code> at closeout</div><div class="d">The host diffs the unit's branch against its base. A protected change that got past everything else, by any route, fails the check — and never lands on the base.</div></div></div>
+  </div>
+  <p style="font-size:13.5px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">Changing identity is a separate path, on purpose.</b>
+    A unit may <em>propose</em> a change; the tool records the request and changes nothing.
+    A person the interaction policy lets act as <button type="button" class="gl" data-term="s5">S5</button> accepts it — the only writer of an
+    identity file — and may then promote it into the definition, so every later instance
+    starts from it. The right to ask and the right to change are different mechanisms.</p>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/concepts/identity">Protecting identity</a> · <a href="https://metacoding-io.github.io/regulator/reference/boundary">Enforcement boundary</a></p>
 </section>
 
 <section id="orchestrator" class="wrap">
@@ -594,7 +620,20 @@
     </div>
   </div>
 
-  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/guide/running-units">Running units</a> · <a href="https://metacoding-io.github.io/regulator/reference/host-checks">Host checks</a> · <a href="https://metacoding-io.github.io/regulator/reference/definition#recovery-policy">Recovery policy</a></p>
+  <div class="grid2" style="margin-top:28px;">
+    <div>
+      <h3 style="font-size:14px;margin:0 0 10px;">Budgets and model routes</h3>
+      <p style="font-size:13.5px;color:var(--ink-dim);margin:0 0 10px;">Every <button type="button" class="gl" data-term="attempt">attempt</button> runs under ceilings the policy declares per unit type — <b style="color:var(--ink);">tokens, cost, wall-clock and turns</b> — and every unit under a ceiling on <b style="color:var(--ink);">attempts</b>. A guard in the session halts an attempt the moment a ceiling is crossed and refuses every tool with an effect from then on; the loop closes on the ledger, never on the transcript.</p>
+      <p style="font-size:13.5px;color:var(--ink-dim);margin:0;">Each unit type also has a <b style="color:var(--ink);">route</b>: a primary model and declared fallbacks, in order. A provider failure moves to the next one; nothing outside the route is ever tried. When the context fills, compaction keeps a deterministic block — the contract, the evidence so far, the files touched — so the unit never forgets what it was bound to.</p>
+    </div>
+    <div>
+      <h3 style="font-size:14px;margin:0 0 10px;">After the merge</h3>
+      <p style="font-size:13.5px;color:var(--ink-dim);margin:0 0 10px;">A clean merge only proves no two units touched the same lines. So after every <button type="button" class="gl" data-term="reintegration">reintegration</button> the loop runs the tests again, on the base, at the merge commit. A failure holds <em>every</em> dispatch until S3 decides — and nothing is reverted behind anyone's back: a revert is a decision, on the record.</p>
+      <p style="font-size:13.5px;color:var(--ink-dim);margin:0;">Effects that can't be taken back — a message to the owner — go through an <button type="button" class="gl" data-term="effectjournal">effect journal</button>: intended before, committed after, and reconciled against the world on restart. A crash in between neither sends the message twice nor forgets it was sent.</p>
+    </div>
+  </div>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/guide/running-units">Running units</a> · <a href="https://metacoding-io.github.io/regulator/concepts/contracts">Work contracts</a> · <a href="https://metacoding-io.github.io/regulator/reference/host-checks">Host checks</a> · <a href="https://metacoding-io.github.io/regulator/concepts/recovery">Recovery, budgets and model routes</a> · <a href="https://metacoding-io.github.io/regulator/concepts/coordination">Coordination</a></p>
 </section>
 
 <section id="control-room" class="wrap">
