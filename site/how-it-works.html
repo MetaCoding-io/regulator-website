@@ -532,9 +532,9 @@
       <tbody>
         <tr><td>plan</td><td>research</td><td>no</td><td>—</td></tr>
         <tr><td>research</td><td>intelligence</td><td>yes</td><td>—</td></tr>
-        <tr><td>implement</td><td>implement</td><td>yes</td><td>run_checks, run_tests, inherited-tests, identity-untouched, export-signature, glossary-lint</td></tr>
-        <tr><td>verify</td><td>research</td><td>yes</td><td>run_checks, run_tests, inherited-tests, identity-untouched, export-signature, glossary-lint</td></tr>
-        <tr><td>integrate</td><td>implement</td><td>yes</td><td>run_tests, inherited-tests, identity-untouched, export-signature, glossary-lint</td></tr>
+        <tr><td>implement</td><td>implement</td><td>yes</td><td>run_checks, run_tests, inherited-tests, identity-untouched, export-signature, glossary-lint (commit messages advisory)</td></tr>
+        <tr><td>verify</td><td>research</td><td>yes</td><td>run_checks, run_tests, inherited-tests, identity-untouched, export-signature, glossary-lint (commit messages advisory)</td></tr>
+        <tr><td>integrate</td><td>implement</td><td>yes</td><td>run_tests, inherited-tests, identity-untouched, export-signature, glossary-lint (commit messages advisory)</td></tr>
         <tr><td>close</td><td>research</td><td>yes</td><td>—</td></tr>
       </tbody>
     </table>
@@ -772,8 +772,8 @@
       <tbody>
         <tr><td><code>operational-signal</code></td><td>S1</td><td>something about the work: a blocker, a deviation</td><td>the loop, from a report's emergent decisions and deviations; a session whose rendered identity was truncated</td><td>S3</td></tr>
         <tr><td><code>uncertainty-signal</code></td><td>S1</td><td>residual uncertainty with a reported impact; the policy maps the claim to a severity</td><td>the loop, from a report's <code>residualUncertainty</code></td><td>S3</td></tr>
-        <tr><td><code>coordination-signal</code></td><td>S2</td><td>a lease expired, a conflict, oscillation</td><td>the thrash detector in the session; reintegration on a conflict</td><td>S3</td></tr>
-        <tr><td><code>audit-finding</code></td><td>S3*</td><td>evidence contradicts a claim or an invariant</td><td>the bash watch on a restored protected path; the closeout; the post-merge check</td><td>S3</td></tr>
+        <tr><td><code>coordination-signal</code></td><td>S2</td><td>a lease expired, a conflict, oscillation</td><td>the thrash detector in the session; reintegration on a conflict, textual or found by the pre-merge trial</td><td>S3</td></tr>
+        <tr><td><code>audit-finding</code></td><td>S3*</td><td>evidence contradicts a claim or an invariant</td><td>the bash watch on a restored protected path; the closeout</td><td>S3</td></tr>
         <tr><td><code>intelligence-signal</code></td><td>S4</td><td>the environment changed, or will</td><td><code>report_intelligence</code> in a research unit</td><td>S3</td></tr>
         <tr><td><code>policy-proposal</code></td><td>any</td><td>a request to change identity or policy; never a mutation</td><td><code>propose_policy_change</code></td><td>S5</td></tr>
         <tr><td><code>algedonic-signal</code></td><td>any</td><td>exceptional escalation that bypasses the hierarchy</td><td>the loop, when the recovery policy answers <code>escalate</code></td><td>a person</td></tr>
