@@ -169,7 +169,7 @@
 <header class="hero wrap">
   <div class="hero-eyebrow">Worked example · a second workload, not software</div>
   <h1>"I want agents to <span class="accent">manage my finances</span>."</h1>
-  <p class="tag">Follow the same six questions, in order, that turn that sentence into a
+  <p class="tag">Follow the same eight questions, in order, that turn that sentence into a
     declared workload: one mechanism per answer, then the files that declare it, then the
     commands that run it with the <button type="button" class="gl" data-term="regulator">regulator</button> CLI. The point of doing this with money
     instead of code: none of the <button type="button" class="gl" data-term="orchestrator">orchestrator</button>'s own logic had to change to support
@@ -236,7 +236,7 @@
 
 <section id="design" class="wrap">
   <div class="kicker">Step 1 of 5 · Design first<span class="tick"></span></div>
-  <h2 class="title">Six questions, and the level each answer sits at</h2>
+  <h2 class="title">Eight questions, and the level each answer sits at</h2>
   <p class="lede">For each function of the Viable System Model, ask the regulatory question it exists to
     answer, and answer it with a <em>mechanism</em> at the highest level of the hierarchy that fits —
     type → gate → typed tool → judgment → prompt — with a reason whenever it is not the top. "The
@@ -385,6 +385,7 @@
     or just read it: each line is annotated with what it does and why.</p>
   <pre class="code">regulator fixture ~/ledger --finance
 cd ~/ledger
+pnpm add -D @metacoding.io/regulator @metacoding.io/regulator-pi   <span class="c"># the control plane and the Pi host, installed in the instance</span>
 regulator init --writable ledger/,reports/,payments/pending/ \
                --protected statements/,payments/executed/ --by alice
 regulator doctor                                        <span class="c"># exit 1 on any problem</span>
@@ -400,7 +401,7 @@ regulator answer &lt;obligation&gt; --by alice --answer yes
 regulator unit drive $L/f5-prepare-payment.json --policy $P   <span class="c"># the next attempt carries the answer</span>
 regulator-control-room --definition $R --instance ~/ledger   <span class="c"># @metacoding.io/regulator-control-room</span></pre>
   <ol class="steps">
-    <li><span class="who">f1–f4</span><b>The first four units succeed — but not on their own word.</b> For each one, the host itself re-runs the ledger's real test suite — and the suite as it stood before the unit started, so a test the unit deleted or weakened counts against it — re-checks that no protected file (like the bank statement) changed, and scans for words the project has banned — all against the exact code the unit committed, not a summary of it. After each unit's work is merged in, the host runs the tests one more time on the combined result, just to catch anything the merge itself might have broken.</li>
+    <li><span class="who">f1–f4</span><b>The first four units succeed — but not on their own word.</b> For each one, the host itself re-runs the ledger's real test suite — and the suite as it stood before the unit started, so a test the unit deleted or weakened counts against it — re-checks that no protected file (like the bank statement) changed, and scans for words the project has banned — all against the exact code the unit committed, not a summary of it. Before each unit's work is merged in, the host tries the merge in a scratch copy and runs the tests on the combined result; only a result that passes lands, so the shared ledger is never left broken by a merge.</li>
     <li><span class="who">Open item</span><b>One transaction is left alone, on purpose.</b> A $120 debit from a merchant nobody recognizes doesn't get a guessed category — the categorize unit marks it <code>uncategorized</code> and flags it in its report as unresolved. The ledger still balances to the bank statement byte for byte; that one row is just visibly unresolved instead of silently wrong.</li>
     <li><span class="who">f5</span><b>The fifth unit — the one that would pay rent — stops and asks first.</b> Before it can write anything, it has to get a yes or no from a person ("pay the landlord $1,800 by the 5th?"). Nobody's answered yet, so it doesn't fail — it pauses, and the question sits in an outbox where a person will eventually see it. Nothing gets written until someone says yes. Once <code>alice</code> answers, re-running the same unit finishes the job and writes the payment file.</li>
     <li><span class="who">Careless</span><b>Now try it with a version that cuts corners.</b> This "careless" stand-in edits the bank statement directly and invents a category instead of using the real list. Its first attempt at every unit gets rejected — the tests fail, and a separate check independently notices the statement changed at all. The system automatically retries with a corrected attempt, which succeeds. The point: the bad edit never makes it into the real, merged result — it gets caught and discarded, not covered up.</li>
@@ -461,7 +462,7 @@ regulator-control-room --definition $R --instance ~/ledger   <span class="c"># @
   </div>
 
   <div class="shot-row">
-    <div class="shot-img"><img src="img/control-room/inspector-unit-f1.webp" alt="The unit inspector for f1-ingest run careless: attempt 1 refused with the failing checks named, the repair decision and its hint, the replay with each host check and its observation, and attempt 2 closed with the post-merge checks." loading="lazy"></div>
+    <div class="shot-img"><img src="img/control-room/inspector-unit-f1.webp" alt="The unit inspector for f1-ingest run careless: attempt 1 refused with the failing checks named, the repair decision and its hint, the replay with each host check and its observation, and attempt 2 closed with the checks on the merged tree (the screenshot predates the pre-merge trial and names them post-merge)." loading="lazy"></div>
     <div class="shot-notes">
       <div class="shot-title">Drill-down #2: the unit that made a mistake, then fixed it</div>
       <ul>

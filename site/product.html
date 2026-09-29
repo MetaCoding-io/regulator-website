@@ -634,8 +634,8 @@
       <p style="font-size:13.5px;color:var(--ink-dim);margin:0;">Each unit type also has a <b style="color:var(--ink);">route</b>: a primary model and declared fallbacks, in order. A provider failure moves to the next one; nothing outside the route is ever tried. When the context fills, compaction keeps a deterministic block — the contract, the evidence so far, the files touched — so the unit never forgets what it was bound to.</p>
     </div>
     <div>
-      <h3 style="font-size:14px;margin:0 0 10px;">After the merge</h3>
-      <p style="font-size:13.5px;color:var(--ink-dim);margin:0 0 10px;">A clean merge only proves no two units touched the same lines. So after every <button type="button" class="gl" data-term="reintegration">reintegration</button> the loop runs the tests again, on the base, at the merge commit. A failure holds <em>every</em> dispatch until S3 decides — and nothing is reverted behind anyone's back: a revert is a decision, on the record.</p>
+      <h3 style="font-size:14px;margin:0 0 10px;">Before the merge lands</h3>
+      <p style="font-size:13.5px;color:var(--ink-dim);margin:0 0 10px;">A clean merge only proves no two units touched the same lines. So before every <button type="button" class="gl" data-term="reintegration">reintegration</button> lands, the loop merges the branch in a temporary worktree and runs the tests on the merged tree. A tree that passes lands as the very commit that was checked; a tree that fails lands nothing — the unit repairs, and the base is never red.</p>
       <p style="font-size:13.5px;color:var(--ink-dim);margin:0;">Effects that can't be taken back — a message to the owner — go through an <button type="button" class="gl" data-term="effectjournal">effect journal</button>: intended before, committed after, and reconciled against the world on restart. A crash in between neither sends the message twice nor forgets it was sent.</p>
     </div>
   </div>
@@ -659,7 +659,7 @@
   </div>
 
   <figure class="shot"><img src="img/control-room/overview.webp" alt="The control room as it opens: the definition's topology of 43 regulators in S5 to S1 columns on the left, and the inspector on the right showing the closeout gate's record." loading="lazy">
-    <figcaption><b>The page as it opens.</b> Left, the definition: 43 regulators by function, each card the channels it consumes and emits. Right, the inspector on a selected card — the closeout gate's record: purpose, what it absorbs, mechanism, authority, evidence, limitations, review date, ablation, retirement. The record, not a summary of it.</figcaption></figure>
+    <figcaption><b>The page as it opens.</b> Left, the definition: 44 regulators by function, each card the channels it consumes and emits. Right, the inspector on a selected card — the closeout gate's record: purpose, what it absorbs, mechanism, authority, evidence, limitations, review date, ablation, retirement. The record, not a summary of it.</figcaption></figure>
 
   <p style="font-size:13.5px;color:var(--ink-dim);margin-top:14px;">More of the page — units,
     leases and obligations for a live instance; the assurance and lifecycle views; a unit's
@@ -726,8 +726,8 @@ regulator unit show u1 · unit evidence u1 · obligations</pre>
     <div><b style="color:var(--ink);"><code>--by</code> is asserted, not authenticated.</b> Disposition authority checks whether the named person may decide, not that the caller is that person; authentication is the deployment's to add.</div>
   </div>
   <div class="cards">
-    <div class="card"><div class="k">6</div><div class="l">Packages, released together at 0.1.1 under Apache-2.0: <code>@metacoding.io/regulator</code> (the control plane and CLI), <code>regulator-pi</code> (the Pi host), <code>regulator-protocol</code>, <code>regulator-core</code>, <code>regulator-checks</code> and <code>regulator-control-room</code>; tested without a model under CI on two Node versions</div></div>
-    <div class="card"><div class="k">43</div><div class="l">Records in the <button type="button" class="gl" data-term="registryterm">registry</button>, 42 active and one retired, each with a stated limitation, an ablation switch and a retirement condition; <code>REGULATORS.md</code> and <code>BOUNDARY.md</code> generated from the records</div></div>
+    <div class="card"><div class="k">6</div><div class="l">Packages, released together (0.1.3 is current) under Apache-2.0: <code>@metacoding.io/regulator</code> (the control plane and CLI), <code>regulator-pi</code> (the Pi host), <code>regulator-protocol</code>, <code>regulator-core</code>, <code>regulator-checks</code> and <code>regulator-control-room</code>; tested without a model under CI on two Node versions</div></div>
+    <div class="card"><div class="k">44</div><div class="l">Records in the <button type="button" class="gl" data-term="registryterm">registry</button>, 42 active and two retired, each with a stated limitation, an ablation switch and a retirement condition; <code>REGULATORS.md</code> and <code>BOUNDARY.md</code> generated from the records</div></div>
     <div class="card"><div class="k">15 / 15</div><div class="l">Lessons written end to end; the capstone viability case is specified and its rubric awaits calibration</div></div>
   </div>
 
