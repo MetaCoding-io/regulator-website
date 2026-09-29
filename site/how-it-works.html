@@ -155,6 +155,7 @@
     <a href="#contract">A contract</a>
     <a href="#report">The report</a>
     <a href="#stores">Three stores</a>
+    <a href="#channels">Typed channels</a>
     <a href="#recovery">Recovery</a>
     <a href="#algedonic">Asking a person</a>
     <a href="#session">Inside a session</a>
@@ -673,7 +674,11 @@
   <p class="lede">INV-005. Execution state, regulatory state and the domain are three
     different things with three different owners, and no arrow below is inferred from
     another. The orchestrator knows what it dispatched because it wrote it down, not
-    because it looked at the diff.</p>
+    because it looked at the diff. The direction matters too: the <em>definition</em> is
+    the product (the registry, profiles, policies, workloads and the identity seed, shipped
+    as a package); an <em>instance</em> is one repository that <code>regulator init</code>
+    installed it into, and nothing flows back from an instance into the definition except
+    by a person's decision — <code>regulator identity promote</code>, under S5 authority.</p>
 
   <figure>
     <svg fill="currentColor" viewBox="0 0 1100 440" role="img" aria-label="Three stores. Left: the execution store, owned by the orchestrator, holding units, contracts, reports, attempts, budgets, observations, decisions and leases. Centre: the domain, the repository with a base checkout and one worktree per unit, written by the session's tools and merged by the orchestrator. Right: regulatory state, the audit log and the signal sink, written by S3-star and S2 and read by the router and the read model. Arrows show who writes and reads each; no arrow goes from the domain to either store.">
@@ -750,6 +755,37 @@
   </figure>
 
   <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/concepts/definition-and-instance">Definition, instance, domain</a> · <a href="https://metacoding-io.github.io/regulator/reference/instance">Instance layout</a></p>
+</section>
+
+<section id="channels" class="wrap">
+  <div class="kicker">Typed channels<span class="tick"></span></div>
+  <h2 class="title">A signal is not an audit; a proposal does not mutate policy</h2>
+  <p class="lede">Everything the functions say to each other is a typed message, and the
+    type carries the control semantics: who may send it, what it means, and who it is
+    routed to. The routing policy then declares, per kind, the severity at which a message
+    stops being trace and opens an obligation for someone — with floors that raise anything
+    naming a protected invariant to blocking, whatever the sender said.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Kind</th><th>From</th><th>Means</th><th>Emitted by</th><th>Routed to</th></tr></thead>
+      <tbody>
+        <tr><td><code>operational-signal</code></td><td>S1</td><td>something about the work: a blocker, a deviation</td><td>the loop, from a report's emergent decisions and deviations; a session whose rendered identity was truncated</td><td>S3</td></tr>
+        <tr><td><code>uncertainty-signal</code></td><td>S1</td><td>residual uncertainty with a reported impact; the policy maps the claim to a severity</td><td>the loop, from a report's <code>residualUncertainty</code></td><td>S3</td></tr>
+        <tr><td><code>coordination-signal</code></td><td>S2</td><td>a lease expired, a conflict, oscillation</td><td>the thrash detector in the session; reintegration on a conflict</td><td>S3</td></tr>
+        <tr><td><code>audit-finding</code></td><td>S3*</td><td>evidence contradicts a claim or an invariant</td><td>the bash watch on a restored protected path; the closeout; the post-merge check</td><td>S3</td></tr>
+        <tr><td><code>intelligence-signal</code></td><td>S4</td><td>the environment changed, or will</td><td><code>report_intelligence</code> in a research unit</td><td>S3</td></tr>
+        <tr><td><code>policy-proposal</code></td><td>any</td><td>a request to change identity or policy; never a mutation</td><td><code>propose_policy_change</code></td><td>S5</td></tr>
+        <tr><td><code>algedonic-signal</code></td><td>any</td><td>exceptional escalation that bypasses the hierarchy</td><td>the loop, when the recovery policy answers <code>escalate</code></td><td>a person</td></tr>
+        <tr><td><code>constraint</code></td><td>S5, S3</td><td>a boundary a unit runs under, stated ahead of the work</td><td>declared, not yet emitted: a unit's constraints reach it as the contract's references and the rendered identity</td><td>the unit</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note"><b>One severity line for every kind</b><code>info</code>, <code>advisory</code>,
+    <code>blocking</code>, <code>critical</code> — and what each means is fixed by the protocol, not by the sender:
+    an advisory is noted as trace with the reason; a blocking message opens an obligation that holds the
+    unit it names until someone dispositions it; a blocking finding with no unit holds every dispatch.</div>
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/concepts/control-plane">The control plane</a> · <a href="https://metacoding-io.github.io/regulator/concepts/obligations">Obligations</a> · <a href="https://metacoding-io.github.io/regulator/reference/definition#routing-policy">Routing policy</a></p>
 </section>
 
 <section id="recovery" class="wrap">

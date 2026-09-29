@@ -169,7 +169,7 @@
 <header class="hero wrap">
   <div class="hero-eyebrow">Worked example · a second workload, not software</div>
   <h1>"I want agents to <span class="accent">manage my finances</span>."</h1>
-  <p class="tag">Follow the same six questions, in order, that turn that sentence into a
+  <p class="tag">Follow the same eight questions, in order, that turn that sentence into a
     declared workload: one mechanism per answer, then the files that declare it, then the
     commands that run it with the <button type="button" class="gl" data-term="regulator">regulator</button> CLI. The point of doing this with money
     instead of code: none of the <button type="button" class="gl" data-term="orchestrator">orchestrator</button>'s own logic had to change to support
@@ -236,7 +236,7 @@
 
 <section id="design" class="wrap">
   <div class="kicker">Step 1 of 5 · Design first<span class="tick"></span></div>
-  <h2 class="title">Six questions, and the level each answer sits at</h2>
+  <h2 class="title">Eight questions, and the level each answer sits at</h2>
   <p class="lede">For each function of the Viable System Model, ask the regulatory question it exists to
     answer, and answer it with a <em>mechanism</em> at the highest level of the hierarchy that fits —
     type → gate → typed tool → judgment → prompt — with a reason whenever it is not the top. "The
@@ -385,6 +385,7 @@
     or just read it: each line is annotated with what it does and why.</p>
   <pre class="code">regulator fixture ~/ledger --finance
 cd ~/ledger
+pnpm add -D @metacoding.io/regulator @metacoding.io/regulator-pi   <span class="c"># the control plane and the Pi host, installed in the instance</span>
 regulator init --writable ledger/,reports/,payments/pending/ \
                --protected statements/,payments/executed/ --by alice
 regulator doctor                                        <span class="c"># exit 1 on any problem</span>
