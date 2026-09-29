@@ -302,10 +302,10 @@
   <div class="hero-eyebrow">The product behind the course</div>
   <h1>Cybernetic control<br>for <span class="accent">agentic</span> software.</h1>
   <p class="tag">regulator asks whether Stafford Beer's <button type="button" class="gl" data-term="vsm">Viable System Model</button> can run inside an
-    autonomous agent — not as five chatbot personas, but as explicit functions,
+    autonomous agent: not as five chatbot personas, but as explicit functions,
     authority boundaries, typed channels, verification gates, and feedback loops. It ships
     its own <button type="button" class="gl" data-term="orchestrator">orchestrator</button> to find out. <a href="index.html">Viable Agents</a>,
-    the course, builds it lesson by lesson — this page is the reference for what's actually
+    the course, builds it lesson by lesson. This page is the reference for what's actually
     running underneath it.</p>
   <div class="quote">Prompts advise. Types describe. Gates enforce.
     <span>The premise the whole project starts from</span>
@@ -339,34 +339,34 @@
   <div class="kicker">Architecture<span class="tick"></span></div>
   <h2 class="title">regulator</h2>
   <p class="lede">An agent harness built on <a href="https://pi.dev/">Pi</a>, with a
-    typed VSM control plane layered on top of it — designed against one recurring failure
+    typed VSM control plane layered on top of it. It is built against one recurring failure
     mode of autonomous agents: architectural drift that outruns anyone's ability to review it.</p>
 
   <h3 class="sub" id="vsm">What VSM is, and why it matters here</h3>
   <p class="lede" style="margin-bottom:14px;">Stafford Beer's Viable System Model comes out
-    of management cybernetics, not software: it asks what any system — an organism, a
-    company, an autonomous agent — needs structurally to keep operating as its environment
-    keeps generating more variety than it can be made to predict. Beer's answer is five
+    of management cybernetics: it asks what any system (an organism, a company, an
+    autonomous agent) needs structurally to keep operating as its environment keeps
+    generating more variety than it can be made to predict. Beer's answer is five
     functions plus an independent audit: operations that touch the world (S1), coordination
     that keeps them from colliding (S2), control that decides what happens next (S3),
     intelligence that watches the environment and the future (S4), and identity that says
-    what the system is and isn't allowed to become (S5) — checked by a function that never
-    just takes the operators' word for it (S3&#42;).</p>
-  <p class="lede">Why this matters specifically for an agent harness: the model is not a
+    what the system is and isn't allowed to become (S5), all checked by a function that
+    never just takes the operators' word for it (S3&#42;).</p>
+  <p class="lede">It matters for an agent harness because the model is not a
     deterministic component. It changes across versions, has no memory of last quarter's
-    incident, and treats a prompt as advice it can — and under pressure, will — ignore. A
+    incident, and treats a prompt as advice it can ignore, and under pressure will. A
     harness that regulates entirely through prompt text has exactly as much regulatory
     variety as the words in that prompt, which is provably less than the variety of a real
-    codebase, a real filesystem, or real money moving. VSM doesn't remove the model's
-    judgment; it gives that judgment a boundary it can't talk its way out of.</p>
+    codebase, a real filesystem, or real money moving. VSM leaves the model's judgment
+    in place and gives it a boundary it can't talk its way out of.</p>
 
   <h3 class="sub">Six functions, one loop</h3>
-  <p class="lede" style="margin-bottom:14px;">Beer's Viable System Model, read as a harness
-    architecture. Command flows down as attenuated instruction (grey); evidence flows back
-    up as amplified fact (teal). Units act on the domain; S3&#42; audits S3 independently and
-    verifies the domain itself at a revision, never through what S1 reports about it; S4
-    scans the environment on its own channel, arguing with S3 about now vs. next on S5's
-    terms.</p>
+  <p class="lede" style="margin-bottom:14px;">This is Beer's Viable System Model read as a
+    harness architecture. Command flows down as attenuated instruction (grey), and evidence
+    flows back up as amplified fact (teal). Units act on the domain. S3&#42; audits S3
+    independently and verifies the domain itself at a revision, never through what S1
+    reports about it. S4 scans the environment on its own channel, arguing with S3 about
+    now vs. next on S5's terms.</p>
   <div class="dtabs" role="tablist" aria-label="Show the diagram as">
     <button type="button" class="dtab is-on" role="tab" aria-selected="true" data-tab="general">General</button>
     <button type="button" class="dtab" role="tab" aria-selected="false" data-tab="software">Software dev</button>
@@ -459,11 +459,11 @@
     <table>
       <thead><tr><th>Name</th><th>Function</th><th>regulator's interpretation</th></tr></thead>
       <tbody>
-        <tr><td class="fn">S1 — Operations</td><td>The units that do the actual work, touching the world directly.</td><td>Capability profiles a workload declares — <code>implement</code>, <code>research</code>, <code>intelligence</code> for software, <code>bookkeeper</code> and <code>auditor</code> for the ledger — each a grant over tool effects, not a persona; any domain, not only software.</td></tr>
+        <tr><td class="fn">S1 — Operations</td><td>The units that do the actual work, touching the world directly.</td><td>Capability profiles a workload declares: <code>implement</code>, <code>research</code>, <code>intelligence</code> for software, <code>bookkeeper</code> and <code>auditor</code> for the ledger. Each is a grant over tool effects, and a workload in any domain can declare one.</td></tr>
         <tr><td class="fn">S2 — Coordination</td><td>Keeps operations from colliding with or thrashing against each other.</td><td>Tool contracts, worktree isolation, leases with liveness, reintegration, anti-oscillation mechanisms</td></tr>
-        <tr><td class="fn">S3 — Control</td><td>Decides what happens next — dispatch, budget, recovery — facing inside the system, now.</td><td>The orchestrator — work contracts, dispatch, budgets, the recovery lattice, execution-state authority</td></tr>
-        <tr><td class="fn">S3&#42; — Audit</td><td>Verifies operations' work independently, never trusting their own report of it.</td><td>Harness-run verification plus architectural/domain checks and independent audit findings</td></tr>
-        <tr><td class="fn">S4 — Intelligence</td><td>Watches the environment and the future and can raise a flag — never replans on its own.</td><td>Read-only specialists and external/environmental intelligence feeding planning and reassessment</td></tr>
+        <tr><td class="fn">S3 — Control</td><td>Decides what happens next (dispatch, budget, recovery), facing inside the system, now.</td><td>The orchestrator: work contracts, dispatch, budgets, the recovery lattice, execution-state authority</td></tr>
+        <tr><td class="fn">S3&#42; — Audit</td><td>Verifies operations' work independently, without trusting their own report of it.</td><td>Harness-run verification plus architectural/domain checks and independent audit findings</td></tr>
+        <tr><td class="fn">S4 — Intelligence</td><td>Watches the environment and the future and can raise a flag, but never replans on its own.</td><td>Read-only specialists and external/environmental intelligence feeding planning and reassessment</td></tr>
         <tr><td class="fn">S5 — Identity/Policy</td><td>Declares what the system is, and isn't allowed to become.</td><td>Versioned product identity, architecture, domain model, invariants, and policy</td></tr>
       </tbody>
     </table>
@@ -474,7 +474,7 @@
     <div>
       <h3 style="font-size:14px;margin:0 0 10px;">Design goals</h3>
       <ul class="outcomes">
-        <li>Keep the orchestrator small — the S3 loop of contract → dispatch → verify → route → close, generic over <button type="button" class="gl" data-term="workload">workloads</button>.</li>
+        <li>Keep the orchestrator small: the S3 loop of contract → dispatch → verify → route → close, generic over <button type="button" class="gl" data-term="workload">workloads</button>.</li>
         <li>Declare the control plane rather than assemble it: <button type="button" class="gl" data-term="registryterm">registry</button>, capability profiles, policy, and workload live in a versioned, checked definition.</li>
         <li>Make S5 identity and policy durable and version-controlled, independent of any one context window.</li>
         <li>Keep <button type="button" class="gl" data-term="s3star">S3* audit</button> independent of S1 self-reporting.</li>
@@ -519,14 +519,14 @@
   <div class="kicker">Mechanism hierarchy<span class="tick"></span></div>
   <h2 class="title">Prefer the mechanism that survives adversarial pressure</h2>
   <p class="lede">When adding a feature to the harness, regulator walks this ladder from the
-    top down — reach for the highest level that can actually do the job, and only fall
+    top down: reach for the highest level that can actually do the job, and only fall
     further down when it can't. If you can write the check, don't write the paragraph.</p>
   <div class="ladder">
-    <div class="rung"><div class="n">1</div><div><div class="t">TypeScript invariant</div><div class="d">Shape the data so the wrong value has nowhere to go — a fixed set of choices, not a free string anyone could mistype. The compiler refuses it before the code ever runs.</div></div></div>
-    <div class="rung"><div class="n">2</div><div><div class="t">Deterministic runtime check</div><div class="d">A rule enforced by code, every single time, whatever the prompt says — not a sentence someone has to remember to follow.</div></div></div>
-    <div class="rung"><div class="n">3</div><div><div class="t">Structured tool / protocol</div><div class="d">A fixed, validated shape for a request — no room to phrase around it, the way free text always leaves room.</div></div></div>
-    <div class="rung judgment"><div class="n">4</div><div><div class="t">Model judgment</div><div class="d">Still a real decision point — the model is handed a specific question because nothing above can resolve it mechanically, like which category a merchant belongs to — and its answer still gets checked afterward, not simply trusted.</div></div></div>
-    <div class="rung judgment"><div class="n">5</div><div><div class="t">Prompt / context engineering</div><div class="d">Not a decision point at all — ambient advice sitting in context that the model may or may not act on: house style, tone, a convention. Used only where being ignored costs little, since nothing here checks whether it was.</div></div></div>
+    <div class="rung"><div class="n">1</div><div><div class="t">TypeScript invariant</div><div class="d">Shape the data so the wrong value has nowhere to go: a fixed set of choices where a free string could be mistyped. The compiler refuses it before the code ever runs.</div></div></div>
+    <div class="rung"><div class="n">2</div><div><div class="t">Deterministic runtime check</div><div class="d">A rule enforced by code every single time, whatever the prompt says. Nobody has to remember to follow it.</div></div></div>
+    <div class="rung"><div class="n">3</div><div><div class="t">Structured tool / protocol</div><div class="d">A fixed, validated shape for a request, with none of the room to phrase around it that free text always leaves.</div></div></div>
+    <div class="rung judgment"><div class="n">4</div><div><div class="t">Model judgment</div><div class="d">Still a real decision point. The model is handed a specific question because nothing above can resolve it mechanically, like which category a merchant belongs to, and even then its answer gets checked afterward.</div></div></div>
+    <div class="rung judgment"><div class="n">5</div><div><div class="t">Prompt / context engineering</div><div class="d">Ambient advice sitting in context, with no decision point: house style, tone, a convention the model may or may not act on. Used only where being ignored costs little, since nothing here checks whether it was.</div></div></div>
   </div>
 
   <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/concepts/control-plane">The control plane</a> · <a href="https://metacoding-io.github.io/regulator/concepts/contracts#where-each-part-is-enforced">Where each rule is enforced</a> · <a href="https://metacoding-io.github.io/regulator/reference/regulators">Regulators</a> · <a href="https://metacoding-io.github.io/regulator/reference/boundary">Enforcement boundary</a></p>
@@ -535,23 +535,23 @@
 <section id="identity" class="wrap">
   <div class="kicker">Identity<span class="tick"></span></div>
   <h2 class="title">Identity you can't prompt away</h2>
-  <p class="lede">What the system is — its invariants, its boundaries, the words it uses —
-    lives in four committed files under <code>regulator/identity/</code>, not in a prompt.
-    Every unit sees them, rendered from the files on every run, so compaction can't drop
-    them and a new model can't reinterpret them from memory. Seeing them is only advice,
+  <p class="lede">What the system is (its invariants, its boundaries, the words it uses)
+    lives in four committed files under <code>regulator/identity/</code>. Every unit sees
+    them, rendered from the files on every run, so compaction can't drop them and a new
+    model can't reinterpret them from memory. Seeing them is only advice,
     though, and a unit with a shell can reach the files. So identity is held the way the
     mechanism hierarchy says to hold anything that matters: in layers, each catching what
     gets past the one before.</p>
   <div class="ladder">
-    <div class="rung"><div class="n">1</div><div><div class="t">Trust rule</div><div class="d">A unit's session loads only what the definition declares. The project's own extensions, skills and <code>AGENTS.md</code> never reach it — the domain doesn't configure its regulator.</div></div></div>
-    <div class="rung"><div class="n">2</div><div><div class="t">Write gate</div><div class="d">Every <code>write</code> and <code>edit</code> is checked against the protected paths — through any spelling, traversal or symlink — and refused before it happens.</div></div></div>
+    <div class="rung"><div class="n">1</div><div><div class="t">Trust rule</div><div class="d">A unit's session loads only what the definition declares. The project's own extensions, skills and <code>AGENTS.md</code> never reach it: the domain doesn't configure its regulator.</div></div></div>
+    <div class="rung"><div class="n">2</div><div><div class="t">Write gate</div><div class="d">Every <code>write</code> and <code>edit</code> is checked against the protected paths, through any spelling, traversal or symlink, and refused before it happens.</div></div></div>
     <div class="rung"><div class="n">3</div><div><div class="t">Bash watch</div><div class="d">No hook can sandbox a shell, so the protected files are snapshotted before every command and restored after it, and the change is recorded as a finding.</div></div></div>
-    <div class="rung"><div class="n">4</div><div><div class="t"><code>identity-untouched</code> at closeout</div><div class="d">The host diffs the unit's branch against its base. A protected change that got past everything else, by any route, fails the check — and never lands on the base.</div></div></div>
+    <div class="rung"><div class="n">4</div><div><div class="t"><code>identity-untouched</code> at closeout</div><div class="d">The host diffs the unit's branch against its base. A protected change that got past everything else, by any route, fails the check and never lands on the base.</div></div></div>
   </div>
   <p style="font-size:13.5px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">Changing identity is a separate path, on purpose.</b>
     A unit may <em>propose</em> a change; the tool records the request and changes nothing.
-    A person the interaction policy lets act as <button type="button" class="gl" data-term="s5">S5</button> accepts it — the only writer of an
-    identity file — and may then promote it into the definition, so every later instance
+    A person the interaction policy lets act as <button type="button" class="gl" data-term="s5">S5</button> accepts it, as the only writer of an
+    identity file, and may then promote it into the definition, so every later instance
     starts from it. The right to ask and the right to change are different mechanisms.</p>
 
   <p style="font-size:13.5px;color:var(--ink-dim);margin:14px 0 0;"><b style="color:var(--ink);">Secrets are watched the same way.</b>
@@ -559,7 +559,7 @@
     repository's committed <code>.env</code> as <em>canaries</em>. Every tool result is scanned for them before
     the model sees it: a canary is redacted and recorded as a critical finding. A canary the model
     writes itself can't be unsaid, so that is recorded too. It measures whether an exposure path
-    exists — it only knows the values it was told about, and it doesn't watch the network.</p>
+    exists. It only knows the values it was told about, and it doesn't watch the network.</p>
 
   <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/concepts/identity">Protecting identity</a> · <a href="https://metacoding-io.github.io/regulator/concepts/identity#protected-values-the-canary-watch">The canary watch</a> · <a href="https://metacoding-io.github.io/regulator/reference/boundary">Enforcement boundary</a></p>
 </section>
@@ -567,13 +567,13 @@
 <section id="orchestrator" class="wrap">
   <div class="kicker">The orchestrator<span class="tick"></span></div>
   <h2 class="title">A small loop, purpose-built for regulation</h2>
-  <p class="lede">The orchestrator is nothing but the S3 loop — contract → dispatch →
-    verify → route → close — generic over workloads, with leases, budgets and attempts as
+  <p class="lede">The orchestrator is nothing but the S3 loop (contract → dispatch →
+    verify → route → close), generic over workloads, with leases, budgets and attempts as
     immutable records. It was built directly on bare Pi, one module per lesson: gates, effects,
     profiles, leases, contracts, budgets, recovery, audit and authority, with no workflow
     engine underneath it. The Pi-specific half lives in its own package, <code>regulator-pi</code>,
-    behind a host seam: the control plane never imports a host, it resolves one by name. Workload-specific concerns stay out of the loop entirely,
-    declared instead in a workload definition — which is what keeps the loop itself small
+    behind a host seam: the control plane never imports a host, it resolves one by name. Workload-specific concerns stay out of the loop entirely
+    and are declared in a workload definition instead, which is what keeps the loop itself small
     enough to read in one sitting. <a href="how-it-works.html">How a unit runs through the
     loop</a> is drawn out on its own page.</p>
 
@@ -597,15 +597,15 @@
         </div>
       </div>
       <p style="font-size:12px;color:var(--ink-faint);margin-top:10px;">What would make a
-        workflow engine heavy — fixed phases, milestone lifecycles, UAT, projections — is
-        <em>workload</em>, and lives in a workload definition, not in this loop. Recovery
-        decisions cite a versioned policy; <button type="button" class="gl" data-term="closeout">closeout</button> is refused on anything but fresh, host-run evidence.</p>
+        workflow engine heavy (fixed phases, milestone lifecycles, UAT, projections) is
+        <em>workload</em>, and lives in a workload definition outside this loop. Recovery
+        decisions cite a versioned policy, and <button type="button" class="gl" data-term="closeout">closeout</button> is refused on anything but fresh, host-run evidence.</p>
     </div>
     <div>
       <h3 style="font-size:14px;margin:0 0 10px;">The first workload: the autoloop</h3>
       <p style="font-size:13.5px;color:var(--ink-dim);margin:0 0 12px;">The
         software-development autoloop is the first <button type="button" class="gl" data-term="workload">workload definition</button>, and the one the
-        course builds against its fixture repository — showing what it means to
+        course builds against its fixture repository. It shows what it means to
         <em>declare</em> a workload rather than hard-code one:</p>
       <div class="diagram-shell" style="padding:16px;">
         <div style="display:flex;flex-wrap:wrap;gap:8px;font-family:var(--mono);font-size:12px;">
@@ -630,13 +630,13 @@
   <div class="grid2" style="margin-top:28px;">
     <div>
       <h3 style="font-size:14px;margin:0 0 10px;">Budgets and model routes</h3>
-      <p style="font-size:13.5px;color:var(--ink-dim);margin:0 0 10px;">Every <button type="button" class="gl" data-term="attempt">attempt</button> runs under ceilings the policy declares per unit type — <b style="color:var(--ink);">tokens, cost, wall-clock and turns</b> — and every unit under a ceiling on <b style="color:var(--ink);">attempts</b>. A guard in the session halts an attempt the moment a ceiling is crossed and refuses every tool with an effect from then on; the loop closes on the ledger, never on the transcript.</p>
-      <p style="font-size:13.5px;color:var(--ink-dim);margin:0;">Each unit type also has a <b style="color:var(--ink);">route</b>: a primary model and declared fallbacks, in order. A provider failure moves to the next one; nothing outside the route is ever tried. When the context fills, compaction keeps a deterministic block — the contract, the evidence so far, the files touched — so the unit never forgets what it was bound to.</p>
+      <p style="font-size:13.5px;color:var(--ink-dim);margin:0 0 10px;">Every <button type="button" class="gl" data-term="attempt">attempt</button> runs under ceilings the policy declares per unit type: <b style="color:var(--ink);">tokens, cost, wall-clock and turns</b>, and every unit under a ceiling on <b style="color:var(--ink);">attempts</b>. A guard in the session halts an attempt the moment a ceiling is crossed and refuses every tool with an effect from then on. The loop closes on the ledger, never on the transcript.</p>
+      <p style="font-size:13.5px;color:var(--ink-dim);margin:0;">Each unit type also has a <b style="color:var(--ink);">route</b>: a primary model and declared fallbacks, in order. A provider failure moves to the next one, and nothing outside the route is ever tried. When the context fills, compaction keeps a deterministic block (the contract, the evidence so far, the files touched) so the unit never forgets what it was bound to.</p>
     </div>
     <div>
       <h3 style="font-size:14px;margin:0 0 10px;">Before the merge lands</h3>
-      <p style="font-size:13.5px;color:var(--ink-dim);margin:0 0 10px;">A clean merge only proves no two units touched the same lines. So before every <button type="button" class="gl" data-term="reintegration">reintegration</button> lands, the loop merges the branch in a temporary worktree and runs the tests on the merged tree. A tree that passes lands as the very commit that was checked; a tree that fails lands nothing — the unit repairs, and the base is never red.</p>
-      <p style="font-size:13.5px;color:var(--ink-dim);margin:0;">Effects that can't be taken back — a message to the owner — go through an <button type="button" class="gl" data-term="effectjournal">effect journal</button>: intended before, committed after, and reconciled against the world on restart. A crash in between neither sends the message twice nor forgets it was sent.</p>
+      <p style="font-size:13.5px;color:var(--ink-dim);margin:0 0 10px;">A clean merge only proves no two units touched the same lines. So before every <button type="button" class="gl" data-term="reintegration">reintegration</button> lands, the loop merges the branch in a temporary worktree and runs the tests on the merged tree. A tree that passes lands as the very commit that was checked. A tree that fails lands nothing: the unit repairs, and the base is never red.</p>
+      <p style="font-size:13.5px;color:var(--ink-dim);margin:0;">Effects that can't be taken back, such as a message to the owner, go through an <button type="button" class="gl" data-term="effectjournal">effect journal</button>: intended before, committed after, and reconciled against the world on restart. A crash in between neither sends the message twice nor forgets it was sent.</p>
     </div>
   </div>
 
@@ -648,7 +648,7 @@
   <span class="fake-tag">Every view ships today</span>
   <h2 class="title">The control room</h2>
   <p class="lede">A projection of <em>registry ∪ execution store ∪ regulatory state</em>. It
-    owns no state of its own — every screen is read from records that already exist
+    owns no state of its own: every screen is read from records that already exist
     elsewhere. <code>packages/control-room</code> serves this page today, over the
     <button type="button" class="gl" data-term="readmodel">read model</button> built by <code>regulator status</code>.</p>
   <div style="display:flex;flex-direction:column;gap:8px;font-size:13.5px;color:var(--ink-dim);margin-bottom:18px;">
@@ -659,11 +659,11 @@
   </div>
 
   <figure class="shot"><img src="img/control-room/overview.webp" alt="The control room as it opens: the definition's topology of 44 regulators in S5 to S1 columns on the left, and the inspector on the right showing the closeout gate's record." loading="lazy">
-    <figcaption><b>The page as it opens.</b> Left, the definition: 44 regulators by function, each card the channels it consumes and emits. Right, the inspector on a selected card — the closeout gate's record: purpose, what it absorbs, mechanism, authority, evidence, limitations, review date, ablation, retirement. The record, not a summary of it.</figcaption></figure>
+    <figcaption><b>The page as it opens.</b> Left, the definition: 44 regulators by function, each card showing the channels it consumes and emits. Right, the inspector on a selected card, here the closeout gate's whole record: purpose, what it absorbs, mechanism, authority, evidence, limitations, review date, ablation, retirement.</figcaption></figure>
 
-  <p style="font-size:13.5px;color:var(--ink-dim);margin-top:14px;">More of the page — units,
-    leases and obligations for a live instance; the assurance and lifecycle views; a unit's
-    full replay — is on the <a href="personal-finance.html#room">worked example</a> and
+  <p style="font-size:13.5px;color:var(--ink-dim);margin-top:14px;">More of the page (units,
+    leases and obligations for a live instance, the assurance and lifecycle views, a unit's
+    full replay) is on the <a href="personal-finance.html#room">worked example</a> and
     <a href="how-it-works.html">how it works</a>.</p>
 
   <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/guide/control-room">The control room</a> · <a href="https://metacoding-io.github.io/regulator/concepts/evidence-about-the-regulators">Evidence about the regulators</a></p>
@@ -672,32 +672,32 @@
 <section id="get-started" class="wrap">
   <div class="kicker">Get started<span class="tick"></span></div>
   <h2 class="title">Install into a repository you already have</h2>
-  <p class="lede">Two packages, one command to declare the instance, one to check it, one to run a unit. Node 22.19 or later; <a href="https://pi.dev/">Pi</a> 0.87.0 with a model provider key in its environment.</p>
+  <p class="lede">Two packages, then one command to declare the instance, one to check it, and one to run a unit. You need Node 22.19 or later and <a href="https://pi.dev/">Pi</a> 0.87.0 with a model provider key in its environment.</p>
 <pre class="tree"><b>pnpm add -D @metacoding.io/regulator @metacoding.io/regulator-pi</b>
 cd /path/to/your/repo                         # clean tree, on the branch units should land on
 <b>regulator init</b> --writable src/,test/ --protected vendor/ --by alice
 <b>regulator doctor</b>                              # the CI entry point: exit 1 on any problem
 <b>regulator unit drive</b> contracts/my-first-unit.json
 regulator unit show u1 · unit evidence u1 · obligations</pre>
-  <p style="font-size:13.5px;color:var(--ink-dim);margin:14px 0 0;"><code>init</code> seeds the identity under <code>regulator/identity/</code>, writes the instance manifest, and commits; <code>drive</code> leases the unit, opens a session under the unit type's profile, runs the host checks at the unit's revision, and either closes and reintegrates or routes the failure under the recovery policy. What the policy cannot resolve becomes an obligation owed to you.</p>
+  <p style="font-size:13.5px;color:var(--ink-dim);margin:14px 0 0;"><code>init</code> seeds the identity under <code>regulator/identity/</code>, writes the instance manifest, and commits. <code>drive</code> leases the unit, opens a session under the unit type's profile, runs the host checks at the unit's revision, and either closes and reintegrates or routes the failure under the recovery policy. What the policy cannot resolve becomes an obligation owed to you.</p>
   <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/guide/getting-started">Getting started</a> · <a href="https://metacoding-io.github.io/regulator/guide/getting-started#declare-who-may-answer">Declare who may answer</a> · <a href="https://metacoding-io.github.io/regulator/reference/cli">CLI reference</a> · <a href="https://www.npmjs.com/package/@metacoding.io/regulator">npm ↗</a></p>
 </section>
 
 <section id="operating" class="wrap">
   <div class="kicker">Operating<span class="tick"></span></div>
   <h2 class="title">What a person does day to day</h2>
-  <p class="lede">The loop runs units; a person answers what the loop cannot decide. Everything below reads or dispositions a record, and every <code>--by</code> is checked against the interaction policy's people before anything is written.</p>
+  <p class="lede">The loop runs units, and a person answers what the loop cannot decide. Everything below reads or dispositions a record, and every <code>--by</code> is checked against the interaction policy's people before anything is written.</p>
   <div class="tbl-wrap"><table>
     <tr><th>When</th><th>Command</th><th>What it does</th></tr>
-    <tr><td>before the first unit, and in CI</td><td><code>regulator doctor</code></td><td>runtime, git, the Pi pin, the definition, review dates, the manifest, a clean base, what is owed and undelivered; exit 1 on any problem</td></tr>
+    <tr><td>before the first unit, and in CI</td><td><code>regulator doctor</code></td><td>checks runtime, git, the Pi pin, the definition, review dates, the manifest, a clean base, and what is owed and undelivered, then exits 1 on any problem</td></tr>
     <tr><td>a unit needs work</td><td><code>regulator unit drive &lt;contract&gt;</code></td><td>the autoloop: run, verify, route, run again while the budget and the policy allow</td></tr>
     <tr><td>something is owed</td><td><code>regulator obligations</code></td><td>what is open, to whom (<code>S3</code>, <code>S5</code> or a person), at which severity, and which currently veto a unit</td></tr>
-    <tr><td>a unit asked a question</td><td><code>regulator answer &lt;id&gt; --by &lt;who&gt; --answer …</code></td><td>the answer is recorded as the person's disposition; the next attempt carries it. Silence is never consent</td></tr>
-    <tr><td>a finding or an escalation waits on you</td><td><code>regulator obligation resolve &lt;id&gt; --by &lt;who&gt; --disposition &lt;d&gt; --rationale …</code></td><td>closes it with one of the eleven dispositions; <code>ack</code> marks it seen, <code>escalate</code> hands it to another consumer with the veto</td></tr>
-    <tr><td>a unit proposed a change to the identity</td><td><code>regulator identity accept|reject &lt;id&gt; --by &lt;who&gt; …</code></td><td>the S5 decision, by a person with <code>actAsS5</code>; the only writer of an identity file</td></tr>
-    <tr><td>a criterion no check can observe</td><td><code>regulator unit accept &lt;id&gt; &lt;criterion&gt; --by &lt;who&gt;</code></td><td>a human acceptance, recorded beside the technical verdict, never folded into it</td></tr>
-    <tr><td>a quiet instance</td><td><code>regulator watch --exec &lt;cmd&gt;</code></td><td>delivers what is owed to a person, reminds after the policy's interval, forwards each new outbox line to your channel</td></tr>
-    <tr><td>once a month</td><td><code>regulator review --due</code></td><td>which regulator records are past their review date; <code>doctor</code> fails on an overdue one</td></tr>
+    <tr><td>a unit asked a question</td><td><code>regulator answer &lt;id&gt; --by &lt;who&gt; --answer …</code></td><td>records the answer as the person's disposition, and the next attempt carries it. Silence is never consent</td></tr>
+    <tr><td>a finding or an escalation waits on you</td><td><code>regulator obligation resolve &lt;id&gt; --by &lt;who&gt; --disposition &lt;d&gt; --rationale …</code></td><td>closes it with one of the eleven dispositions: <code>ack</code> marks it seen, and <code>escalate</code> hands it to another consumer with the veto</td></tr>
+    <tr><td>a unit proposed a change to the identity</td><td><code>regulator identity accept|reject &lt;id&gt; --by &lt;who&gt; …</code></td><td>the S5 decision, by a person with <code>actAsS5</code>, the only writer of an identity file</td></tr>
+    <tr><td>a criterion no check can observe</td><td><code>regulator unit accept &lt;id&gt; &lt;criterion&gt; --by &lt;who&gt;</code></td><td>a human acceptance, recorded beside the technical verdict and never folded into it</td></tr>
+    <tr><td>a quiet instance</td><td><code>regulator watch --exec &lt;cmd&gt;</code></td><td>delivers what is owed to a person, reminds after the policy's interval, and forwards each new outbox line to your channel</td></tr>
+    <tr><td>once a month</td><td><code>regulator review --due</code></td><td>which regulator records are past their review date, and <code>doctor</code> fails on an overdue one</td></tr>
     <tr><td>an accepted decision should outlive this instance</td><td><code>regulator identity promote &lt;file&gt;.md --by &lt;who&gt; …</code></td><td>carries the instance's accepted identity file back into the definition's seed</td></tr>
     <tr><td>you want to see it</td><td><code>regulator status</code> · <code>regulator-control-room</code></td><td>the read model, and the read-only page over it</td></tr>
   </table></div>
@@ -707,7 +707,7 @@ regulator unit show u1 · unit evidence u1 · obligations</pre>
 <section id="status" class="wrap">
   <div class="kicker">Status<span class="tick"></span></div>
   <h2 class="title">Built end to end through lesson 15; the capstone is what's left</h2>
-  <p class="lede">Four things are true today, each running end to end rather than sketched.</p>
+  <p class="lede">Four things are true today, and each runs end to end.</p>
   <div style="display:flex;flex-direction:column;gap:12px;font-size:13.5px;color:var(--ink-dim);margin-bottom:22px;">
     <div><b style="color:var(--ink);">The loop runs.</b> Contract, dispatch, verify, route, close — with <button type="button" class="gl" data-term="lease">leases</button>, budgets, a versioned recovery policy, and a <button type="button" class="gl" data-term="closeout">closeout gate</button> that trusts host-run evidence, never a unit's own claim about itself. An identity set is rendered from the files, write-protected, and checked at closeout against the branch.</div>
     <div><b style="color:var(--ink);">The <button type="button" class="gl" data-term="algedonic">algedonic</button> path is in.</b> A unit can ask a person through one typed tool; only a nonblocking recap continues without an answer. An unanswered question pauses the unit by gate; what's owed to a person is delivered and reminded; who may answer is declared and checked.</div>
@@ -715,7 +715,7 @@ regulator unit show u1 · unit evidence u1 · obligations</pre>
     <div><b style="color:var(--ink);">And it operates.</b> The lab installs as a Pi package; <code>regulator init</code> installs it into an existing repository under a declared manifest; <code>doctor</code> checks the instance before the first unit and in CI; the base is re-verified after every merge and a failure holds the whole instance; refused words are linted out; the outbox is watched; an identity decision promotes back into the definition.</div>
   </div>
   <p style="font-size:13px;color:var(--ink-dim);margin:0 0 14px;"><code>docs/DEBT.md</code> tracks
-    every gap the build has taken on deliberately, one row per item — forty-one rows so far, most
+    every gap the build has taken on deliberately, one row per item: forty-one rows so far, most
     already paid as later lessons closed them. What's still open, and worth knowing before
     you rely on this:</p>
   <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;color:var(--ink-dim);margin-bottom:22px;">
@@ -726,9 +726,9 @@ regulator unit show u1 · unit evidence u1 · obligations</pre>
     <div><b style="color:var(--ink);"><code>--by</code> is asserted, not authenticated.</b> Disposition authority checks whether the named person may decide, not that the caller is that person; authentication is the deployment's to add.</div>
   </div>
   <div class="cards">
-    <div class="card"><div class="k">6</div><div class="l">Packages, released together (0.1.3 is current) under Apache-2.0: <code>@metacoding.io/regulator</code> (the control plane and CLI), <code>regulator-pi</code> (the Pi host), <code>regulator-protocol</code>, <code>regulator-core</code>, <code>regulator-checks</code> and <code>regulator-control-room</code>; tested without a model under CI on two Node versions</div></div>
-    <div class="card"><div class="k">44</div><div class="l">Records in the <button type="button" class="gl" data-term="registryterm">registry</button>, 42 active and two retired, each with a stated limitation, an ablation switch and a retirement condition; <code>REGULATORS.md</code> and <code>BOUNDARY.md</code> generated from the records</div></div>
-    <div class="card"><div class="k">15 / 15</div><div class="l">Lessons written end to end; the capstone viability case is specified and its rubric awaits calibration</div></div>
+    <div class="card"><div class="k">6</div><div class="l">Packages, released together (0.1.3 is current) under Apache-2.0: <code>@metacoding.io/regulator</code> (the control plane and CLI), <code>regulator-pi</code> (the Pi host), <code>regulator-protocol</code>, <code>regulator-core</code>, <code>regulator-checks</code> and <code>regulator-control-room</code>, tested without a model under CI on two Node versions</div></div>
+    <div class="card"><div class="k">44</div><div class="l">Records in the <button type="button" class="gl" data-term="registryterm">registry</button>, 42 active and two retired, each with a stated limitation, an ablation switch and a retirement condition, with <code>REGULATORS.md</code> and <code>BOUNDARY.md</code> generated from the records</div></div>
+    <div class="card"><div class="k">15 / 15</div><div class="l">Lessons written end to end, with the capstone viability case specified and its rubric awaiting calibration</div></div>
   </div>
 
   <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/DEBT">Build debt</a> · <a href="https://metacoding-io.github.io/regulator/project/roadmap">Roadmap</a> · <a href="https://metacoding-io.github.io/regulator/project/changelog">Changelog</a></p>
