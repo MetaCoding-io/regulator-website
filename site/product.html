@@ -291,6 +291,9 @@
     <a href="#mechanism">Mechanism hierarchy</a>
     <a href="#identity">Identity</a>
     <a href="#orchestrator">Orchestrator</a>
+    <a href="#evidence">Evidence</a>
+    <a href="#intelligence">Intelligence &amp; memory</a>
+    <a href="#registry">Registry cards</a>
     <a href="#control-room">Control room</a>
     <a href="#get-started">Get started</a>
     <a href="#operating">Operating</a>
@@ -641,6 +644,50 @@
   </div>
 
   <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/guide/running-units">Running units</a> · <a href="https://metacoding-io.github.io/regulator/concepts/contracts">Work contracts</a> · <a href="https://metacoding-io.github.io/regulator/reference/host-checks">Host checks</a> · <a href="https://metacoding-io.github.io/regulator/concepts/recovery">Recovery, budgets and model routes</a> · <a href="https://metacoding-io.github.io/regulator/concepts/coordination">Coordination</a> · <a href="https://metacoding-io.github.io/regulator/concepts/hosts">Hosts</a></p>
+</section>
+
+<section id="evidence" class="wrap">
+  <div class="kicker">Evidence about the regulators<span class="tick"></span></div>
+  <h2 class="title">Every gate is a claim. The eval harness is how the claim gets tested.</h2>
+  <p class="lede">A suite declares the fixture, the tasks in order, the arms, the repetitions and the metrics it will report — before it runs. The <em>control</em> arm loads the plain harness; the <em>treatment</em> arm loads everything the workload declares; one <em>ablation</em> arm per regulator switches that one regulator off. The harness runs one fresh instance per arm and repetition through the real loop and grades every unit the same two ways.</p>
+  <div class="tbl-wrap"><table>
+    <tr><th>Graders</th><th>What they read</th><th>What they count</th></tr>
+    <tr><td><b>Outcome</b></td><td>the environment after the unit: the merged base, its tests, its comments</td><td>boundary violations, signature drift, vocabulary drift, rules written into prose, a test suite weakened</td></tr>
+    <tr><td><b>Trajectory</b></td><td>the records the control plane wrote while the unit ran</td><td>refusals, retries, escalations, invariant violations, attempts, tokens, turns, wall clock</td></tr>
+  </table></div>
+  <p style="font-size:13.5px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">Pre-registered, and interpreted by a person.</b>
+    The metrics are a closed list named in the suite, so a run cannot discover a favourable one afterwards. Arms are summarized with Student's t intervals and a lift is screened by interval overlap, never a p-value. And a report is not a report until someone says what it means: <code>regulator eval</code> without <code>--interpretation</code> writes a placeholder, and <code>regulator check</code> refuses a committed report that still carries it. The four committed reports ran scripted units — their numbers validate the graders, not a model — and one of them is the over-regulation case that changed the product: a check refused correct work over a word in a commit message, and the workload now declares that half advisory.</p>
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/concepts/evidence-about-the-regulators">Evidence about the regulators</a> · <a href="https://metacoding-io.github.io/regulator/reference/definition#eval-suites">Eval suites</a></p>
+</section>
+
+<section id="intelligence" class="wrap">
+  <div class="kicker">Intelligence and memory<span class="tick"></span></div>
+  <h2 class="title">What is outside and later is not what was learned here</h2>
+  <p class="lede">Two things look alike from a prompt and are kept apart on purpose. <button type="button" class="gl" data-term="s4">S4</button> is the environment and the future: a <em>research</em> unit, under its own read-only profile and budget, reports what it found with <code>report_intelligence</code>, and the signal becomes an obligation that holds the units it names until <button type="button" class="gl" data-term="s3">S3</button> or a person dispositions it. Intelligence can stop work; it never replans on its own.</p>
+  <p style="font-size:13.5px;color:var(--ink-dim);margin:0 0 10px;"><b style="color:var(--ink);">Memory is operational, and it expires.</b>
+    A unit that learns something about <em>this</em> environment — a flag the tests need, a command that only works one way — records it with <code>remember</code>. The fact carries its provenance (the unit, the revision), a review-by date that cannot be more than ninety days out, and optionally the unit types it is for. Later units see current facts rendered as facts, scoped to their type; an expired fact is shown to nobody until a person reviews it. Nothing checks that a fact is true — the expiry is the pressure.</p>
+  <p style="font-size:13.5px;color:var(--ink-dim);margin:0;"><b style="color:var(--ink);">Neither is a rule.</b>
+    A fact that turns out to be a rule, or a finding that should change what the system is, goes through <code>propose_policy_change</code> and waits for the <button type="button" class="gl" data-term="s5">S5</button> decision. Memory never becomes identity by being repeated, and the drift suite measures the difference: rules written into a README count against a unit; facts recorded with an expiry do not.</p>
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/concepts/intelligence-and-memory">Intelligence and memory</a> · <a href="https://metacoding-io.github.io/regulator/reference/tools">Session tools</a></p>
+</section>
+
+<section id="registry" class="wrap">
+  <div class="kicker">The registry<span class="tick"></span></div>
+  <h2 class="title">Anatomy of a registry card</h2>
+  <p class="lede">Every regulator in the control plane has a record, and the definition check refuses a gate that does not state what it fails to catch. The cards are the source of truth for what the system does and does not do; <code>REGULATORS.md</code> and the enforcement boundary, <code>BOUNDARY.md</code>, are rendered from them and never edited by hand.</p>
+  <div class="tbl-wrap"><table>
+    <tr><th>Field</th><th>What it commits to</th></tr>
+    <tr><td><b>purpose</b>, <b>absorbs</b></td><td>what the regulator is for, and the class of failure it exists to absorb — one sentence a reader can check against the code</td></tr>
+    <tr><td><b>mechanism</b></td><td>the level on the hierarchy (type, deterministic gate, typed tool, model judgment, prompt) and where it bites: a typed enforcement point — a session event, a tool's execute, a step of the loop, a subcommand or the definition check — from a closed list the check refuses to go outside</td></tr>
+    <tr><td><b>channels</b>, <b>scope</b>, <b>authority</b></td><td>what it consumes and emits, what it applies to, and what it may and may not do — the topology view is drawn from these</td></tr>
+    <tr><td><b>evidence</b></td><td>the tests that show it working; a source checkout verifies they exist</td></tr>
+    <tr><td><b>limitations</b></td><td>at least one, always: the routes around the gate. A limitation that names later work gets a row in the build's debt ledger in the same change</td></tr>
+    <tr><td><b>ablation</b>, <b>retirement</b></td><td>the switch that turns it off for an eval arm, and the condition under which a person would retire it — a control system that only grows is not regulating</td></tr>
+    <tr><td><b>ownership</b>, <b>introducedIn</b></td><td>who reviews it and by when — <code>regulator review --due</code> lists what is owed, and <code>doctor</code> fails on an overdue date — and the release that first shipped it</td></tr>
+  </table></div>
+  <p style="font-size:13.5px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">Retirement is a decision, and the record stays.</b>
+    Two of the forty-four cards are retired: the first lexical write gate, superseded by the identity write gate, and the post-merge check, replaced by the pre-merge trial. Each keeps its history and says what replaced it, so the registry reads as the system's memory of itself, not only its present.</p>
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/regulators">The regulators</a> · <a href="https://metacoding-io.github.io/regulator/reference/boundary">Enforcement boundary</a> · <a href="https://metacoding-io.github.io/regulator/DEBT">Build debt</a></p>
 </section>
 
 <section id="control-room" class="wrap">
