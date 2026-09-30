@@ -169,14 +169,14 @@
   <p class="tag">The <button type="button" class="gl" data-term="orchestrator">orchestrator</button> never touches the code. It writes a contract, hands a
     session a worktree, reads the report the session wrote, re-runs the checks itself
     against the commit, and merges or routes. Everything on this page is what
-    <code>packages/regulator/src/controller.ts</code> and the Pi host's session extensions actually do; nothing is
+    <code>packages/regulator/src/controller.ts</code> and the Pi host's session extensions actually do, and none of it is
     aspirational.</p>
   <p class="tag">This page runs deeper than the others on purpose. Where the product and
     course pages summarize, this one shows the actual sequence diagram, two state
-    diagrams — one for a single unit's own lifecycle, one for how a whole software change
-    moves through six different unit types — the real contract and report JSON, a table of
+    diagrams (one for a single unit's own lifecycle, one for how a whole software change
+    moves through six different unit types), the real contract and report JSON, a table of
     every extension hook a session fires, and the exact files an instance writes to disk.
-    If you came here to see the mechanism, not just hear about it, this is the page.</p>
+    If you came here to see the mechanism itself, this is the page.</p>
 
   <div class="vocab">
     <div class="vocab-head">
@@ -205,8 +205,8 @@
   <h2 class="title">Orchestrator, session, worktree, stores</h2>
   <p class="lede">Five participants. The orchestrator is the S3 loop in the base checkout.
     The session is Pi with the host's extensions loaded, running in a git worktree that belongs to
-    exactly one unit. The domain — the repository — is on the far right and is only ever
-    read as a domain: never as state.</p>
+    exactly one unit. The domain, which is the repository, sits on the far right and is only
+    ever read as a domain, never as state.</p>
 
   <figure>
     <svg fill="currentColor" viewBox="0 0 1100 1010" role="img" aria-label="Sequence diagram of one unit through the S3 loop: the orchestrator writes the contract to the execution store, takes a lease and creates a worktree, dispatches a Pi session; the session's gates load the contract and lease, the model edits and tests inside the worktree and calls report_result, which is checked and written to the store; the orchestrator reads the report, re-runs the checks itself against the worktree's commit, writes evidence and a verdict to the audit log, and on pass merges the branch and releases the lease; on any other verdict it records a check-failure attempt and routes under the recovery policy.">
@@ -318,18 +318,18 @@
         <text paint-order="stroke" stroke="var(--surface)" stroke-width="5" stroke-linejoin="round" x="150" y="966" text-anchor="start" font-size="10.5" fill="var(--ink-dim)">retry / repair: back to dispatch, while attempts remain</text>
       </g>
     </svg>
-    <figcaption><b>One unit through the loop.</b> Solid arrows are calls; the teal ones are the session acting inside its worktree, the orange ones are S3* verifying independently of what the session reported. The orchestrator writes to the execution store and reads the report from it; it never reads the transcript and never reads the diff to learn how the unit is doing. Every step is in <code>controller.ts</code> (<code>runUnit</code>, <code>auditUnit</code>, <code>routeUnit</code>, <code>driveUnit</code>) and the host's extensions.</figcaption>
+    <figcaption><b>One unit through the loop.</b> Solid arrows are calls. The teal ones are the session acting inside its worktree; the orange ones are S3* verifying independently of what the session reported. The orchestrator writes to the execution store and reads the report from it; it never reads the transcript and never reads the diff to learn how the unit is doing. Every step is in <code>controller.ts</code> (<code>runUnit</code>, <code>auditUnit</code>, <code>routeUnit</code>, <code>driveUnit</code>) and the host's extensions.</figcaption>
   </figure>
 
   <ol class="steps">
     <li><span class="who">Contract</span><b>The orchestrator checks the contract</b> (shape, consistency, a unit type the workload declares) and records the unit under it. The contract file is immutable; a new version is a replan, not a retry.</li>
-    <li><span class="who">Dispatch</span><b>A lease and a worktree are taken</b> for the unit — a branch <code>unit/u1</code> checked out under <code>.regulator/worktrees/u1</code> — and a Pi session starts there with the definition's checkpoints, and nothing the project supplies, loaded.</li>
+    <li><span class="who">Dispatch</span><b>A lease and a worktree are taken</b> for the unit (a branch <code>unit/u1</code> checked out under <code>.regulator/worktrees/u1</code>), and a Pi session starts there with the definition's checkpoints loaded and nothing the project supplies.</li>
     <li><span class="who">Session</span><b>The gates find the unit the way S3 recorded it</b>: the lease whose resource is this worktree, then the contract from the store. The contract becomes a system-prompt section (advice) and a typed session entry (state).</li>
-    <li><span class="who">Session</span><b>The model works inside the gates.</b> Writes need the <button type="button" class="gl" data-term="profile">profile</button>'s grant and a live lease and must not touch identity or protected paths; the budget meter counts every turn; tool errors become observations; <code>run_tests</code> results are stamped with the revision they ran at.</li>
-    <li><span class="who">Session</span><b>It commits and calls <code>report_result</code></b> — the only way a unit ends well. The report is refused unless it honours the contract and cites runs that happened here, on the committed tree, and passed.</li>
+    <li><span class="who">Session</span><b>The model works inside the gates.</b> Writes need the <button type="button" class="gl" data-term="profile">profile</button>'s grant and a live lease, and must not touch identity or protected paths. The budget meter counts every turn, tool errors become observations, and <code>run_tests</code> results are stamped with the revision they ran at.</li>
+    <li><span class="who">Session</span><b>It commits and calls <code>report_result</code></b>, the only way a unit ends well. The report is refused unless it honours the contract and cites runs that happened here, on the committed tree, and passed.</li>
     <li><span class="who">Verify</span><b>The orchestrator reads the report</b>, never the diff, and re-runs the workload's checks itself against the commit. <button type="button" class="gl" data-term="evidence">Evidence</button> and the <button type="button" class="gl" data-term="verdict">verdict</button> go to the audit log; a claim in the report that the host contradicts is named.</li>
     <li><span class="who">Close</span><b>On pass, the branch is merged</b> into the base, the worktree removed, the lease released. On anything else the <button type="button" class="gl" data-term="attempt">attempt</button> is recorded as it ended and the unit is blocked.</li>
-    <li><span class="who">Route</span><b>A blocked unit is routed</b> under the versioned recovery policy: the cause is classified from the orchestrator's records first, then S2's signals (an <button type="button" class="gl" data-term="oscillation">oscillation</button>, say), then the session's observations; the Nth occurrence takes the Nth action; retry and repair spend attempts and become escalate at the ceiling.</li>
+    <li><span class="who">Route</span><b>A blocked unit is routed</b> under the versioned recovery policy: the cause is classified from the orchestrator's records first, then S2's signals (an <button type="button" class="gl" data-term="oscillation">oscillation</button>, say), then the session's observations. The Nth occurrence takes the Nth action, and retry and repair spend attempts until they become escalate at the ceiling.</li>
   </ol>
 
   <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/guide/running-units">Running units</a> · <a href="https://metacoding-io.github.io/regulator/reference/host-checks">Host checks</a> · <a href="https://metacoding-io.github.io/regulator/concepts/coordination">Coordination</a></p>
@@ -341,11 +341,11 @@
   <p class="lede">The sequence diagram above shows <em>who calls whom, in what order</em>. This is
     the complementary view: <em>what the unit itself can be</em>, at any moment, and exactly
     what moves it from one thing to the next. There are only six values a <button type="button" class="gl" data-term="unit">unit</button>'s
-    status field can ever hold — <code>contracted</code>, <code>dispatched</code>,
-    <code>reported</code>, <code>closed</code>, <code>blocked</code>, <code>aborted</code> —
-    defined once in <code>packages/protocol/src/execution.ts</code> and enforced everywhere
-    that reads or writes a unit record. If a status isn't in that list, it isn't a status;
-    it's a bug.</p>
+    status field can ever hold: <code>contracted</code>, <code>dispatched</code>,
+    <code>reported</code>, <code>closed</code>, <code>blocked</code>, <code>aborted</code>.
+    They are defined once in <code>packages/protocol/src/execution.ts</code> and enforced
+    everywhere that reads or writes a unit record. Any other value in that field is a
+    bug.</p>
 
   <figure>
     <svg fill="currentColor" viewBox="0 0 1040 560" role="img" aria-label="State diagram of a unit's lifecycle. Contracted moves to dispatched once a lease and worktree exist. Dispatched moves to reported only when report_result is called and the host's own re-check of the checks passes; otherwise dispatched moves directly to blocked, for reasons including no report, invalid report, budget exhausted, an unanswered question (paused), or a check failure. Reported moves to closed when the merge into the base succeeds, or to blocked if reintegration conflicts. From blocked, retry or repair loop back to dispatched for another attempt. Remediate, replan, clarify, pause, and escalate move to a waiting state where an obligation is open and redispatch is refused until a person or S3 dispositions it; from waiting, the disposition either resumes back to dispatched with the decision as a hint, or ends the unit in aborted. Blocked can also go directly to aborted.">
@@ -426,18 +426,18 @@
       </g>
     </svg>
     <figcaption><b>Six states, and every real transition between them.</b> Solid arrows are
-      automatic — the loop takes them on its own. Dashed arrows wait on something outside
+      automatic; the loop takes them on its own. Dashed arrows wait on something outside
       the loop: a policy decision, a person's answer, or S3 or S5 dispositioning an
-      obligation. Notice what's <em>not</em> here: there is no "in progress" percentage,
-      no "70% done" — a unit is exactly one of these six things, always, and the field
+      obligation. Notice what's <em>not</em> here: there is no "in progress" percentage
+      and no "70% done". A unit is exactly one of these six things, always, and the field
       that says which one is written by the orchestrator, never inferred from the
       worktree.</figcaption>
   </figure>
 
   <div class="notes">
-    <div class="note"><b>Reported is not "the model finished"</b>By the time a unit's status becomes <code>reported</code>, the host has already re-run every check itself and they already passed — <code>closeVerifiedUnit</code> only sets this status right before attempting the merge. A unit whose checks fail never becomes <code>reported</code> at all; it goes straight from <code>dispatched</code> to <code>blocked</code>.</div>
+    <div class="note"><b>Reported is not "the model finished"</b>By the time a unit's status becomes <code>reported</code>, the host has already re-run every check itself and they already passed, because <code>closeVerifiedUnit</code> only sets this status right before attempting the merge. A unit whose checks fail never becomes <code>reported</code> at all; it goes straight from <code>dispatched</code> to <code>blocked</code>.</div>
     <div class="note"><b>Waiting isn't a sixth status</b>It's <code>blocked</code> plus an open <button type="button" class="gl" data-term="obligation">obligation</button> that vetoes the next dispatch. The schema stays at six values; the veto lives in the obligation ledger, checked fresh on every dispatch attempt.</div>
-    <div class="note alarm"><b>Paused is a special case of blocked</b>When a unit asks a person a blocking question and nobody answers before the session ends, the attempt's outcome is recorded as <code>paused</code> and the unit's status is <code>blocked</code> — with the reason spelled out in plain language, not a code. <code>regulator answer</code> is what turns the obligation from open to resolved and lets the next dispatch through.</div>
+    <div class="note alarm"><b>Paused is a special case of blocked</b>When a unit asks a person a blocking question and nobody answers before the session ends, the attempt's outcome is recorded as <code>paused</code> and the unit's status is <code>blocked</code>, with the reason spelled out in plain language. <code>regulator answer</code> turns the obligation from open to resolved and lets the next dispatch through.</div>
     <div class="note"><b>The full decision logic is next</b>This diagram shows <em>where</em> a blocked unit can go. The <a href="#recovery">recovery section below</a> shows <em>how</em> the choice between retry, repair, remediate, replan, clarify, pause, escalate and abort actually gets made.</div>
   </div>
 
@@ -450,8 +450,8 @@
   <p class="lede">A single unit's lifecycle, drawn above, says nothing about what kind of
     work it is. That's the <button type="button" class="gl" data-term="workload">workload</button>'s job: it declares the unit <em>types</em> available to a
     definition, each with its own <button type="button" class="gl" data-term="profile">capability profile</button> and its own closeout checks. This is
-    <code>software-development.json</code>, the first workload the course ships, and the one
-    behind every example on this page — including the <code>fix-known-issue</code> contract
+    <code>software-development.json</code>, the first workload the course ships and the one
+    behind every example on this page, including the <code>fix-known-issue</code> contract
     in the next section, which is an <code>implement</code> unit.</p>
 
   <figure>
@@ -517,12 +517,12 @@
       </g>
     </svg>
     <figcaption><b>Six unit types, one workload.</b> Every box here still goes through the
-      full six-state lifecycle drawn above, independently — <code>verify</code> can be
-      <code>blocked</code> and routed exactly like <code>implement</code> can. What this
+      full six-state lifecycle drawn above, independently. A <code>verify</code> unit can be
+      <code>blocked</code> and routed exactly like an <code>implement</code> unit. What this
       diagram adds is the layer above that: which unit type's work becomes which other
-      unit type's contract. Nothing here is enforced as a literal state machine in code —
+      unit type's contract. Nothing here is enforced as a literal state machine in code, because
       <code>plan</code> and <code>research</code> units decide the next contract, same as a
-      person would — but this is the shape every closed feature in the fixture actually
+      person would. Still, this is the shape every closed feature in the fixture actually
       takes.</figcaption>
   </figure>
 
@@ -541,7 +541,7 @@
   </div>
   <p style="font-size:13px;color:var(--ink-faint);margin-top:12px;">Straight from
     <code>packages/regulator/workload/software-development.json</code>. Note that <code>plan</code>
-    is the one unit type that runs with no contract at all — it's the thing that
+    is the one unit type that runs with no contract at all: it's the thing that
     <em>produces</em> contracts, so there's nothing yet for one to check it against.</p>
 
   <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/definition#workload">Workload</a> · <a href="https://metacoding-io.github.io/regulator/reference/definition#capability-profiles">Capability profiles</a> · <a href="https://metacoding-io.github.io/regulator/reference/tools">Session tools</a></p>
@@ -553,7 +553,7 @@
   <p class="lede">This is the real first contract from the lab, <code>packages/regulator/contracts/fix-known-issue.json</code>,
     unchanged. A contract is not a task description: it allocates decisions. Some are fixed
     before the unit runs, some are delegated within bounds, and some are explicitly nobody's
-    yet — and the report is refused if it settles one of those.</p>
+    yet, and the report is refused if it settles one of those.</p>
 
   <div class="annot">
     <pre class="code">{
@@ -600,7 +600,7 @@
   "provenance": { "createdBy": "S3", "createdAt": "2026-09-22T00:00:00.000Z" }
 }</pre>
     <div class="notes">
-      <div class="note"><b>version · unitType</b>The store keeps <code>contract.v1.json</code> immutably. The unit type selects the <button type="button" class="gl" data-term="profile">capability profile</button> the session runs under and the checks the orchestrator re-runs at closeout, both from the workload definition — the contract does not name a model or a tool.</div>
+      <div class="note"><b>version · unitType</b>The store keeps <code>contract.v1.json</code> immutably. The unit type selects the <button type="button" class="gl" data-term="profile">capability profile</button> the session runs under and the checks the orchestrator re-runs at closeout, both from the workload definition; the contract itself names neither a model nor a tool.</div>
       <div class="note"><b>fixed</b>Decisions already made, with the authority that made them. The report may not silently deviate: a deviation from a fixed decision must be declared and becomes a blocking signal for S3. <code>f-vendor</code> is also a gate; the contract restates it so the unit knows why the gate refuses.</div>
       <div class="note"><b>delegated</b>Decisions the unit makes, within bounds. The report must say what it chose for each one; a missing choice is refused at the tool and again at close.</div>
       <div class="note alarm"><b>unresolved</b>Decisions nobody has made. The unit may <em>preserve</em> them (leave the behaviour untouched) or <em>surface</em> them (report what it found); there is no <em>settled</em>. A report that omits <code>u-unicode</code> is refused: "settled silently or forgotten".</div>
@@ -644,10 +644,10 @@
   "residualUncertainty": []
 }</pre>
     <div class="notes">
-      <div class="note"><b>attempt</b>One report per contract version <em>and attempt</em>: a repair attempt writes its own. Never revised.</div>
+      <div class="note"><b>attempt</b>One report per contract version <em>and attempt</em>: a repair attempt writes its own, and none is revised.</div>
       <div class="note"><b>evidence</b>Checked for shape at the tool (every required class present) and for provenance before the tool runs (the run happened in this session, at HEAD, on a clean tree, and passed). Then the closeout gate re-runs the checks and, if they fail, lists this claim as <em>contradicted</em>.</div>
       <div class="note"><b>delegatedResults · unresolvedOutcomes</b>Checked at the tool and at close: every delegated decision has a choice; every unresolved decision has an outcome of <code>preserved</code> or <code>surfaced</code>.</div>
-      <div class="note"><b>emergentDecisions · deviations</b>Not gated — recorded. A high-consequence emergent decision and every deviation become typed signals for S3 at close.</div>
+      <div class="note"><b>emergentDecisions · deviations</b>These are not gated, only recorded: a high-consequence emergent decision and every deviation become typed signals for S3 at close.</div>
     </div>
   </div>
 
@@ -657,7 +657,7 @@
       <tbody>
         <tr><td>evidence (classes)</td><td>report_result tool, then runUnit</td><td>at the call · at close</td><td>refused with reasons · attempt "invalid-report"</td></tr>
         <tr><td>evidence (provenance)</td><td>evidence preflight</td><td>before the tool runs</td><td>blocked: "run_tests has not run in this session / ran at another revision / did not pass"</td></tr>
-        <tr><td>evidence (truth)</td><td>auditUnit — the orchestrator's own run</td><td>at close, against HEAD</td><td>verdict fail with the claim listed as contradicted; attempt "check-failure"; routed to repair</td></tr>
+        <tr><td>evidence (truth)</td><td>auditUnit (the orchestrator's own run)</td><td>at close, against HEAD</td><td>verdict fail with the claim listed as contradicted; attempt "check-failure"; routed to repair</td></tr>
         <tr><td>delegatedResults</td><td>report_result tool, then runUnit</td><td>at the call · at close</td><td>refused: "delegated decision d-helpers has no reported choice"</td></tr>
         <tr><td>unresolvedOutcomes</td><td>report_result tool, then runUnit</td><td>at the call · at close</td><td>refused: "u-unicode … settled silently or forgotten"</td></tr>
         <tr><td>deviations (fixed)</td><td>runUnit → emitReportSignals</td><td>at close</td><td>the unit still closes; a blocking operational signal goes to S3</td></tr>
@@ -678,7 +678,7 @@
     the product (the registry, profiles, policies, workloads and the identity seed, shipped
     as a package); an <em>instance</em> is one repository that <code>regulator init</code>
     installed it into, and nothing flows back from an instance into the definition except
-    by a person's decision — <code>regulator identity promote</code>, under S5 authority.</p>
+    by a person's decision, made with <code>regulator identity promote</code> under S5 authority.</p>
 
   <figure>
     <svg fill="currentColor" viewBox="0 0 1100 440" role="img" aria-label="Three stores. Left: the execution store, owned by the orchestrator, holding units, contracts, reports, attempts, budgets, observations, decisions and leases. Centre: the domain, the repository with a base checkout and one worktree per unit, written by the session's tools and merged by the orchestrator. Right: regulatory state, the audit log and the signal sink, written by S3-star and S2 and read by the router and the read model. Arrows show who writes and reads each; no arrow goes from the domain to either store.">
@@ -763,7 +763,7 @@
   <p class="lede">Everything the functions say to each other is a typed message, and the
     type carries the control semantics: who may send it, what it means, and who it is
     routed to. The routing policy then declares, per kind, the severity at which a message
-    stops being trace and opens an obligation for someone — with floors that raise anything
+    stops being trace and opens an obligation for someone, with floors that raise anything
     naming a protected invariant to blocking, whatever the sender said.</p>
 
   <div class="tbl-wrap">
@@ -782,9 +782,9 @@
     </table>
   </div>
   <div class="note"><b>One severity line for every kind</b><code>info</code>, <code>advisory</code>,
-    <code>blocking</code>, <code>critical</code> — and what each means is fixed by the protocol, not by the sender:
-    an advisory is noted as trace with the reason; a blocking message opens an obligation that holds the
-    unit it names until someone dispositions it; a blocking finding with no unit holds every dispatch.</div>
+    <code>blocking</code>, <code>critical</code>. The protocol, not the sender, fixes what each one means:
+    an advisory is noted as trace with the reason. A blocking message opens an obligation that holds the
+    unit it names until someone dispositions it, and a blocking finding with no unit holds every dispatch.</div>
   <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/concepts/control-plane">The control plane</a> · <a href="https://metacoding-io.github.io/regulator/concepts/obligations">Obligations</a> · <a href="https://metacoding-io.github.io/regulator/reference/definition#routing-policy">Routing policy</a></p>
 </section>
 
@@ -792,8 +792,8 @@
   <div class="kicker">Recovery<span class="tick"></span></div>
   <h2 class="title">What happens on attempt two, and on attempt six</h2>
   <p class="lede">A blocked unit is not retried; it is routed. The cause is a closed set,
-    classified in a fixed order; the action comes from a versioned policy, by occurrence;
-    the attempt ceiling is the floor under the lattice.</p>
+    classified in a fixed order. The action comes from a versioned policy, by occurrence,
+    and the attempt ceiling is the floor under the lattice.</p>
 
   <figure>
     <svg fill="currentColor" viewBox="0 0 1100 480" role="img" aria-label="The recovery lattice. A blocked unit is classified in order: the orchestrator's record first (budget exhausted, invalid report, check failure, error, reintegration conflict), then S2's signals (oscillation), then the session's observations (environment, timeout, tool error), else no-report or unknown. The cause is looked up in the versioned recovery policy, which names an action by occurrence. Retry and repair dispatch again with a hint and spend an attempt; at the ceiling they become escalate. Remediate, replan, clarify and pause block the unit waiting for a decision from outside. Abort releases the lease and removes the worktree. Escalate sends an algedonic signal to S5.">
@@ -865,7 +865,7 @@
       <path d="M 1080 99 L 1092 99 L 1092 30 L 85 30 L 85 188" fill="none" stroke="var(--signal)" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#ah3)"/>
       <text x="588" y="25" text-anchor="middle" font-size="10.5" fill="var(--signal-ink)">runUnit again — attempt N+1, the hint appended to the prompt — then verify; back here if blocked</text>
     </svg>
-    <figcaption><b>The recovery lattice.</b> Classification is a fixed precedence over recorded facts: the orchestrator's own record wins, then what <button type="button" class="gl" data-term="s2">S2</button> signalled, then what the session observed. Every decision is appended with the policy name and version that produced it, so attempt three can be explained after the policy changes. Only <code>retry</code> and <code>repair</code> re-enter the loop; everything else either waits — as an <button type="button" class="gl" data-term="obligation">obligation</button> owed to <button type="button" class="gl" data-term="s3">S3</button> or a person, which vetoes the unit's dispatch until it is dispositioned — or ends the unit. <code>escalate</code> is this loop's only path to an <button type="button" class="gl" data-term="algedonic">algedonic signal</button>: it skips the queue entirely and puts the problem in front of <button type="button" class="gl" data-term="s5">S5</button> directly. A unit that asked a person and got no answer never reaches this lattice: its attempt is recorded as <code>paused</code>, the obligation is delivered to the outbox, and <code>regulator answer</code> releases it with the answer as the next hint (<a href="#algedonic">drawn below</a>).</figcaption>
+    <figcaption><b>The recovery lattice.</b> Classification is a fixed precedence over recorded facts: the orchestrator's own record wins, then what <button type="button" class="gl" data-term="s2">S2</button> signalled, then what the session observed. Every decision is appended with the policy name and version that produced it, so attempt three can be explained after the policy changes. Only <code>retry</code> and <code>repair</code> re-enter the loop; everything else either waits (as an <button type="button" class="gl" data-term="obligation">obligation</button> owed to <button type="button" class="gl" data-term="s3">S3</button> or a person, which vetoes the unit's dispatch until it is dispositioned) or ends the unit. <code>escalate</code> is this loop's only path to an <button type="button" class="gl" data-term="algedonic">algedonic signal</button>: it skips the queue entirely and puts the problem in front of <button type="button" class="gl" data-term="s5">S5</button> directly. A unit that asked a person and got no answer never reaches this lattice: its attempt is recorded as <code>paused</code>, the obligation is delivered to the outbox, and <code>regulator answer</code> releases it with the answer as the next hint (<a href="#algedonic">drawn below</a>).</figcaption>
   </figure>
 
   <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/definition#recovery-policy">Recovery policy</a> · <a href="https://metacoding-io.github.io/regulator/reference/definition#routing-policy">Routing policy</a> · <a href="https://metacoding-io.github.io/regulator/concepts/obligations">Obligations</a> · <a href="https://metacoding-io.github.io/regulator/concepts/recovery">Recovery, budgets and model routes</a></p>
@@ -954,7 +954,7 @@
         <text x="592" y="266" fill="var(--alarm)">silence is never consent</text>
       </g>
     </svg>
-    <figcaption><b>The algedonic path.</b> Which kinds may continue without an answer is a constant in the protocol, not a policy setting: only a <code>recap</code> does, so no configuration can turn a timeout into a yes. A paused unit is not a failure, so the <a href="#recovery">recovery lattice</a> never sees it; it waits on its <button type="button" class="gl" data-term="obligation">obligation</button>, and the attempt it spent counts against its ceiling. The same outbox carries what an exhausted recovery policy escalates, so a person has one place to look — and <code>regulator watch</code> can forward it to mail, chat or a webhook.</figcaption>
+    <figcaption><b>The algedonic path.</b> Which kinds may continue without an answer is a constant in the protocol, not a policy setting: only a <code>recap</code> does, so no configuration can turn a timeout into a yes. A paused unit is not a failure, so the <a href="#recovery">recovery lattice</a> never sees it; it waits on its <button type="button" class="gl" data-term="obligation">obligation</button>, and the attempt it spent counts against its ceiling. The same outbox carries what an exhausted recovery policy escalates, so a person has one place to look, and <code>regulator watch</code> can forward it to mail, chat or a webhook.</figcaption>
   </figure>
 
   <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/concepts/asking-a-person">Asking a person</a> · <a href="https://metacoding-io.github.io/regulator/concepts/obligations">Obligations</a> · <a href="https://metacoding-io.github.io/regulator/reference/tools#ask_human">ask_human</a> · <a href="https://metacoding-io.github.io/regulator/reference/definition#interaction-policy">Interaction policy</a></p>
@@ -963,9 +963,9 @@
 <section id="session" class="wrap">
   <div class="kicker">Inside a session<span class="tick"></span></div>
   <h2 class="title">Where the gates sit in a session</h2>
-  <p class="lede">A unit's session is plain Pi with eleven extensions loaded in order — tools, profiles,
+  <p class="lede">A unit's session is plain Pi with eleven extensions loaded in order (tools, profiles,
     coordination, contract, budget, recovery, evidence, authority, intelligence, identity,
-    algedonic — each hooking
+    algedonic), each hooking
     a handful of lifecycle events. Hover or tap a point on the line for what runs there.
     A solid red marker can refuse a tool call or halt the session; a hollow marker only
     records what happened.</p>
@@ -1049,8 +1049,8 @@
     <div class="notes">
       <div class="note"><b>Two immutable files per attempt, one mutable</b>The contract and each report are written once with <code>wx</code> and never overwritten; <code>unit.json</code> is the one thing that changes, and it holds only status and the attempt count.</div>
       <div class="note"><b>Append-only logs, replayable</b>Attempts, observations, decisions, audit entries, signals and <button type="button" class="gl" data-term="effectjournal">effects</button> are NDJSON lines validated on write and on read. <code>regulator unit evidence u1</code> and the <button type="button" class="gl" data-term="controlroom">control room</button>'s inspector are replays of these files; the inspector's replay view lists one unit's records in time order, from the span projection.</div>
-      <div class="note"><b>The read model</b><code>regulator status --definition packages/regulator --instance &lt;repo&gt;</code> projects the definition (registry, workload, policies, profiles, identity, the eval suite and its committed reports, and each regulator's review date, ablation switch and retirement condition) and the instance (units with contract, report, budget, decisions, verdict and what is owed on them; leases; obligations with their deliveries; interactions — what units asked a person and what came back; memory; unrouted signals; the manifest) — from files only, the same shape as the <button type="button" class="gl" data-term="readmodel">read model</button> the control room serves. <code>regulator doctor</code> is the go/no-go over the same files before the first unit and in CI.</div>
-      <div class="note alarm"><b>What is not here</b>The transcript: Pi's session file is authoritative for the conversation and the orchestrator never reads it. And any notion of progress derived from the diff.</div>
+      <div class="note"><b>The read model</b><code>regulator status --definition packages/regulator --instance &lt;repo&gt;</code> projects the definition (registry, workload, policies, profiles, identity, the eval suite and its committed reports, and each regulator's review date, ablation switch and retirement condition) and the instance (units with contract, report, budget, decisions, verdict and what is owed on them; leases; obligations with their deliveries; interactions, that is, what units asked a person and what came back; memory; unrouted signals; the manifest), all from files only, in the same shape as the <button type="button" class="gl" data-term="readmodel">read model</button> the control room serves. <code>regulator doctor</code> is the go/no-go over the same files before the first unit and in CI.</div>
+      <div class="note alarm"><b>What is not here</b>The transcript: Pi's session file is authoritative for the conversation and the orchestrator never reads it. Also missing is any notion of progress derived from the diff.</div>
     </div>
   </div>
 
