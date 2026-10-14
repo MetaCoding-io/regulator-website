@@ -9,7 +9,7 @@
  */
 (function () {
   var GLOSSARY = "https://github.com/MetaCoding-io/regulator/blob/main/docs/GLOSSARY.md";
-  var REGISTRY_DOC = "https://metacoding-io.github.io/regulator/reference/regulators";
+  var REGISTRY_DOC = "https://docs.regulator.metacoding.io/reference/regulators";
 
   // term id -> { label: shown in the popover title (defaults to the button's own text),
   //              def: one plain sentence, href: link for "Full glossary entry ->" }
