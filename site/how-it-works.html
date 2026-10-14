@@ -6,21 +6,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>How a unit runs · regulator · MetaCoding</title>
 <meta name="description" content="How one unit of work runs through regulator's orchestrator: the loop, the session, the worktree, the stores, the contract, the verdict and the recovery lattice, drawn.">
-<link rel="canonical" href="https://metacoding-io.github.io/regulator-website/how-it-works.html">
+<link rel="canonical" href="https://regulator.metacoding.io/how-it-works.html">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="regulator · MetaCoding">
-<meta property="og:url" content="https://metacoding-io.github.io/regulator-website/how-it-works.html">
+<meta property="og:url" content="https://regulator.metacoding.io/how-it-works.html">
 <meta property="og:title" content="How a unit runs · regulator · MetaCoding">
 <meta property="og:description" content="How one unit of work runs through regulator's orchestrator: the loop, the session, the worktree, the stores, the contract, the verdict and the recovery lattice, drawn.">
-<meta property="og:image" content="https://metacoding-io.github.io/regulator-website/og-image.png">
+<meta property="og:image" content="https://regulator.metacoding.io/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="regulator: prompts advise, types describe, gates enforce. A MetaCoding project.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="How a unit runs · regulator · MetaCoding">
 <meta name="twitter:description" content="How one unit of work runs through regulator's orchestrator: the loop, the session, the worktree, the stores, the contract, the verdict and the recovery lattice, drawn.">
-<meta name="twitter:image" content="https://metacoding-io.github.io/regulator-website/og-image.png">
+<meta name="twitter:image" content="https://regulator.metacoding.io/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -155,7 +155,7 @@
     <div class="navlinks">
       <a href="product.html">← The product</a>
       <a href="personal-finance.html">Worked example ↗</a>
-      <a href="https://metacoding-io.github.io/regulator/">Docs ↗</a>
+      <a href="https://docs.regulator.metacoding.io/">Docs ↗</a>
       <a href="https://metacoding.io">MetaCoding ↗</a>
     </div>
   </div>
@@ -197,7 +197,7 @@
   <div class="vocab">
     <div class="vocab-head">
       <span class="vocab-title">Vocabulary — for this page specifically</span>
-      <a class="vocab-more" href="https://metacoding-io.github.io/regulator/GLOSSARY" target="_blank" rel="noopener">Full glossary ↗</a>
+      <a class="vocab-more" href="https://docs.regulator.metacoding.io/GLOSSARY" target="_blank" rel="noopener">Full glossary ↗</a>
     </div>
     <dl class="vocab-grid">
       <dt>unit</dt><dd>The smallest piece of dispatched work — one contract, one session, one verdict.</dd>
@@ -348,7 +348,7 @@
     <li><span class="who">Route</span><b>A blocked unit is routed</b> under the versioned recovery policy: the cause is classified from the orchestrator's records first, then S2's signals (an <button type="button" class="gl" data-term="oscillation">oscillation</button>, say), then the session's observations. The Nth occurrence takes the Nth action, and retry and repair spend attempts until they become escalate at the ceiling.</li>
   </ol>
 
-  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/guide/running-units">Running units</a> · <a href="https://metacoding-io.github.io/regulator/reference/host-checks">Host checks</a> · <a href="https://metacoding-io.github.io/regulator/concepts/coordination">Coordination</a></p>
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://docs.regulator.metacoding.io/guide/running-units">Running units</a> · <a href="https://docs.regulator.metacoding.io/reference/host-checks">Host checks</a> · <a href="https://docs.regulator.metacoding.io/concepts/coordination">Coordination</a></p>
 </section>
 
 <section id="lifecycle" class="wrap">
@@ -457,7 +457,7 @@
     <div class="note"><b>The full decision logic is next</b>This diagram shows <em>where</em> a blocked unit can go. The <a href="#recovery">recovery section below</a> shows <em>how</em> the choice between retry, repair, remediate, replan, clarify, pause, escalate and abort actually gets made.</div>
   </div>
 
-  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/guide/running-units">Running units</a> · <a href="https://metacoding-io.github.io/regulator/concepts/obligations">Obligations</a></p>
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://docs.regulator.metacoding.io/guide/running-units">Running units</a> · <a href="https://docs.regulator.metacoding.io/concepts/obligations">Obligations</a></p>
 </section>
 
 <section id="workload" class="wrap">
@@ -560,7 +560,7 @@
     is the one unit type that runs with no contract at all: it's the thing that
     <em>produces</em> contracts, so there's nothing yet for one to check it against.</p>
 
-  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/definition#workload">Workload</a> · <a href="https://metacoding-io.github.io/regulator/reference/definition#capability-profiles">Capability profiles</a> · <a href="https://metacoding-io.github.io/regulator/reference/tools">Session tools</a></p>
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://docs.regulator.metacoding.io/reference/definition#workload">Workload</a> · <a href="https://docs.regulator.metacoding.io/reference/definition#capability-profiles">Capability profiles</a> · <a href="https://docs.regulator.metacoding.io/reference/tools">Session tools</a></p>
 </section>
 
 <section id="contract" class="wrap">
@@ -624,7 +624,7 @@
     </div>
   </div>
 
-  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/definition#work-contracts">Work contracts</a> · <a href="https://metacoding-io.github.io/regulator/concepts/contracts">Work contracts and reports</a></p>
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://docs.regulator.metacoding.io/reference/definition#work-contracts">Work contracts</a> · <a href="https://docs.regulator.metacoding.io/concepts/contracts">Work contracts and reports</a></p>
 </section>
 
 <section id="report" class="wrap">
@@ -681,7 +681,7 @@
     </table>
   </div>
 
-  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/definition#work-contracts">Work contracts</a> · <a href="https://metacoding-io.github.io/regulator/reference/tools#report_result">report_result</a> · <a href="https://metacoding-io.github.io/regulator/concepts/contracts#the-result-report">What the report raises</a></p>
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://docs.regulator.metacoding.io/reference/definition#work-contracts">Work contracts</a> · <a href="https://docs.regulator.metacoding.io/reference/tools#report_result">report_result</a> · <a href="https://docs.regulator.metacoding.io/concepts/contracts#the-result-report">What the report raises</a></p>
 </section>
 
 <section id="stores" class="wrap">
@@ -770,7 +770,7 @@
     <figcaption><b>Who writes where.</b> The orchestrator owns the execution store and is the only thing that merges into the base. The session writes the domain through gated tools and writes its report and ledger into the store. S3* and S2 write regulatory state; the router and the read model consume it. The one thing missing on purpose is an arrow from the repository back into either store.</figcaption>
   </figure>
 
-  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/concepts/definition-and-instance">Definition, instance, domain</a> · <a href="https://metacoding-io.github.io/regulator/reference/instance">Instance layout</a></p>
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://docs.regulator.metacoding.io/concepts/definition-and-instance">Definition, instance, domain</a> · <a href="https://docs.regulator.metacoding.io/reference/instance">Instance layout</a></p>
 </section>
 
 <section id="channels" class="wrap">
@@ -801,7 +801,7 @@
     <code>blocking</code>, <code>critical</code>. The protocol, not the sender, fixes what each one means:
     an advisory is noted as trace with the reason. A blocking message opens an obligation that holds the
     unit it names until someone dispositions it, and a blocking finding with no unit holds every dispatch.</div>
-  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/concepts/control-plane">The control plane</a> · <a href="https://metacoding-io.github.io/regulator/concepts/obligations">Obligations</a> · <a href="https://metacoding-io.github.io/regulator/reference/definition#routing-policy">Routing policy</a></p>
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://docs.regulator.metacoding.io/concepts/control-plane">The control plane</a> · <a href="https://docs.regulator.metacoding.io/concepts/obligations">Obligations</a> · <a href="https://docs.regulator.metacoding.io/reference/definition#routing-policy">Routing policy</a></p>
 </section>
 
 <section id="recovery" class="wrap">
@@ -884,7 +884,7 @@
     <figcaption><b>The recovery lattice.</b> Classification is a fixed precedence over recorded facts: the orchestrator's own record wins, then what <button type="button" class="gl" data-term="s2">S2</button> signalled, then what the session observed. Every decision is appended with the policy name and version that produced it, so attempt three can be explained after the policy changes. Only <code>retry</code> and <code>repair</code> re-enter the loop; everything else either waits (as an <button type="button" class="gl" data-term="obligation">obligation</button> owed to <button type="button" class="gl" data-term="s3">S3</button> or a person, which vetoes the unit's dispatch until it is dispositioned) or ends the unit. <code>escalate</code> is this loop's only path to an <button type="button" class="gl" data-term="algedonic">algedonic signal</button>: it skips the queue entirely and puts the problem in front of <button type="button" class="gl" data-term="s5">S5</button> directly. A unit that asked a person and got no answer never reaches this lattice: its attempt is recorded as <code>paused</code>, the obligation is delivered to the outbox, and <code>regulator answer</code> releases it with the answer as the next hint (<a href="#algedonic">drawn below</a>).</figcaption>
   </figure>
 
-  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/definition#recovery-policy">Recovery policy</a> · <a href="https://metacoding-io.github.io/regulator/reference/definition#routing-policy">Routing policy</a> · <a href="https://metacoding-io.github.io/regulator/concepts/obligations">Obligations</a> · <a href="https://metacoding-io.github.io/regulator/concepts/recovery">Recovery, budgets and model routes</a></p>
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://docs.regulator.metacoding.io/reference/definition#recovery-policy">Recovery policy</a> · <a href="https://docs.regulator.metacoding.io/reference/definition#routing-policy">Routing policy</a> · <a href="https://docs.regulator.metacoding.io/concepts/obligations">Obligations</a> · <a href="https://docs.regulator.metacoding.io/concepts/recovery">Recovery, budgets and model routes</a></p>
 </section>
 
 <section id="algedonic" class="wrap">
@@ -973,7 +973,7 @@
     <figcaption><b>The algedonic path.</b> Which kinds may continue without an answer is a constant in the protocol, not a policy setting: only a <code>recap</code> does, so no configuration can turn a timeout into a yes. A paused unit is not a failure, so the <a href="#recovery">recovery lattice</a> never sees it; it waits on its <button type="button" class="gl" data-term="obligation">obligation</button>, and the attempt it spent counts against its ceiling. The same outbox carries what an exhausted recovery policy escalates, so a person has one place to look, and <code>regulator watch</code> can forward it to mail, chat or a webhook.</figcaption>
   </figure>
 
-  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/concepts/asking-a-person">Asking a person</a> · <a href="https://metacoding-io.github.io/regulator/concepts/obligations">Obligations</a> · <a href="https://metacoding-io.github.io/regulator/reference/tools#ask_human">ask_human</a> · <a href="https://metacoding-io.github.io/regulator/reference/definition#interaction-policy">Interaction policy</a></p>
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://docs.regulator.metacoding.io/concepts/asking-a-person">Asking a person</a> · <a href="https://docs.regulator.metacoding.io/concepts/obligations">Obligations</a> · <a href="https://docs.regulator.metacoding.io/reference/tools#ask_human">ask_human</a> · <a href="https://docs.regulator.metacoding.io/reference/definition#interaction-policy">Interaction policy</a></p>
 </section>
 
 <section id="session" class="wrap">
@@ -1023,7 +1023,7 @@
     <figcaption>The loop repeats once per model turn until the unit reports or a gate stops it; <code>session_before_compact</code> only fires when the context nears its limit.</figcaption>
   </figure>
 
-  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/tools">Session tools</a> · <a href="https://metacoding-io.github.io/regulator/reference/boundary">Enforcement boundary</a> · <a href="https://metacoding-io.github.io/regulator/concepts/identity">Protecting identity</a></p>
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://docs.regulator.metacoding.io/reference/tools">Session tools</a> · <a href="https://docs.regulator.metacoding.io/reference/boundary">Enforcement boundary</a> · <a href="https://docs.regulator.metacoding.io/concepts/identity">Protecting identity</a></p>
 </section>
 
 <section id="disk" class="wrap">
@@ -1070,7 +1070,7 @@
     </div>
   </div>
 
-  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://metacoding-io.github.io/regulator/reference/instance">Instance layout</a> · <a href="https://metacoding-io.github.io/regulator/guide/control-room">The control room</a></p>
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://docs.regulator.metacoding.io/reference/instance">Instance layout</a> · <a href="https://docs.regulator.metacoding.io/guide/control-room">The control room</a></p>
 </section>
 
 <footer class="wrap">
@@ -1078,7 +1078,7 @@
     <div class="foot-note">regulator · how a unit runs.</div>
     <div class="foot-links">
       <a href="https://metacoding.io">A MetaCoding project ↗</a>
-      <a href="https://metacoding-io.github.io/regulator/guide/getting-started">Docs ↗</a>
+      <a href="https://docs.regulator.metacoding.io/guide/getting-started">Docs ↗</a>
       <a href="product.html">The product</a>
       <a href="personal-finance.html">Worked example</a>
       <a href="index.html">The course</a>

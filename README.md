@@ -2,7 +2,7 @@
 
 The public landing pages for [regulator](https://github.com/MetaCoding-io/regulator) —
 an agent harness with an explicit cybernetic control plane — and its course,
-[Viable Agents](https://metacoding-io.github.io/regulator-website/index.html). Served from
+[Viable Agents](https://regulator.metacoding.io/). Served from
 GitHub Pages; no build step.
 
 ## What's here
