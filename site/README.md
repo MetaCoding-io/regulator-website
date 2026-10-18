@@ -6,7 +6,8 @@ static files.
 - `index.html` — the course sales page: Viable Agents, why cybernetics, who it's for, the
   full syllabus, and the reference build (`regulator`) it's built against.
 - `product.html` — the product page: regulator's architecture, the mechanism hierarchy, the
-  orchestrator, build status, and the control room.
+  orchestrator, build status, the control room, and what's coming (the reflector, with
+  before-and-after figures copied from the product's research note).
 - `personal-finance.html` — the worked example, written as a followable tutorial: a goal
   outside software (agents that manage a household's finances) designed as a control
   system first, then declared and run under `regulator`, with the control room over the
