@@ -576,12 +576,20 @@
 
   <p style="font-size:13.5px;color:var(--ink-dim);margin:14px 0 0;"><b style="color:var(--ink);">Secrets are watched the same way.</b>
     When <code>regulator init</code> installs an instance, it records the credential-looking values in the
-    repository's committed <code>.env</code> as <em>canaries</em>. Every tool result is scanned for them before
+    repository's committed <code>.env</code> as <em>credential canaries</em>. Every tool result is scanned for them before
     the model sees it: a canary is redacted and recorded as a critical finding. A canary the model
     writes itself can't be unsaid, so that is recorded too. It measures whether an exposure path
     exists. It only knows the values it was told about, and it doesn't watch the network.</p>
 
-  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://docs.regulator.metacoding.io/concepts/identity">Protecting identity</a> · <a href="https://docs.regulator.metacoding.io/concepts/identity#protected-values-the-canary-watch">The canary watch</a> · <a href="https://docs.regulator.metacoding.io/reference/boundary">Enforcement boundary</a></p>
+  <p style="font-size:13.5px;color:var(--ink-dim);margin:14px 0 0;"><b style="color:var(--ink);">And so is attention.</b>
+    A credential canary is a value whose <em>presence</em> is the alarm. The <em>behavioral canary</em> is the other
+    polarity: the policy declares a marker every reply must begin with, the rule is rendered beside the identity on
+    every run, and the host reads each reply for it. While the marker keeps appearing, the model is still keeping
+    the small rules it is shown each turn. When it goes silent for a run of replies, that is recorded as an advisory
+    finding for <button type="button" class="gl" data-term="s3">S3</button>: attention to small rules goes before
+    attention to large ones does, and a fresh session is usually the remedy. The canary decides nothing itself.</p>
+
+  <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://docs.regulator.metacoding.io/concepts/identity">Protecting identity</a> · <a href="https://docs.regulator.metacoding.io/concepts/identity#protected-values-the-credential-canary-watch">The credential canary watch</a> · <a href="https://docs.regulator.metacoding.io/concepts/identity#the-behavioral-canary">The behavioral canary</a> · <a href="https://docs.regulator.metacoding.io/reference/boundary">Enforcement boundary</a></p>
 </section>
 
 <section id="orchestrator" class="wrap">
@@ -703,7 +711,7 @@
     <tr><td><b>ownership</b>, <b>introducedIn</b></td><td>who reviews it and by when — <code>regulator review --due</code> lists what is owed, and <code>doctor</code> fails on an overdue date — and the release that first shipped it</td></tr>
   </table></div>
   <p style="font-size:13.5px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">Retirement is a decision, and the record stays.</b>
-    Two of the forty-four cards are retired: the first lexical write gate, superseded by the identity write gate, and the post-merge check, replaced by the pre-merge trial. Each keeps its history and says what replaced it, so the registry reads as the system's memory of itself, not only its present.</p>
+    Two of the forty-five cards are retired: the first lexical write gate, superseded by the identity write gate, and the post-merge check, replaced by the pre-merge trial. Each keeps its history and says what replaced it, so the registry reads as the system's memory of itself, not only its present.</p>
   <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://docs.regulator.metacoding.io/reference/regulators">The regulators</a> · <a href="https://docs.regulator.metacoding.io/reference/boundary">Enforcement boundary</a> · <a href="https://docs.regulator.metacoding.io/DEBT">Build debt</a></p>
 </section>
 

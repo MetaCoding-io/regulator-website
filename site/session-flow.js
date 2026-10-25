@@ -48,7 +48,7 @@
       label: "before_agent_start", kind: "hook",
       when: "Before the model's first turn.",
       bullets: [
-        "Adds the profile's advice, the contract, the identity set and the current memory as system-prompt sections",
+        "Adds the profile's advice, the contract, the identity set, the current memory and the behavioral canary's rule as system-prompt sections",
         "Advice only — the gates further down this line are what actually bind"
       ]
     },
@@ -71,7 +71,7 @@
       bullets: [
         "Stamps <code>run_tests</code> / <code>run_checks</code> output with the revision it ran at",
         "After bash, restores any protected file that changed, and says so",
-        "Redacts canaries"
+        "Redacts credential canaries"
       ]
     },
     tool_execution_end: {
@@ -88,7 +88,8 @@
       when: "After each model message, and each turn.",
       bullets: [
         "Meters tokens and turns against the ceiling, and halts at a crossing",
-        "Records a canary the model wrote",
+        "Records a credential canary the model wrote",
+        "Reads the reply for the behavioral canary's marker, and records a run of replies without it",
         "Heartbeats the lease"
       ]
     },
