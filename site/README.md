@@ -21,6 +21,9 @@ static files.
 - `glossary.css` / `glossary.js` — the shared tap-to-toggle (with hover on desktop)
   vocabulary tooltip component all four pages use, sourced from
   [`docs/GLOSSARY.md`](https://github.com/MetaCoding-io/regulator/blob/main/docs/GLOSSARY.md).
+  The same popover opens on a figure's hotspots (`.fig-hot` groups in the "What's
+  coming" SVGs), which carry their own card as `data-label`, `data-def` and `data-href`,
+  so the figure's text has no second copy in the script.
 - `img/control-room/` — screenshots of `packages/control-room` over three instances (the
   ledger after its scripted August close, the drift scenario run by the drifter, and the
   fixture-repo close on the how-it-works page); retake them when the page changes.

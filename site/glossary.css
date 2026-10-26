@@ -62,6 +62,18 @@
   border-bottom-color: var(--signal-ink);
 }
 
+/* ---- Figure hotspots: a component or edge of an SVG figure that opens the same popover ---- */
+.fig-hot { cursor: help; outline: none; }
+.fig-hot:hover > rect,
+.fig-hot:focus-visible > rect,
+.fig-hot[aria-expanded="true"] > rect { stroke: var(--signal); stroke-width: 2; }
+.fig-hot:hover > text,
+.fig-hot:focus-visible > text,
+.fig-hot[aria-expanded="true"] > text { fill: var(--signal-ink); }
+.fig-hot:hover > line, .fig-hot:hover > path:not([stroke="transparent"]),
+.fig-hot:focus-visible > line, .fig-hot:focus-visible > path:not([stroke="transparent"]),
+.fig-hot[aria-expanded="true"] > line, .fig-hot[aria-expanded="true"] > path:not([stroke="transparent"]) { stroke: var(--signal); }
+
 /* ---- Vocabulary orientation box ---- */
 .vocab {
   border: 1px solid var(--line);
