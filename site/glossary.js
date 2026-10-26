@@ -6,6 +6,12 @@
  *
  * Markup: <button type="button" class="gl" data-term="obligation">obligation</button>
  * Full glossary: https://github.com/MetaCoding-io/regulator/blob/main/docs/GLOSSARY.md
+ *
+ * A figure's hotspots use the same popover with the card carried on the element:
+ *   <g class="gl fig-hot" tabindex="0" role="button" data-term="fig-s3"
+ *      data-label="S3: the loop" data-def="…" data-href="…">
+ * so a generated figure explains itself without a second copy of its text here.
+ * A hotspot opened by hover closes when the pointer leaves it; a tapped one stays.
  */
 (function () {
   var GLOSSARY = "https://github.com/MetaCoding-io/regulator/blob/main/docs/GLOSSARY.md";
@@ -76,19 +82,29 @@
       def: "The type of a question asked of a person — open, choice, recap, consent — which decides whether an answer is required and whether work pauses for it." }
   };
 
-  function popoverHTML(id) {
-    var t = TERMS[id];
-    if (!t) return "";
+  // The card for a trigger: a TERMS entry by id, else the card the element carries.
+  function cardFor(btn) {
+    var id = btn.getAttribute("data-term");
+    if (TERMS[id]) return TERMS[id];
+    var def = btn.getAttribute("data-def");
+    if (!def) return null;
+    return { label: btn.getAttribute("data-label") || btn.getAttribute("aria-label") || id,
+             def: def, href: btn.getAttribute("data-href") || GLOSSARY,
+             more: "In the docs ↗" };
+  }
+
+  function popoverHTML(t) {
     var href = t.href || GLOSSARY;
     return (
       '<div class="gl-term">' + t.label + "</div>" +
       '<div class="gl-def">' + t.def + "</div>" +
-      '<a class="gl-more" href="' + href + '" target="_blank" rel="noopener">Full glossary entry ↗</a>'
+      '<a class="gl-more" href="' + href + '" target="_blank" rel="noopener">' + (t.more || "Full glossary entry ↗") + "</a>"
     );
   }
 
   var pop = null;
   var openBtn = null;
+  var openedByHover = false;
 
   function ensurePop() {
     if (pop) return pop;
@@ -111,12 +127,13 @@
     openBtn = null;
   }
 
-  function openPop(btn) {
-    var id = btn.getAttribute("data-term");
-    if (!TERMS[id]) return;
+  function openPop(btn, byHover) {
+    var t = cardFor(btn);
+    if (!t) return;
     var p = ensurePop();
-    if (openBtn === btn) { closePop(); return; }
-    p.innerHTML = popoverHTML(id);
+    if (openBtn === btn && !byHover) { closePop(); return; }
+    openedByHover = !!byHover;
+    p.innerHTML = popoverHTML(t);
     p.hidden = false;
     btn.setAttribute("aria-expanded", "true");
     btn.setAttribute("aria-describedby", p.id);
@@ -153,18 +170,47 @@
   });
 
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") closePop();
+    if (e.key === "Escape") { closePop(); return; }
+    // A hotspot is a focusable group, not a button, so Enter and Space open it by hand.
+    if ((e.key === "Enter" || e.key === " ") && e.target.closest && e.target.closest(".fig-hot")) {
+      e.preventDefault();
+      openPop(e.target.closest(".fig-hot"));
+    }
   });
 
   window.addEventListener("resize", closePop);
-  window.addEventListener("scroll", closePop, { passive: true });
+  window.addEventListener("scroll", function () {
+    // Focusing a hotspot may scroll the page; its card stays until focus leaves.
+    if (openBtn && openBtn.classList.contains("fig-hot") && document.activeElement === openBtn) return;
+    closePop();
+  }, { passive: true });
+
+  // Keyboard: a focused hotspot shows its card, and leaving it closes the card.
+  document.addEventListener("focusin", function (e) {
+    var el = e.target.closest && e.target.closest(".fig-hot");
+    if (el && openBtn !== el) openPop(el, true);
+  });
+  document.addEventListener("focusout", function (e) {
+    var el = e.target.closest && e.target.closest(".fig-hot");
+    if (el && el === openBtn && !(e.relatedTarget && pop && pop.contains(e.relatedTarget))) closePop();
+  });
 
   // Hover preview only where the pointer actually supports hover (desktop).
   // Touch devices never get a hover state, so they rely entirely on tap.
   if (window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
     document.addEventListener("mouseover", function (e) {
       var btn = e.target.closest && e.target.closest(".gl");
-      if (btn && openBtn !== btn) openPop(btn);
+      if (btn && openBtn !== btn) openPop(btn, true);
     });
+    // Leaving a hovered hotspot closes its card, unless the pointer went to the card.
+    document.addEventListener("mouseout", function (e) {
+      if (!openBtn || !openedByHover || !openBtn.classList.contains("fig-hot")) return;
+      var to = e.relatedTarget;
+      if (to && (openBtn.contains(to) || (pop && pop.contains(to)))) return;
+      if (e.target.closest && e.target.closest(".fig-hot") === openBtn) closePop();
+    });
+    document.addEventListener("mouseleave", function (e) {
+      if (e.target === pop && openedByHover) closePop();
+    }, true);
   }
 })();
