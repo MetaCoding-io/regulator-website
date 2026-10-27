@@ -14,9 +14,10 @@ static files.
   result.
 - `how-it-works.html` — the mechanism, drawn: how one unit runs through the S3 loop
   (orchestrator, execution store, session, worktree, regulatory state), the unit's own
-  lifecycle as a state diagram (a copy of `packages/regulator/figures/unit-lifecycle.svg`,
-  generated from `UNIT_TRANSITIONS` by `regulator docs --write`; recopy it when that file
-  changes, never redraw it), the software-development workload's six unit types as a
+  lifecycle as a state diagram (drawn by hand, by decision: the generated
+  `packages/regulator/figures/unit-lifecycle.svg` says the same twelve transitions and lives
+  in the docs and the control room, but reads worse on this page; check this drawing against
+  `UNIT_TRANSITIONS` when that table changes), the software-development workload's six unit types as a
   flow diagram, what a work contract and a result report hold, the three stores that
   never infer each other, the recovery lattice, and what an instance's `.regulator/`
   directory contains.
