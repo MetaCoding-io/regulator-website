@@ -7,8 +7,9 @@ GitHub Pages; no build step.
 
 ## What's here
 
-Four static pages under [`site/`](site/) — see [`site/README.md`](site/README.md) for
-what each one covers: the course page, the product page, the worked example (a
+Five static pages under [`site/`](site/) — see [`site/README.md`](site/README.md) for
+what each one covers: the course page, the product page, the product for someone with
+one process to hand over, the worked example (a
 household ledger under the same control plane), and how one unit of work runs.
 [`site/v1/`](site/v1/) is a frozen archive of the previous version of the site, kept
 live at `/v1/` with a banner back to the current pages; it still carries the project's
