@@ -1,6 +1,6 @@
 # site/
 
-Four static pages, no build step — open them directly in a browser, or serve `site/` as
+Five static pages, no build step — open them directly in a browser, or serve `site/` as
 static files.
 
 - `index.html` — the course sales page: Viable Agents, why cybernetics, who it's for, the
@@ -12,6 +12,14 @@ static files.
   outside software (agents that manage a household's finances) designed as a control
   system first, then declared and run under `regulator`, with the control room over the
   result.
+- `one-process.html` — the product for a second audience: the person who has one business
+  process to hand to an agent, and the person who has to approve it. No cybernetic
+  vocabulary: a process as a line with a start and an end (the portfolio's month-end
+  close, eight steps), the five questions an approver asks with what enforces each
+  answer, the control room's record of the close, the same close run by a careless agent,
+  and what stays the person's. Written from the product's intended shape, so "a process
+  is a package" describes installable workloads, which the product's roadmap carries as
+  a thread and does not ship yet.
 - `how-it-works.html` — the mechanism, drawn: how one unit runs through the S3 loop
   (orchestrator, execution store, session, worktree, regulatory state), the unit's own
   lifecycle as a state diagram (drawn by hand, by decision: the generated
@@ -22,18 +30,21 @@ static files.
   never infer each other, the recovery lattice, and what an instance's `.regulator/`
   directory contains.
 - `glossary.css` / `glossary.js` — the shared tap-to-toggle (with hover on desktop)
-  vocabulary tooltip component all four pages use, sourced from
+  vocabulary tooltip component the other four pages use, sourced from
   [`docs/GLOSSARY.md`](https://github.com/MetaCoding-io/regulator/blob/main/docs/GLOSSARY.md).
   The same popover opens on a figure's hotspots (`.fig-hot` groups in the "What's
   coming" SVGs), which carry their own card as `data-label`, `data-def` and `data-href`,
   so the figure's text has no second copy in the script.
 - `img/control-room/` — screenshots of `packages/control-room` over three instances (the
   ledger after its scripted August close, the drift scenario run by the drifter, and the
-  fixture-repo close on the how-it-works page); retake them when the page changes.
+  fixture-repo close on the how-it-works page), and the three `portfolio-*` tables on
+  `one-process.html` (the units and the consent questions of the scripted September close
+  run by the manager, and the units of the same close run by the careless behaviour, from
+  `packages/regulator/src/portfolio.test.ts`); retake them when the page changes.
 - `v1/` — the previous version of the site (one course+product page, no glossary
   tooltips), kept as a dead archive at `/v1/` with a banner pointing back here. Not
   updated going forward.
 
-Hand-maintained alongside the repo's actual status; update the four live pages when
+Hand-maintained alongside the repo's actual status; update the five live pages when
 `README.md`, `AGENTS.md`, the docs site or `docs/DEBT.md` change in a way a page
 states as fact (checkpoint status, package promotions, lessons written, registry count).
