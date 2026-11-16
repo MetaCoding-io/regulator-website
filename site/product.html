@@ -481,7 +481,7 @@
     <table>
       <thead><tr><th>Name</th><th>Function</th><th>regulator's interpretation</th></tr></thead>
       <tbody>
-        <tr><td class="fn">S1 — Operations</td><td>The units that do the actual work, touching the world directly.</td><td>Capability profiles a workload declares: <code>implement</code>, <code>research</code>, <code>intelligence</code> for software, <code>bookkeeper</code> and <code>auditor</code> for the ledger. Each is a grant over tool effects, and a workload in any domain can declare one.</td></tr>
+        <tr><td class="fn">S1 — Operations</td><td>The units that do the actual work, touching the world directly.</td><td>Capability profiles a workload declares: <code>implement</code>, <code>research</code>, <code>intelligence</code> for software, <code>bookkeeper</code> and <code>auditor</code> for the ledger, <code>manager</code> for the portfolio. Each is a grant over tool effects, and a workload in any domain can declare one.</td></tr>
         <tr><td class="fn">S2 — Coordination</td><td>Keeps operations from colliding with or thrashing against each other.</td><td>Tool contracts, worktree isolation, leases with liveness, reintegration, anti-oscillation mechanisms</td></tr>
         <tr><td class="fn">S3 — Control</td><td>Decides what happens next (dispatch, budget, recovery), facing inside the system, now.</td><td>The orchestrator: work contracts, dispatch, budgets, the recovery lattice, execution-state authority</td></tr>
         <tr><td class="fn">S3&#42; — Audit</td><td>Verifies operations' work independently, without trusting their own report of it.</td><td>Harness-run verification plus architectural/domain checks and independent audit findings</td></tr>
@@ -518,10 +518,10 @@
                   bound to a revision, the technical verdict
   regulator/      the control plane: the `regulator` CLI, the S3 loop,
                   the stores, the host seam, and the definition —
-                  registry (43 records), identity, profiles, policies,
+                  registry (53 records), identity, profiles, policies,
                   workloads, the drift eval suite and its committed
                   reports; OPERATING.md says who runs what
-  regulator-pi/   the Pi host: the eleven session extensions, the
+  regulator-pi/   the Pi host: the twelve session extensions, the
                   dispatcher, the S5 write gate, typed proposal /
                   audit-finding / uncertainty tools; `pi install`
   control-room/   read-only page over the `regulator status` read
@@ -683,7 +683,7 @@
     <tr><td><b>Trajectory</b></td><td>the records the control plane wrote while the unit ran</td><td>refusals, retries, escalations, invariant violations, attempts, tokens, turns, wall clock</td></tr>
   </table></div>
   <p style="font-size:13.5px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">Pre-registered, and interpreted by a person.</b>
-    The metrics are a closed list named in the suite, so a run cannot discover a favourable one afterwards. Arms are summarized with Student's t intervals and a lift is screened by interval overlap, never a p-value. And a report is not a report until someone says what it means: <code>regulator eval</code> without <code>--interpretation</code> writes a placeholder, and <code>regulator check</code> refuses a committed report that still carries it. The four committed reports ran scripted units — their numbers validate the graders, not a model — and one of them is the over-regulation case that changed the product: a check refused correct work over a word in a commit message, and the workload now declares that half advisory.</p>
+    The metrics are named in the suite before it runs, built-in or declared by a workload with its own grader, so a run cannot discover a favourable one afterwards. Arms are summarized with Student's t intervals and a lift is screened by interval overlap, never a p-value. And a report is not a report until someone says what it means: <code>regulator eval</code> without <code>--interpretation</code> writes a placeholder, and <code>regulator check</code> refuses a committed report that still carries it. Seven of the eight committed reports ran scripted units — their numbers validate the graders, not a model — and one of them is the over-regulation case that changed the product: a check refused correct work over a word in a commit message, and the workload now declares that half advisory.</p>
   <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://docs.regulator.metacoding.io/concepts/evidence-about-the-regulators">Evidence about the regulators</a> · <a href="https://docs.regulator.metacoding.io/reference/definition#eval-suites">Eval suites</a></p>
 </section>
 
@@ -732,8 +732,8 @@
     <div><b style="color:var(--ink);">Inspector</b> — the whole record for a regulator or a unit, including the unit's replay in time order.</div>
   </div>
 
-  <figure class="shot"><img src="img/control-room/overview.webp" alt="The control room as it opens: the definition's topology of 44 regulators in S5 to S1 columns on the left, and the inspector on the right showing the closeout gate's record." loading="lazy">
-    <figcaption><b>The page as it opens.</b> Left, the definition: 44 regulators by function, each card showing the channels it consumes and emits. Right, the inspector on a selected card, here the closeout gate's whole record: purpose, what it absorbs, mechanism, authority, evidence, limitations, review date, ablation, retirement.</figcaption></figure>
+  <figure class="shot"><img src="img/control-room/overview.webp" alt="The control room as it opens: the definition's topology of 53 regulators in S5 to S1 columns on the left, and the inspector on the right showing the closeout gate's record." loading="lazy">
+    <figcaption><b>The page as it opens.</b> Left, the definition: 53 regulators by function, each card showing the channels it consumes and emits. Right, the inspector on a selected card, here the closeout gate's whole record: purpose, what it absorbs, mechanism, authority, evidence, limitations, review date, ablation, retirement.</figcaption></figure>
 
   <p style="font-size:13.5px;color:var(--ink-dim);margin-top:14px;">More of the page (units,
     leases and obligations for a live instance, the assurance and lifecycle views, a unit's
@@ -785,23 +785,23 @@ regulator unit show u1 · unit evidence u1 · obligations</pre>
   <div style="display:flex;flex-direction:column;gap:12px;font-size:13.5px;color:var(--ink-dim);margin-bottom:22px;">
     <div><b style="color:var(--ink);">The loop runs.</b> Contract, dispatch, verify, route, close — with <button type="button" class="gl" data-term="lease">leases</button>, budgets, a versioned recovery policy, and a <button type="button" class="gl" data-term="closeout">closeout gate</button> that trusts host-run evidence, never a unit's own claim about itself. An identity set is rendered from the files, write-protected, and checked at closeout against the branch.</div>
     <div><b style="color:var(--ink);">The <button type="button" class="gl" data-term="algedonic">algedonic</button> path is in.</b> A unit can ask a person through one typed tool; only a nonblocking recap continues without an answer. An unanswered question pauses the unit by gate; what's owed to a person is delivered and reminded; who may answer is declared and checked.</div>
-    <div><b style="color:var(--ink);">The regulators owe evidence now.</b> An eval harness runs the drift scenario under declared arms with outcome and trajectory graders. Four committed reports, one per scripted unit — the reference, the drifter, the sloppy one, and the self-certifier that deletes the tests it cannot pass — say where the gated arm loses. Every record carries an <button type="button" class="gl" data-term="ablation">ablation</button> switch and a retirement condition, and every instance store reads as OpenTelemetry spans. <a href="https://docs.regulator.metacoding.io/concepts/evidence-about-the-regulators">Evidence about the regulators ↗</a></div>
-    <div><b style="color:var(--ink);">And it operates.</b> The lab installs as a Pi package; <code>regulator init</code> installs it into an existing repository under a declared manifest; <code>doctor</code> checks the instance before the first unit and in CI; the base is re-verified after every merge and a failure holds the whole instance; refused words are linted out; the outbox is watched; an identity decision promotes back into the definition.</div>
+    <div><b style="color:var(--ink);">The regulators owe evidence now.</b> An eval harness runs the drift scenario under declared arms with outcome and trajectory graders. Eight committed reports say where the gated arm loses: seven over scripted units — among them the reference, the drifter, the sloppy one, the confident one, and the self-certifier that deletes the tests it cannot pass — and the first under a live model. Every record carries an <button type="button" class="gl" data-term="ablation">ablation</button> switch and a retirement condition, and every instance store reads as OpenTelemetry spans. <a href="https://docs.regulator.metacoding.io/concepts/evidence-about-the-regulators">Evidence about the regulators ↗</a></div>
+    <div><b style="color:var(--ink);">And it operates.</b> The lab installs as a Pi package; <code>regulator init</code> installs it into an existing repository under a declared manifest; <code>doctor</code> checks the instance before the first unit and in CI; the merged tree is checked before every merge and only a passing one lands; refused words are linted out; the outbox is watched; an identity decision promotes back into the definition.</div>
   </div>
   <p style="font-size:13px;color:var(--ink-dim);margin:0 0 14px;"><code>docs/DEBT.md</code> tracks
-    every gap the build has taken on deliberately, one row per item: forty-one rows so far, most
-    already paid as later lessons closed them. What's still open, and worth knowing before
+    every gap the build has taken on deliberately, one row per item: fifty-one rows so far, twenty-nine
+    of them paid as later work closed them. What's still open, and worth knowing before
     you rely on this:</p>
   <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;color:var(--ink-dim);margin-bottom:22px;">
-    <div><b style="color:var(--ink);">A live eval report is still owed.</b> The four committed drift-scenario reports ran scripted units; the session's own gates — profile grants, the write gate, the bash watch, the budget guard — weren't exercised, so the numbers validate the graders, not yet a model against the harness.</div>
+    <div><b style="color:var(--ink);">The live evidence is one report, and it measures cost.</b> The first live run, three repetitions of the control and treatment arms on one model, closed every unit under both: the model did not drift on this fixture, so the gates had nothing to catch. It prices the regulation (about 65% more tokens per unit) and is not yet evidence that regulation prevents drift. The ablation arms under a model, and a fixture that pulls toward drift, are what the next report owes.</div>
     <div><b style="color:var(--ink);">The capstone rubric is specified, not calibrated.</b> It hasn't yet been checked against a real learner submission.</div>
     <div><b style="color:var(--ink);">Isolation is the container's job, not the harness's.</b> <code>bash</code> sits outside the thrash detector, the effect journal, and the failure observer by design; real sandboxing is left to the operator, not built by the lab.</div>
     <div><b style="color:var(--ink);">One machine at a time.</b> Leases and the effect journal live on a single host; two harnesses on two machines can't yet see each other's intentions — that's deferred with full VSM recursion.</div>
     <div><b style="color:var(--ink);"><code>--by</code> is asserted, not authenticated.</b> Disposition authority checks whether the named person may decide, not that the caller is that person; authentication is the deployment's to add.</div>
   </div>
   <div class="cards">
-    <div class="card"><div class="k">6</div><div class="l">Packages, released together (0.1.4 is current) under Apache-2.0: <code>@metacoding.io/regulator</code> (the control plane and CLI), <code>regulator-pi</code> (the Pi host), <code>regulator-protocol</code>, <code>regulator-core</code>, <code>regulator-checks</code> and <code>regulator-control-room</code>, tested without a model under CI on two Node versions</div></div>
-    <div class="card"><div class="k">44</div><div class="l">Records in the <button type="button" class="gl" data-term="registryterm">registry</button>, 42 active and two retired, each with a stated limitation, an ablation switch and a retirement condition, with <code>REGULATORS.md</code> and <code>BOUNDARY.md</code> generated from the records</div></div>
+    <div class="card"><div class="k">6</div><div class="l">Packages, released together (0.1.3 is current) under Apache-2.0: <code>@metacoding.io/regulator</code> (the control plane and CLI), <code>regulator-pi</code> (the Pi host), <code>regulator-protocol</code>, <code>regulator-core</code>, <code>regulator-checks</code> and <code>regulator-control-room</code>, tested without a model under CI on two Node versions</div></div>
+    <div class="card"><div class="k">53</div><div class="l">Records in the <button type="button" class="gl" data-term="registryterm">registry</button>, 51 active and two retired, each with a stated limitation, an ablation switch and a retirement condition, with <code>REGULATORS.md</code> and <code>BOUNDARY.md</code> generated from the records</div></div>
     <div class="card"><div class="k">15 / 15</div><div class="l">Lessons written end to end, with the capstone viability case specified and its rubric awaiting calibration</div></div>
   </div>
 
@@ -811,7 +811,7 @@ regulator unit show u1 · unit evidence u1 · obligations</pre>
 <section id="coming" class="wrap">
   <div class="kicker">What's coming<span class="tick"></span></div>
   <h2 class="title">The level above: a reflector as the definition's S4</h2>
-  <p class="lede">regulator regulates one recursion level today. Inside an instance every channel is typed and every writer is named. The level above, the definition the instance was seeded from, is run by people, and for <button type="button" class="gl" data-term="s4">S4</button> at that level there is a checklist a person runs. The next design, proposed and not yet built, draws that level in. A <em>reflector</em> reads the records every instance already writes and emits three record kinds that already exist: a memory fact, an intelligence signal, and a proposal owed to <button type="button" class="gl" data-term="s5">S5</button>. A proposed edit to an advice file is probed as an eval arm before a person accepts it. The reflector never writes a definition file and never schedules a unit, because it has no tool that does.</p>
+  <p class="lede">regulator regulates one recursion level today. Inside an instance every channel is typed and every writer is named. The level above, the definition the instance was seeded from, is run by people, and for <button type="button" class="gl" data-term="s4">S4</button> at that level there is a checklist a person runs. The next design, proposed and not yet built, draws that level in. A <em>reflector</em> reads the records every instance already writes and emits three record kinds that already exist: a memory fact, an intelligence signal, and a proposal owed to <button type="button" class="gl" data-term="s5">S5</button>. A proposed edit to an advice file is probed as an eval arm before a person accepts it; that probe, the prediction a proposal stakes and the accept path for advice have already landed, and the reflector itself has not. The reflector never writes a definition file and never schedules a unit, because it has no tool that does.</p>
   <p style="font-size:13.5px;color:var(--ink-dim);margin:0 0 18px;"><b style="color:var(--ink);">Why not call it an improver.</b> The card has to be able to say "did not improve" without contradicting itself. It is registered as an <em>instrument</em>, graded on calibration: did the proposals a person accepted move the metric they named? Google's Harness² has the same component under the same name and lets it adopt its own edits; the second figure is where the two designs part.</p>
   <h3 class="sub">Before: one level regulated, the level above by hand</h3>
   <div class="diagram-shell" style="overflow-x:auto;">
@@ -828,7 +828,7 @@ regulator unit show u1 · unit evidence u1 · obligations</pre>
     </g>
     <g class="gl fig-hot" tabindex="0" role="button" data-term="fig-registry" aria-label="Registry" data-label="Registry" data-def="One record per regulator: what it absorbs, its mechanism level, its evidence, its limitation, its ablation switch and its retirement condition. &lt;code&gt;REGULATORS.md&lt;/code&gt; and &lt;code&gt;BOUNDARY.md&lt;/code&gt; are rendered from the records." data-href="https://docs.regulator.metacoding.io/concepts/control-plane#the-regulators">
       <rect x="46" y="58" width="108" height="34" rx="3" fill="var(--surface-2)" stroke-width="1.2"/>
-      <text x="100" y="79" stroke="none" text-anchor="middle" font-size="11.5">registry (43)</text>
+      <text x="100" y="79" stroke="none" text-anchor="middle" font-size="11.5">registry (53)</text>
     </g>
     <g class="gl fig-hot" tabindex="0" role="button" data-term="fig-identity-seed" aria-label="Identity seed" data-label="Identity seed" data-def="The &lt;code&gt;IDENTITY&lt;/code&gt;, &lt;code&gt;INVARIANTS&lt;/code&gt;, &lt;code&gt;GLOSSARY&lt;/code&gt; and &lt;code&gt;BOUNDARIES&lt;/code&gt; files an instance starts from. Copied into &lt;code&gt;regulator/identity/&lt;/code&gt; at init and write-protected from then on." data-href="https://docs.regulator.metacoding.io/concepts/identity">
       <rect x="162" y="58" width="108" height="34" rx="3" fill="var(--surface-2)" stroke-width="1.2"/>
@@ -1039,7 +1039,7 @@ regulator unit show u1 · unit evidence u1 · obligations</pre>
     </g>
     <g class="gl fig-hot" tabindex="0" role="button" data-term="fig-registry" aria-label="Registry" data-label="Registry" data-def="One record per regulator: what it absorbs, its mechanism level, its evidence, its limitation, its ablation switch and its retirement condition. &lt;code&gt;REGULATORS.md&lt;/code&gt; and &lt;code&gt;BOUNDARY.md&lt;/code&gt; are rendered from the records." data-href="https://docs.regulator.metacoding.io/concepts/control-plane#the-regulators">
       <rect x="46" y="58" width="108" height="34" rx="3" fill="var(--surface-2)" stroke-width="1.2"/>
-      <text x="100" y="79" stroke="none" text-anchor="middle" font-size="11.5">registry (43)</text>
+      <text x="100" y="79" stroke="none" text-anchor="middle" font-size="11.5">registry (53)</text>
     </g>
     <g class="gl fig-hot" tabindex="0" role="button" data-term="fig-identity-seed" aria-label="Identity seed" data-label="Identity seed" data-def="The &lt;code&gt;IDENTITY&lt;/code&gt;, &lt;code&gt;INVARIANTS&lt;/code&gt;, &lt;code&gt;GLOSSARY&lt;/code&gt; and &lt;code&gt;BOUNDARIES&lt;/code&gt; files an instance starts from. Copied into &lt;code&gt;regulator/identity/&lt;/code&gt; at init and write-protected from then on." data-href="https://docs.regulator.metacoding.io/concepts/identity">
       <rect x="162" y="58" width="108" height="34" rx="3" fill="var(--surface-2)" stroke-width="1.2"/>
