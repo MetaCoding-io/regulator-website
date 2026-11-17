@@ -669,24 +669,24 @@
     and an inspector showing the whole record for a regulator or a unit, with the unit's
     replay in time order from the span projection. Below, the page itself over two instances.</p>
 
-  <figure class="shot"><img src="../img/control-room/overview.webp" alt="The control room as it opens: the definition's topology of 42 regulators in S5 to S1 columns on the left, and the inspector on the right showing the closeout gate's record." loading="lazy">
+  <figure class="shot"><img src="img/control-room/overview.webp" alt="The control room as it opens: the definition's topology of 42 regulators in S5 to S1 columns on the left, and the inspector on the right showing the closeout gate's record." loading="lazy">
     <figcaption><b>The page as it opens.</b> Left, the definition: 42 regulators by function, each card the channels it consumes and emits. Right, the inspector on a selected card — the closeout gate's record: purpose, what it absorbs, mechanism, authority, evidence, limitations, review date, ablation, retirement. The record, not a summary of it.</figcaption></figure>
 
   <div class="shots2">
-    <figure class="shot"><img src="../img/control-room/instances-ledger.webp" alt="The instances view for a household-ledger instance: manifest line, five units, a live lease, an open consent obligation with the veto marked, an interaction row and a memory entry." loading="lazy">
+    <figure class="shot"><img src="img/control-room/instances-ledger.webp" alt="The instances view for a household-ledger instance: manifest line, five units, a live lease, an open consent obligation with the veto marked, an interaction row and a memory entry." loading="lazy">
       <figcaption><b>Instances.</b> The <a href="personal-finance.html">household ledger</a> after its August close: four units closed, one paused on a consent question that is an open obligation owed to a person, delivered to the outbox, holding the unit.</figcaption></figure>
-    <figure class="shot"><img src="../img/control-room/instances-drift.webp" alt="The instances view for the slugkit drift instance: six units blocked after three attempts each, routed check-failure to replan, six live leases, six recovery-decision obligations owed to S3." loading="lazy">
+    <figure class="shot"><img src="img/control-room/instances-drift.webp" alt="The instances view for the slugkit drift instance: six units blocked after three attempts each, routed check-failure to replan, six live leases, six recovery-decision obligations owed to S3." loading="lazy">
       <figcaption><b>Instances.</b> The drift scenario run by the drifter under the treatment arm: every unit refused three times by the closeout checks, routed <code>repair → repair → replan</code>, and held by the obligation the replan opened for S3.</figcaption></figure>
   </div>
 
   <div class="shots2">
-    <figure class="shot"><img src="../img/control-room/assurance.webp" alt="The assurance view: the drift suite's arms and the committed reports' metrics per arm with confidence intervals and the interpretation." loading="lazy">
+    <figure class="shot"><img src="img/control-room/assurance.webp" alt="The assurance view: the drift suite's arms and the committed reports' metrics per arm with confidence intervals and the interpretation." loading="lazy">
       <figcaption><b>Assurance.</b> The suite's arms — control, treatment, three ablations — and each committed report: every metric per arm with its interval, and the person's interpretation, including where the gated arm lost.</figcaption></figure>
-    <figure class="shot"><img src="../img/control-room/lifecycle.webp" alt="The lifecycle view: each regulator's review date, ablation switch, the arm that covers it, and its retirement condition." loading="lazy">
+    <figure class="shot"><img src="img/control-room/lifecycle.webp" alt="The lifecycle view: each regulator's review date, ablation switch, the arm that covers it, and its retirement condition." loading="lazy">
       <figcaption><b>Lifecycle.</b> Every regulator's review date (overdue fails <code>regulator check</code>), its ablation switch and the arm that throws it, and the condition under which it retires.</figcaption></figure>
   </div>
 
-  <figure class="shot"><img src="../img/control-room/inspector-unit-drift.webp" alt="The unit inspector for d1-fix in the drift instance: three attempts each refused, the recovery decisions with their hints, the replay of every host check with its observation, and the audit verdicts." loading="lazy">
+  <figure class="shot"><img src="img/control-room/inspector-unit-drift.webp" alt="The unit inspector for d1-fix in the drift instance: three attempts each refused, the recovery decisions with their hints, the replay of every host check with its observation, and the audit verdicts." loading="lazy">
     <figcaption><b>Inspector — a unit's replay</b> (the top of it). One drifting unit: three attempts, each refused by <code>export-signature</code> and the vendor and identity checks; the router's decisions with the hint each attempt was given; the obligations each opened and resolved; then the replay — contract, <code>invoke_agent</code>, every <code>execute_tool</code> check with its observation, verdict, decision, obligation — from the span projection, never the transcript. Below what is shown: the audit log, the contract and the three reports as written.</figcaption></figure>
 
   <p style="font-size:13.5px;color:var(--ink-dim);margin-top:14px;">The ledger's own inspector views — the paused payment unit and the careless ingest unit refused and repaired — are on the <a href="personal-finance.html#room">worked example</a>.</p>

@@ -35,14 +35,15 @@ static files.
   The same popover opens on a figure's hotspots (`.fig-hot` groups in the "What's
   coming" SVGs), which carry their own card as `data-label`, `data-def` and `data-href`,
   so the figure's text has no second copy in the script.
-- `img/control-room/` — screenshots of `packages/control-room` over three instances (the
-  ledger after its scripted August close, the drift scenario run by the drifter, and the
-  fixture-repo close on the how-it-works page), and the three `portfolio-*` tables on
-  `one-process.html` (the units and the consent questions of the scripted September close
-  run by the manager, and the units of the same close run by the careless behaviour, from
-  `packages/regulator/src/portfolio.test.ts`); retake them when the page changes.
+- `img/control-room/` — screenshots of `packages/control-room`: the page as it opens, the
+  household ledger after its scripted August close (as the contracts ask, and run
+  carelessly), the definition's workloads and profiles, the map, and the three
+  `portfolio-*` tables on `one-process.html`. Every one is taken by the product
+  repository's `scripts/screenshots.mjs`; none is taken by hand. Retake them with
+  `node scripts/screenshots.mjs --website ../regulator-website` from a built checkout of
+  the product.
 - `v1/` — the previous version of the site (one course+product page, no glossary
-  tooltips), kept as a dead archive at `/v1/` with a banner pointing back here. Not
+  tooltips, its own copies of the screenshots it shows under `v1/img/`), kept as a dead archive at `/v1/` with a banner pointing back here. Not
   updated going forward.
 
 Hand-maintained alongside the repo's actual status; update the five live pages when

@@ -30,7 +30,8 @@ One-time repo setting (not something a workflow can do): under **Settings → Pa
 These pages are hand-maintained. Update them when the product repository changes in a
 way a page states as fact — the package layout, the registry count, what ships — and
 retake the control-room screenshots under `site/img/control-room/` when the control room
-changes. The product's own documentation site is the reference; these pages are the
+changes (`node scripts/screenshots.mjs --website ../regulator-website`, in the product
+repository). The product's own documentation site is the reference; these pages are the
 pitch.
 
 Some of what a page states is checked. `node scripts/check-facts.mjs` reads the counts
