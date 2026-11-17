@@ -32,3 +32,17 @@ way a page states as fact — the package layout, the registry count, what ships
 retake the control-room screenshots under `site/img/control-room/` when the control room
 changes. The product's own documentation site is the reference; these pages are the
 pitch.
+
+Some of what a page states is checked. `node scripts/check-facts.mjs` reads the counts
+the pages give for the product (the version, the registry's records, the session
+extensions, the committed reports, the debt ledger's rows) and compares them with
+`facts.json`, which the product's docs site publishes from its own build. The **Check**
+workflow runs it on every pull request and on `main`. To check against a product
+checkout before its docs site has deployed:
+
+```sh
+node scripts/check-facts.mjs --facts ../regulator/docs/public/facts.json
+```
+
+It reads only the sentences it has a rule for; everything else on a page is still kept
+by hand.
