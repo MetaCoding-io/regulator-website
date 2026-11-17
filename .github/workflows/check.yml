@@ -1,0 +1,25 @@
+name: Check
+
+# Holds the numbers the pages state about the product against the product: the version, the registry's records,
+# the session extensions, the committed reports and the debt ledger's rows, as the product's docs site publishes
+# them at /facts.json. Runs on every pull request and on main, and by hand. A page that states a different number
+# fails here, before it is published; when the product has moved and a page has not, the run on main says so.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  facts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: The pages' numbers are the product's
+        run: node scripts/check-facts.mjs
