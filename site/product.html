@@ -713,7 +713,7 @@
     <tr><td><b>ownership</b>, <b>introducedIn</b></td><td>who reviews it and by when — <code>regulator review --due</code> lists what is owed, and <code>doctor</code> fails on an overdue date — and the release that first shipped it</td></tr>
   </table></div>
   <p style="font-size:13.5px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">Retirement is a decision, and the record stays.</b>
-    Two of the forty-five cards are retired: the first lexical write gate, superseded by the identity write gate, and the post-merge check, replaced by the pre-merge trial. Each keeps its history and says what replaced it, so the registry reads as the system's memory of itself, not only its present.</p>
+    Two of the fifty-three cards are retired: the first lexical write gate, superseded by the identity write gate, and the post-merge check, replaced by the pre-merge trial. Each keeps its history and says what replaced it, so the registry reads as the system's memory of itself, not only its present.</p>
   <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://docs.regulator.metacoding.io/reference/regulators">The regulators</a> · <a href="https://docs.regulator.metacoding.io/reference/boundary">Enforcement boundary</a> · <a href="https://docs.regulator.metacoding.io/DEBT">Build debt</a></p>
 </section>
 
@@ -729,16 +729,23 @@
     <div><b style="color:var(--ink);">Topology</b> — regulators by function, with the channels each one declares it consumes and emits.</div>
     <div><b style="color:var(--ink);">Instances</b> — every instance's units with budget, routing decision, audit verdict and what's owed on them; <button type="button" class="gl" data-term="lease">leases</button>; <button type="button" class="gl" data-term="obligation">obligations</button> by consumer, with the veto marked; unrouted signals; the instance manifest.</div>
     <div><b style="color:var(--ink);">Assurance &amp; lifecycle</b> — the committed eval reports, plus each regulator's review date, ablation switch and retirement condition.</div>
+    <div><b style="color:var(--ink);">Lifecycle</b> — the unit state machine the loop enforces, with a selected unit's history stepped through it and the reason for each move.</div>
+    <div><b style="color:var(--ink);">Map</b> — one regulated level drawn from the definition, with the instance's units placed on it.</div>
     <div><b style="color:var(--ink);">Inspector</b> — the whole record for a regulator or a unit, including the unit's replay in time order.</div>
   </div>
 
   <figure class="shot"><img src="img/control-room/overview.webp" alt="The control room as it opens: the definition's topology of 53 regulators in S5 to S1 columns on the left, and the inspector on the right showing the closeout gate's record." loading="lazy">
     <figcaption><b>The page as it opens.</b> Left, the definition: 53 regulators by function, each card showing the channels it consumes and emits. Right, the inspector on a selected card, here the closeout gate's whole record: purpose, what it absorbs, mechanism, authority, evidence, limitations, review date, ablation, retirement.</figcaption></figure>
 
+  <figure class="shot" style="margin-top:20px;"><img src="img/control-room/lifecycle-f1.webp" alt="The lifecycle view: six unit states with numbered transitions, one unit's history held at the step where its first attempt was refused, and the why panel listing the failed checks." loading="lazy">
+    <figcaption><b>The lifecycle, stepped.</b> The six states a unit can be in and the twelve moves the loop allows, with one unit's history on it: here the step where the host's checks refused a first attempt, and the reasons as the records state them.</figcaption></figure>
+
+  <figure class="shot" style="margin-top:20px;"><img src="img/control-room/map.webp" alt="The map: identity and advice files at the top, the loop's steps, the unit types under their profiles, the host checks, the router and obligations, operational memory and the append-only records." loading="lazy">
+    <figcaption><b>The map.</b> One regulated level as the definition declares it: who may write the identity, the loop, the unit types, the host's checks, the router, and the stores every screen above is read from.</figcaption></figure>
+
   <p style="font-size:13.5px;color:var(--ink-dim);margin-top:14px;">More of the page (units,
-    leases and obligations for a live instance, the assurance and lifecycle views, a unit's
-    full replay) is on the <a href="personal-finance.html#room">worked example</a> and
-    <a href="how-it-works.html">how it works</a>.</p>
+    leases and obligations for a live instance, a unit's full replay) is on the
+    <a href="personal-finance.html#room">worked example</a>.</p>
 
   <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://docs.regulator.metacoding.io/guide/control-room">The control room</a> · <a href="https://docs.regulator.metacoding.io/concepts/evidence-about-the-regulators">Evidence about the regulators</a></p>
 </section>

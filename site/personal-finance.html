@@ -442,18 +442,18 @@ regulator-control-room --definition $R --instance ~/ledger   <span class="c"># @
   <h2 class="title">The same records, read back</h2>
   <p class="lede">The control room is a read-only dashboard: a web page that shows you
     everything the system recorded about the run in step 3, without being able to change
-    any of it. Below are three real screenshots of it, each with a plain-language
+    any of it. Below are four real screenshots of it, each with a plain-language
     breakdown of what's on screen.</p>
 
   <div class="shot-row">
-    <div class="shot-img"><img src="img/control-room/instances-ledger.webp" alt="The control room's instances view for the household ledger: the manifest line, five units with status, attempts, routing and audit revision, the live lease, the open consent obligation marked veto, the interaction row and the scoped memory entry." loading="lazy"></div>
+    <div class="shot-img"><img src="img/control-room/instances-ledger.webp" alt="The control room's instances view for the household ledger: the manifest line, five units with status, attempts, routing and audit revision, the expired lease of the paused unit, the open consent obligation marked veto, the interaction row and the scoped memory entries." loading="lazy"></div>
     <div class="shot-notes">
       <div class="shot-title">The overview: everything about this run, at a glance</div>
       <ul>
         <li>Top: which ledger this is, which code revision ran it, and who set it up.</li>
         <li>A row per unit: four say <b>closed</b> (done and independently verified), one says <b>paused</b>, waiting on a person.</li>
         <li>One open question, front and center: "can we pay the rent?", flagged as blocking until someone answers it.</li>
-        <li>One remembered fact (the grocery-store categorization from earlier), tagged with a date to double-check it's still true.</li>
+        <li>What the bookkeeper remembered (the grocery-store categorization from earlier), each fact tagged with a date to double-check it's still true.</li>
       </ul>
     </div>
   </div>
@@ -464,7 +464,7 @@ regulator-control-room --definition $R --instance ~/ledger   <span class="c"># @
     waiting on a person, and one that made a mistake and got corrected automatically.</p>
 
   <div class="shot-row">
-    <div class="shot-img"><img src="img/control-room/inspector-unit-f5.webp" alt="The unit inspector for f5-prepare-payment: the paused attempt, the consent obligation, the replay from contract to delivery, an empty audit, the contract with its fixed decisions, and the result report with its residual uncertainty." loading="lazy"></div>
+    <div class="shot-img"><img src="img/control-room/inspector-unit-f5.webp" alt="The unit inspector for f5-prepare-payment: the paused attempt, the consent obligation, the replay from contract to delivery, and an empty audit section." loading="lazy"></div>
     <div class="shot-notes">
       <div class="shot-title">Drill-down #1: the unit that's waiting on a person</div>
       <ul>
@@ -478,14 +478,28 @@ regulator-control-room --definition $R --instance ~/ledger   <span class="c"># @
   </div>
 
   <div class="shot-row">
-    <div class="shot-img"><img src="img/control-room/inspector-unit-f1.webp" alt="The unit inspector for f1-ingest run careless: attempt 1 refused with the failing checks named, the repair decision and its hint, the replay with each host check and its observation, and attempt 2 closed, with the pre-merge trial's checks on the merged tree bound to the commit that landed." loading="lazy"></div>
+    <div class="shot-img"><img src="img/control-room/inspector-unit-f1.webp" alt="The unit inspector for f1-ingest run careless: attempt 1 refused with the failing checks named, the repair decision and its hint, the audit finding resolved by the rework, and the start of the replay with each host check and its observation." loading="lazy"></div>
     <div class="shot-notes">
       <div class="shot-title">Drill-down #2: the unit that made a mistake, then fixed it</div>
       <ul>
         <li>This is the "careless" run from step 3, the one that edited the bank statement by mistake.</li>
         <li>Its first attempt is marked <b>failed</b>, with the specific tests and checks that caught it named outright.</li>
         <li>Next: the system's decision to try again, plus a hint telling the retry exactly what went wrong.</li>
-        <li>Its second attempt is marked <b>closed</b>. This time everything passed, including one final check run after merging.</li>
+        <li>Its second attempt reported, and the unit is marked <b>closed</b>: this time everything passed.</li>
+        <li>Below that, the replay: each check the host ran on the first attempt, and what it observed.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="shot-row">
+    <div class="shot-img"><img src="img/control-room/lifecycle-f1.webp" alt="The lifecycle view held at step 3 of f1-ingest: the unit state machine with the dispatched-to-blocked transition lit, and the why panel listing the failed checks and the edited statement." loading="lazy"></div>
+    <div class="shot-notes">
+      <div class="shot-title">The same mistake, as a path through the state machine</div>
+      <ul>
+        <li>Six boxes: every state a unit can be in. The arrows are the only moves the system allows between them.</li>
+        <li>The slider steps through this unit's history. Here it is held at step 3, where the first attempt ended.</li>
+        <li>The lit arrow is the move that step took: from <b>dispatched</b> to <b>blocked</b>.</li>
+        <li>The panel underneath says why, in the records' own words: which checks failed, and the bank statement that should not have been touched.</li>
       </ul>
     </div>
   </div>
@@ -493,10 +507,10 @@ regulator-control-room --definition $R --instance ~/ledger   <span class="c"># @
   <p class="step-lead" style="margin-top:26px;">Two more views exist in the same dashboard,
     shown smaller here since they're less central to this walkthrough:</p>
   <div class="grid2">
-    <figure class="shot"><img src="img/control-room/workloads.webp" alt="The definition's workloads: personal-finance and software-development, each unit type with its profile and checks." loading="lazy"><figcaption><b>Every kind of job the system knows how to run.</b> This household ledger and the software-development one from the rest of the course, side by side: proof the same engine runs both.</figcaption></figure>
-    <figure class="shot"><img src="img/control-room/profiles.webp" alt="The definition's five profiles with their tools, writable prefixes and thinking level." loading="lazy"><figcaption><b>Every permission grant the system knows about.</b> What each profile (bookkeeper, auditor, and the software ones) is actually allowed to touch.</figcaption></figure>
+    <figure class="shot"><img src="img/control-room/workloads.webp" alt="The definition's three workloads: personal-finance, portfolio and software-development, each unit type with its profile and checks." loading="lazy"><figcaption><b>Every kind of job the system knows how to run.</b> This household ledger, the portfolio close and the software-development one from the rest of the course, side by side: proof the same engine runs all three.</figcaption></figure>
+    <figure class="shot"><img src="img/control-room/profiles.webp" alt="The definition's six profiles with their tools, writable prefixes and thinking level." loading="lazy"><figcaption><b>Every permission grant the system knows about.</b> What each profile (bookkeeper, auditor, the portfolio's manager, and the software ones) is actually allowed to touch.</figcaption></figure>
   </div>
-  <p style="font-size:13.5px;color:var(--ink-dim);margin-top:14px;">More of this same dashboard (the full topology, the assurance and lifecycle views, a live instance under drift) is shown on <a href="product.html#control-room">the product page</a>.</p>
+  <p style="font-size:13.5px;color:var(--ink-dim);margin-top:14px;">More of this same dashboard (the full topology and the map of one regulated level) is shown on <a href="product.html#control-room">the product page</a>.</p>
 
   <p style="font-size:13px;color:var(--ink-dim);margin:18px 0 0;"><b style="color:var(--ink);">In the docs:</b> <a href="https://docs.regulator.metacoding.io/guide/control-room">The control room</a></p>
 </section>
